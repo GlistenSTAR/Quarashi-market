@@ -25,7 +25,7 @@ body {
 	background-color: #0B0B12;
 	padding: 40px;
 	padding-left: 142px;
-	padding-right: 159px;
+	padding-right: 159px;	
 	font-family: 'Poppins';
 }
 
@@ -40,6 +40,7 @@ h2,
 p {
 	font-weight: 400;
 	color: var(--heading-color);
+	color: white
 }
 
 p {
@@ -56,8 +57,8 @@ a:hover {
 }
 
 h1 {
-	font-size: 2rem;
-	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
 }
 
 h2 {
