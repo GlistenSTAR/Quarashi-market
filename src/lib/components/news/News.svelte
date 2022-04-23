@@ -1,0 +1,33 @@
+<script>
+    export let name=''
+    export let age=''
+    import NewsItem from "./News-item.svelte";
+</script>
+<div class="news-card">
+    <h4>{name}</h4>
+    <div style="margin-top: 20px">
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+        <NewsItem />
+    </div>
+</div>
+
+<style>
+    h4{
+        color: #C921CD;
+        font-size: 18px;
+    }
+    .news-card{
+        width: 518px;
+        height: 659px;
+        background: #141421;
+		margin-left: 9px;
+		margin-right: 9px;
+		border-radius: 12px;
+		padding: 20px;
+		padding-bottom: 5px;
+		flex-direction: column;
+    }
+</style>
