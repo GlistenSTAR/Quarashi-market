@@ -104,14 +104,14 @@ button:focus:not(:focus-visible) {
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;
-		padding-right: 80px;
+		padding-right: 20px;
 	}
 }
 
 @media (max-width: 906px) {
 	body{
 		padding-left: 20px;
-		padding-right: 50px;
+		padding-right: 20px;
 	}
 }
 

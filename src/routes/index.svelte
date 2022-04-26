@@ -10,7 +10,7 @@
 
 <section>
 	<!-- Overview -->
-	<!-- <div style="width: 100%">
+	<div style="width: 100%">
 		<h1>Overview</h1>
 		<div class="cards">
 			<div class="card">
@@ -31,7 +31,7 @@
 					<h2>68.56B USD</h2>
 				</div>
 				<div class="chart-box">
-					<img src={chart} alt="chart"/>
+					<img src={chart} alt="chart" />
 				</div>
 			</div>
 			<div class="card">
@@ -43,7 +43,7 @@
 					<h2>39.31 %</h2>
 				</div>
 				<div class="chart-box">
-					<img src={chart} alt="chart"/>
+					<img src={chart} alt="chart" />
 				</div>
 			</div>
 			<div class="card">
@@ -55,7 +55,7 @@
 					<h2>101.6B USD</h2>
 				</div>
 				<div class="chart-box">
-					<img src={chart} alt="chart"/>
+					<img src={chart} alt="chart" />
 				</div>
 			</div>
 			<div class="card">
@@ -67,14 +67,14 @@
 					<h2>195.3B USD</h2>
 				</div>
 				<div class="chart-box">
-					<img src={chart} alt="chart"/>
+					<img src={chart} alt="chart" />
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Spotlight -->
-	<!-- <div class="spotlight">
+	<div class="spotlight">
 		<h3>Spotlight</h3>
 		<div class="table-cards">
 			<TableCard name="Top Gainers" method="up" icon="fa fa-arrow-up" />
@@ -85,7 +85,7 @@
 			/>
 			<TableCard name="TVL Change" method="lock" icon="fa fa-lock" />
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Top news -->
 	<!-- <div style="margin-top: 40px; width: 100%">
@@ -102,13 +102,24 @@
 	.cards {
 		margin-top: 20px;
 		display: flex;
-		justify-content: space-around;
+		justify-content: flex-start;
+		overflow-x: scroll;
+	}
+
+	::-webkit-scrollbar {
+		height: 5px!important;
+	}
+	
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: black;
+		border-radius: 10px;
 	}
 
 	.cards .card {
 		margin-left: 9px;
 		margin-right: 9px;
-		width: 303px;
+		min-width: 303px;
 		height: 101px;
 		border-radius: 12px;
 		background: #141421;
@@ -155,7 +166,7 @@
 	/* spotlight */
 	.spotlight {
 		margin-top: 40px;
-		width: 100%
+		width: 100%;
 	}
 
 	.spotlight h3 {
@@ -167,5 +178,14 @@
 		margin-top: 20px;
 		font-size: 12px;
 		justify-content: space-around;
+	}
+
+	@media (max-width: 1024px) {
+		.table-cards {
+			display: flex;
+			margin-top: 20px;
+			font-size: 12px;
+			flex-direction: column;
+		}
 	}
 </style>
