@@ -88,14 +88,14 @@
 	</div>
 
 	<!-- Top news -->
-	<!-- <div style="margin-top: 40px; width: 100%">
+	<div style="margin-top: 40px; width: 100%">
 		<h3>Top News</h3>
-		<div style="margin-top: 20px; display: flex; justify-content: space-around;">
+		<div class="news">
 			<News name="CoinTelegraph" />
 			<News name="TheBlock" />
 			<News name="Decrypt" />
 		</div>
-	</div> -->
+	</div>
 </section>
 
 <style>
@@ -107,9 +107,9 @@
 	}
 
 	::-webkit-scrollbar {
-		height: 5px!important;
+		height: 5px !important;
 	}
-	
+
 	/* Handle */
 	::-webkit-scrollbar-thumb {
 		background: black;
@@ -180,11 +180,21 @@
 		justify-content: space-around;
 	}
 
+	.news {
+		margin-top: 20px;
+		display: flex;
+		justify-content: space-around;
+	}
+
 	@media (max-width: 1024px) {
 		.table-cards {
 			display: flex;
 			margin-top: 20px;
 			font-size: 12px;
+			flex-direction: column;
+		}
+		.news {
+			display: flex;
 			flex-direction: column;
 		}
 	}

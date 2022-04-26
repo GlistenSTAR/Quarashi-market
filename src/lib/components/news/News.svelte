@@ -6,7 +6,7 @@
 
 <div class="news-card">
     <h4>{name}</h4>
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px" class="news-group">
         <NewsItem />
         <NewsItem />
         <NewsItem />
@@ -30,5 +30,15 @@
         padding: 20px;
         padding-bottom: 5px;
         flex-direction: column;
+    }
+
+    @media (max-width: 1024px) {
+        .news-card{
+            width: 100%;
+            min-width: 410px;
+            margin-top: 20px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
     }
 </style>
