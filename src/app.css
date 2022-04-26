@@ -77,6 +77,10 @@ pre {
 	color: var(--text-color);
 }
 
+svg {
+    vertical-align: top;
+}
+
 input,
 button {
 	font-size: inherit;
@@ -105,6 +109,9 @@ button:focus:not(:focus-visible) {
 	body{
 		padding-left: 20px;
 		padding-right: 20px;
+	}
+	.sc-carousel__arrow-container{
+		display: none!important;
 	}
 }
 

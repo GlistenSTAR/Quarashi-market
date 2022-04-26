@@ -36,7 +36,7 @@
 				class="navbar-nav me-auto"
 				class:active={$page.url.pathname === "/"}
 			>
-				<li class="nav-item">
+				<li class="nav-item" class:active={$page.url.pathname === "/"}>
 					<a sveltekit:prefetch href="/">Overview</a>
 				</li>
 				<li
@@ -219,7 +219,7 @@
 			padding: 20px;
 			border-radius: 12px;
 		}
-		
+
 		.modal_search input {
 			color: white;
 			background-color: #0b0b12;
@@ -261,8 +261,8 @@
 			top: 10px;
 		}
 
-		ul{
-			margin-top: 10px
+		ul {
+			margin-top: 10px;
 		}
 		.search .input-group span {
 			width: 48px;

@@ -20,4 +20,11 @@
         padding: 20px;
         padding-bottom: 18px;
     }
+
+    @media (max-width: 1411px) {
+        .news-item {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
 </style>

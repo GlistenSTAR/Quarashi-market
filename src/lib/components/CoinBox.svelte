@@ -21,21 +21,26 @@
         background-color: #141421;
         padding: 20px;
         height: 120px;
-        width: 300px;
-        max-width: 300px;
+        min-width: 300px!important;
         margin-left: 10px;
         margin-right: 10px;
         border-radius: 12px;
     }
 
-    h3{
+    h3 {
         font-size: 18px;
         margin-left: 7px;
-        margin-bottom: 0
+        margin-bottom: 0;
     }
 
-    h5{
+    h5 {
         font-size: 12px;
     }
-    
+
+    @media (max-width: 1024px) {
+        .coinbox {
+            width: 100%;
+            min-width: 303px;
+        }
+    }
 </style>

@@ -1,11 +1,20 @@
 <script>
-    import CoinBox from "$lib/components/CoinBox.svelte";
+    import CoinBox from "../lib/components/CoinBox.svelte";
+    import CoinTable from "../lib/components/coin_table/Coin-Table.svelte";
     import { onMount } from "svelte";
-    import None from '../assets/img/coins/none.png'
-    
+    import Select from "svelte-select";
+    import {
+        top_items,
+        volume_items,
+        period_items,
+        marketcap_items,
+        liquidity_items,
+        pricechange_items,
+    } from "./../lib/filter.js";
+    console.log(top_items);
     let active = "cat";
-    let Carousel; 
-    let carousel; 
+    let Carousel;
+    let carousel;
 
     const setActive = (val) => {
         active = val;
@@ -15,7 +24,6 @@
         const module = await import("svelte-carousel");
         Carousel = module.default;
     });
-
 </script>
 
 <section>
@@ -40,7 +48,7 @@
             </li>
         </ul>
     </div>
-    {#if active==="cat"}
+    {#if active === "cat"}
         <div>
             <div class="card-carousel">
                 <svelte:component
@@ -48,77 +56,127 @@
                     bind:this={carousel}
                     particlesToShow={5}
                 >
-                    <CoinBox name="BlockChain" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="Dexes" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="Lending" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="Yield Aggregators" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="Investment Tools" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="BlockChain" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="BlockChain" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="BlockChain" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
-                    <CoinBox name="BlockChain" content="Native cryptocurrencies on major blockchains." icon="block_coin"/>
+                    <CoinBox
+                        name="BlockChain"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="Dexes"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="Lending"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="Yield Aggregators"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="Investment Tools"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="BlockChain"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="BlockChain"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="BlockChain"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
+                    <CoinBox
+                        name="BlockChain"
+                        content="Native cryptocurrencies on major blockchains."
+                        icon="block_coin"
+                    />
                 </svelte:component>
             </div>
-            <div class="coin-table">
-                <div>
-                    <select name="coin_kind" id="coin_kind">
-                        <option>Highest Cap</option>
-                        <option>Lowest Cap</option>
-                        <option>Highest Volume</option>
-                        <option>Lowest Volume</option>
-                        <option>Highest Price</option>
-                        <option>Lowest Price</option>
-                        <option>Top Gainers</option>
-                        <option>Top Losers</option>
-                    </select>
-                </div>
-                <div>
-                    <table class="table table table-hover">
-                        <tr class="header">
-                            <td>Watchlist</td>
-                            <td>#</td>
-                            <td>Name</td>
-                            <td>Price</td>
-                            <td>24 Hours</td>
-                            <td>7 days</td>
-                            <td>Market Cap</td>
-                            <td align="right">Volume</td>
-                        </tr>
-                        <tr>
-                            <td>*</td>
-                            <td>1</td>
-                            <td>
-                                <img src={None} alt="none" width="24" height="24"/>
-                                XRP
-                            </td>
-                            <td>$ 0.613672</td>
-                            <td>- 1.06 %</td>
-                            <td>- 1.1 %</td>
-                            <td>$ 29,403,580,087</td>
-                            <td align="right">$ 2,267,032,452</td>
-                        </tr>
-                        <tr>
-                            <td>*</td>
-                            <td>2</td>
-                            <td>
-                                <img src={None} alt="none" width="24" height="24"/>
-                                XRP
-                            </td>
-                            <td>$ 0.613672</td>
-                            <td>- 1.06 %</td>
-                            <td>- 1.1 %</td>
-                            <td>$ 29,403,580,087</td>
-                            <td align="right">$ 2,267,032,452</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <CoinTable />
         </div>
     {/if}
-    {#if active==="adv"}
-        <div>Hello</div>
+    {#if active === "adv"}
+        <div>
+            <div class="filter_box">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12 col-md-6">
+                        <div class="select_option">
+                            <Select
+                                items={top_items}
+                                value={"Top 250"}
+                                showChevron={true}
+                            />
+                        </div>
+                        <div style="margin-top: 20px" class="select_option">
+                            <Select
+                                items={marketcap_items}
+                                value={"Market Cap"}
+                                showChevron={true}
+                            />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-md-6">
+                        <div class="select_option">
+                            <Select
+                                items={volume_items}
+                                value={"Volume"}
+                                showChevron={true}
+                            />
+                        </div>
+
+                        <div style="margin-top: 20px" class="select_option">
+                            <Select
+                                items={liquidity_items}
+                                value={"Liquidity"}
+                                showChevron={true}
+                                isDisabled={true}
+                            />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-md-6">
+                        <div class="select_option">
+                            <Select
+                                items={period_items}
+                                value={"Price Period"}
+                                showChevron={true}
+                            />
+                        </div>
+                        <div class="select_option" style="margin-top: 20px">
+                            <Select
+                                items={pricechange_items}
+                                value={"Price Change"}
+                                showChevron={true}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end"
+                    >
+                        <button
+                            class="btn bg-lawrence text-white rounded-4 px-4"
+                            disabled
+                            ><span class="pe-2">Results:</span><span
+                                class="spinner-grow spinner-grow-sm d-none"
+                                role="status"
+                            /><span class="text-white">5</span></button
+                        >
+                    </div>
+                </div>
+            </div>
+            <CoinTable />
+        </div>
     {/if}
-    
 </section>
 
 <style>
@@ -148,52 +206,35 @@
         border-bottom: 2px solid #c921cd;
     }
 
-    .card-carousel{
+    .card-carousel {
         margin-top: 40px;
         margin-left: -50px;
         margin-right: -50px;
     }
 
-    .coin-table{
+    .filter_box {
         margin-top: 40px;
-        width: 100%;
-        height: 770px;
         background-color: #141421;
-        border-radius: 12px;
-        padding: 20px
-    }
-
-    #coin_kind{
-        width: 283px;
-        height: 48px;
-        border-radius: 12px;
-        background-color: #0B0B12;
-        color: white;
-        padding: 15px;
-        font-size: 12px;
-        border-color: #353535;
-        border-width: 1px
-    }
-
-    .table{
-        margin-top: 40px;
         padding: 20px;
-        color: white;
-        font-size: 12px;
+        border-radius: 12px;
     }
 
-    .table .header td{
-        color: rgb(185, 185, 185)
+    .select_option {
+        --background: #0b0b12;
+        --borderRadius: 12px;
+        --listBackground: #0b0b12;
+        --clearSelectColor: #c921cd;
+        --clearSelectFocusColor: #c921cd;
+        --inputFontSize: 12px;
+        --disabledBackground: #0b0b12;
+        --disabledColor: grey;
+        --indicatorColor: #c921cd
     }
 
-    td img{
-        width: 40px;
-        height: 40px;
-    }
-
-    td{
-        padding-top: 16px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid #353535;
+    @media (max-width: 1352px) {
+        .card-carousel {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
     }
 </style>

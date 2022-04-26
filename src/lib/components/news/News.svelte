@@ -1,6 +1,5 @@
 <script>
     export let name = "";
-    export let age = "";
     import NewsItem from "./News-item.svelte";
 </script>
 
@@ -31,7 +30,7 @@
         padding-bottom: 5px;
         flex-direction: column;
     }
-
+    
     @media (max-width: 1024px) {
         .news-card{
             width: 100%;
