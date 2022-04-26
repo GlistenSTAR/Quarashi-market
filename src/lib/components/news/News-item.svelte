@@ -5,17 +5,17 @@
 </div>
 
 <style>
-    h5{
+    h5 {
         color: white;
         font-size: 14px;
     }
-    h6{
-		color: rgb(185, 185, 185);
+    h6 {
+        color: rgb(185, 185, 185);
         font-size: 12px;
     }
-    .news-item{
+    .news-item {
         margin: 8px;
-        background-color: #0B0B12;
+        background-color: #0b0b12;
         border-radius: 12px;
         padding: 20px;
         padding-bottom: 18px;

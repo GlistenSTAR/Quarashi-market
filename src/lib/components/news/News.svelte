@@ -1,8 +1,9 @@
 <script>
-    export let name=''
-    export let age=''
+    export let name = "";
+    export let age = "";
     import NewsItem from "./News-item.svelte";
 </script>
+
 <div class="news-card">
     <h4>{name}</h4>
     <div style="margin-top: 20px">
@@ -15,19 +16,19 @@
 </div>
 
 <style>
-    h4{
-        color: #C921CD;
+    h4 {
+        color: #c921cd;
         font-size: 18px;
     }
-    .news-card{
+    .news-card {
         width: 518px;
         height: 659px;
         background: #141421;
-		margin-left: 9px;
-		margin-right: 9px;
-		border-radius: 12px;
-		padding: 20px;
-		padding-bottom: 5px;
-		flex-direction: column;
+        margin-left: 9px;
+        margin-right: 9px;
+        border-radius: 12px;
+        padding: 20px;
+        padding-bottom: 5px;
+        flex-direction: column;
     }
 </style>
