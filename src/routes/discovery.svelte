@@ -228,7 +228,8 @@
         --inputFontSize: 12px;
         --disabledBackground: #0b0b12;
         --disabledColor: grey;
-        --indicatorColor: #c921cd
+        --indicatorColor: #c921cd;
+        --itemHoverBG: #007AFF
     }
 
     @media (max-width: 1352px) {

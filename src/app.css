@@ -103,32 +103,6 @@ button:focus:not(:focus-visible) {
 .sc-carousel-arrow__circle i{
 	border-color: white!important;
 }
-
-#table.datatable {
-	margin-top: 40px;
-	padding: 20px;
-	color: white;
-	font-size: 12px;
-	background-color: transparent;
-}
-#table.datatable .header td {
-	color: rgb(185, 185, 185);
-}
-
-#table.datatable td img {
-	width: 40px;
-	height: 40px;
-}
-
-#table.datatable td {
-	padding-top: 16px;
-	padding-bottom: 16px;
-	border-bottom: 1px solid #353535;
-}
-#table.datatable .dt-pagination {
-	background-color: transparent;
-}
-
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;
