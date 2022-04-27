@@ -13,10 +13,13 @@
     } from "./../lib/filter.js";
     console.log(top_items);
     let active = "cat";
+    /**
+     * @type {typeof import("svelte-carousel").default}
+     */
     let Carousel;
     let carousel;
 
-    const setActive = (val) => {
+    const setActive = (/** @type {string} */ val) => {
         active = val;
     };
 
@@ -229,7 +232,7 @@
         --disabledBackground: #0b0b12;
         --disabledColor: grey;
         --indicatorColor: #c921cd;
-        --itemHoverBG: #007AFF
+        --itemHoverBG: #007aff;
     }
 
     @media (max-width: 1352px) {
