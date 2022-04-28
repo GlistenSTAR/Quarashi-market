@@ -12,7 +12,7 @@
         </div>
         <div class="see_all">See All</div>
     </div>
-    <table class="table table-hover {method}">
+    <table class="table table-striped {method}">
         <tr>
             <th width="10%">#</th>
             <th width="35%">Name</th>

@@ -81,7 +81,7 @@
                 {/if}
             </tr>
         </Datatable> -->
-        <table class="table table-hover">
+        <table class="table table-striped">
             <tr class="header">
                 <td>Watchlist</td>
                 <td>#</td>
