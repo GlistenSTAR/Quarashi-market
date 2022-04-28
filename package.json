@@ -28,11 +28,11 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.27.2",
     "cookie": "^0.4.1",
     "svelte-carousel": "^1.0.17-rc4",
     "svelte-select": "4.4.4",
     "svelte-simple-datatables": "^0.2.3",
-    "svelte-viewport-info": "^1.0.0",
     "sveltestrap": "^5.9.0"
   }
 }
