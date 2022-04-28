@@ -29,7 +29,7 @@
                     <td>24 Hours</td>
                     <td>7 days</td>
                     <td>Market Cap</td>
-                    <td align="right">Volume</td>
+                    <td style="text-align: right">Volume</td>
                 </tr>
                 <tr>
                     <td>*</td>
@@ -42,7 +42,7 @@
                     <td>- 1.06 %</td>
                     <td>- 1.1 %</td>
                     <td>$ 29,403,580,087</td>
-                    <td align="right">$ 2,267,032,452</td>
+                    <td style="text-align: right">$ 2,267,032,452</td>
                 </tr>
                 <tr>
                     <td>*</td>
@@ -55,7 +55,7 @@
                     <td>- 1.06 %</td>
                     <td>- 1.1 %</td>
                     <td>$ 29,403,580,087</td>
-                    <td align="right">$ 2,267,032,452</td>
+                    <td style="text-align: right">$ 2,267,032,452</td>
                 </tr>
             </table>
         </div>

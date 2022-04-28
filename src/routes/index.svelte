@@ -1,7 +1,7 @@
 <script>
 	import chart from "./../assets/img/Vector.png";
-	import News from "../lib/components/news/News.svelte";
-	import TableCard from "../lib/components/spotlight/Table-card.svelte";
+	import News from "$lib/components/news/News.svelte";
+	import TableCard from "$lib/components/spotlight/Table-card.svelte";
 </script>
 
 <svelte:head>

@@ -1,6 +1,6 @@
 <script>
-    import CoinBox from "../lib/components/CoinBox.svelte";
-    import CoinTable from "../lib/components/coin_table/Coin-Table.svelte";
+    import CoinBox from "$lib/components/CoinBox.svelte";
+    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
     import { onMount } from "svelte";
     import Select from "svelte-select";
     import {
@@ -10,7 +10,7 @@
         marketcap_items,
         liquidity_items,
         pricechange_items,
-    } from "./../lib/filter.js";
+    } from "$lib/filter.js";
     console.log(top_items);
     let active = "cat";
     /**
