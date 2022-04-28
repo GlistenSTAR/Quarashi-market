@@ -30,7 +30,12 @@
         padding-bottom: 5px;
         flex-direction: column;
     }
-    
+    @media (max-width: 1380px) {
+        .news-card{
+            padding: 10px
+        }
+    }
+
     @media (max-width: 1024px) {
         .news-card{
             width: 100%;

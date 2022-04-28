@@ -1,6 +1,6 @@
 <script>
 	import { page } from "$app/stores";
-	import Viewport from "svelte-viewport-info";
+	import { onMount } from "svelte";
 	import logo from "./../../../assets/img/logo.png";
 	import search_logo from "./../../../assets/img/search.png";
 
@@ -8,8 +8,12 @@
 
 	let show = false;
 
+	onMount(() => {
+		show = false;
+	});
+
 	const handleSeachInput = () => {
-		if (Viewport.Width < 1042) {
+		if (document.body.scrollWidth < 1042) {
 			show = !show;
 		}
 	};
