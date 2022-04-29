@@ -1,16 +1,26 @@
 <script>
     export let name = "";
+    export let key = "";
+    export let data = [];
     import NewsItem from "./News-item.svelte";
+    let news;
+    if (name == "CoinTelegraph") {
+        news = data
+            .filter((item) => item.source === "cointelegraph")
+            .slice(0, 5);
+    } else if (name == "Decrypt") {
+        news = data.filter((item) => item.source === "decrypt").slice(0, 5);
+    } else if (name == "TheBlock") {
+        news = data.filter((item) => item.source === "theblock").slice(0, 5);
+    }
 </script>
 
-<div class="news-card">
+<div class="news-card" {key}>
     <h4>{name}</h4>
-    <div style="margin-top: 20px" class="news-group">
-        <NewsItem />
-        <NewsItem />
-        <NewsItem />
-        <NewsItem />
-        <NewsItem />
+    <div class="news-group">
+        {#each news as item}
+            <NewsItem item={item} key={item.id} />
+        {/each}
     </div>
 </div>
 
@@ -30,14 +40,20 @@
         padding-bottom: 5px;
         flex-direction: column;
     }
+
+    .news-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px
+    }
     @media (max-width: 1380px) {
-        .news-card{
-            padding: 10px
+        .news-card {
+            padding: 10px;
         }
     }
 
     @media (max-width: 1024px) {
-        .news-card{
+        .news-card {
             width: 100%;
             min-width: 410px;
             margin-top: 20px;

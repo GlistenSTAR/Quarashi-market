@@ -1,7 +1,15 @@
-<div class="news-item">
-    <h5>Progressive Group Adopts Bitcoin As</h5>
-    <h5>ING & PayPal Block Donations</h5>
-    <h6>10 Minutes Ago</h6>
+<script>
+    import moment from 'moment'
+
+    export let item = {};
+    export let key = "";
+
+    console.log(item, key)
+</script>
+
+<div class="news-item" key={key}>
+    <h5><a href={item.url} className="text-decoration-none text-white" target="_blank" rel="noreferrer">{item.title}</a></h5>
+    <h6>{moment(item.published_on * 1000).fromNow()}</h6>
 </div>
 
 <style>
@@ -13,12 +21,20 @@
         color: rgb(185, 185, 185);
         font-size: 12px;
     }
+    a{
+        color: white;
+    }
+    a:hover{
+        color: #c921cd;
+        text-decoration: none;
+    }
     .news-item {
         margin: 8px;
         background-color: #0b0b12;
         border-radius: 12px;
         padding: 20px;
         padding-bottom: 18px;
+        min-height: 100px;
     }
 
     @media (max-width: 1411px) {

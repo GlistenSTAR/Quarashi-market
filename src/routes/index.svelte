@@ -11,7 +11,7 @@
 	import LoaderValue from "$lib/components/loader/LoaderValue.svelte";
 	import Spotlight from "$lib/components/spotlight/Spotlight.svelte";
 
-	import { getDefiCoins, getMarkets, getMarketsGlobal } from "./../api";
+	import { getDefiCoins, getMarkets, getMarketsGlobal, getNews } from "./../api";
 
 	import {
 		coinInfo,
@@ -26,6 +26,7 @@
 		getMarketsGlobal();
 		getMarkets();
 		getDefiCoins();
+		getNews();
 	});
 
 </script>
@@ -35,7 +36,7 @@
 </svelte:head>
 
 <section>
-	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi)}
+	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi) || isEmpty($news)}
 		<Loading />
 	{:else}
 		<!-- Overview -->
@@ -203,9 +204,9 @@
 		<div style="margin-top: 40px; width: 100%">
 			<h3>Top News</h3>
 			<div class="news">
-				<News name="CoinTelegraph" />
-				<News name="TheBlock" />
-				<News name="Decrypt" />
+				<News name="CoinTelegraph" data={$news} key="0"/>
+				<News name="TheBlock" data={$news} key="1"/>
+				<News name="Decrypt" data={$news} key="2"/>
 			</div>
 		</div>
 	{/if}
