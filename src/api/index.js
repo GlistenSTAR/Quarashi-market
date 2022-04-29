@@ -70,8 +70,18 @@ export function getCoinInfo(id) {
   return API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
 }
 
-export function getNews() {
-  return API.get('https://min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored')
+export async function getNews() {
+  try{
+    const data = await API.get('min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=02453520162496255e8bdfe89cd6ecceaad5437712c8960762045544c9bf0857')
+    if(data.Message == "News list successfully returned"){
+      news.set(data.Data)
+    } else {
+      console.log(data.Message)
+    }
+    return data
+  } catch (error){
+    console.log(error)
+  }
 }
 
 // @ts-ignore

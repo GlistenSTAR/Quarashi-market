@@ -30,6 +30,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
     "cookie": "^0.4.1",
+    "moment": "^2.29.3",
     "numbro": "^2.3.6",
     "svelte-carousel": "^1.0.17-rc4",
     "svelte-content-loader": "^1.1.3",
