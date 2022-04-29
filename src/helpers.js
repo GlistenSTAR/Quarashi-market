@@ -4,9 +4,9 @@ import numbro from 'numbro'
  * @param {any} value
  */
 export function formatNumber(value, options = { thousandSeparated: true, mantissa: 2 }) {
-    if (!value) {
-        return null
-    }
+    // if (!value) {
+    //     return null
+    // }
 
     return numbro(value).format(options)
 }
@@ -16,10 +16,10 @@ export function formatNumber(value, options = { thousandSeparated: true, mantiss
  * @param {string | numbro.Format | undefined} options
  */
 export function percentageFormat(value, options, na = '') {
-    if (!value) {
-        // @ts-ignore
-        return document.createElement('span', { className: 'text-grey-50' }, na)
-    }
+    // if (!value) {
+    //     // @ts-ignore
+    //     return document.createElement('span', { className: 'text-grey-50' }, na)
+    // }
 
     const number = numbro(value).format({
         trimMantissa: true,
@@ -37,9 +37,9 @@ export function percentageFormat(value, options, na = '') {
  * @param {string | numbro.Format | undefined} options
  */
 export function currencyFormat(value, options) {
-    if (!value) {
-        return ''
-    }
+    // if (!value) {
+    //     return ''
+    // }
 
     return numbro(value).formatCurrency(options)
 }

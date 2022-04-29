@@ -3,7 +3,6 @@
     export let method = "";
     export let icon = "";
     export let data = [];
-    console.log(data);
     import { currencyFormat, percentageFormat } from "./../../../helpers";
 </script>
 
@@ -45,7 +44,7 @@
             {#each data as item, key}
                 <tr>
                     <td>{key+1}</td>
-                    <td class="text-uppercase text-center">
+                    <td class="text-uppercase">
                         <img
                             src={item.image}
                             alt="coin"
@@ -54,8 +53,8 @@
                         />
                         {item.symbol}
                     </td>
-                    <td class="price" />
-                    <td class="percent" />
+                    <td class="price">{currencyFormat(item.tvl)}</td>
+                    <td class="percent">{percentageFormat(item.priceChange24h)}</td>
                 </tr>
             {/each}
         {/if}
