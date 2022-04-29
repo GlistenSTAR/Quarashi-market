@@ -31,6 +31,7 @@
     "axios": "^0.27.2",
     "cookie": "^0.4.1",
     "dotenv": "^16.0.0",
+    "lightweight-charts": "^3.8.0",
     "moment": "^2.29.3",
     "numbro": "^2.3.6",
     "svelte-carousel": "^1.0.17-rc4",
