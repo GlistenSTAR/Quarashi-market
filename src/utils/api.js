@@ -1,9 +1,6 @@
 import axios from "axios";
 
-// const coingeckoBaseUrl = 'https://api.coingecko.com/api/v3/coins'
-const marketsBaseUrl = 'https://markets.horizontalsystems.xyz/api/v1'
-
-let baseURL = marketsBaseUrl;
+let baseURL = 'https://';
 
 
 // Create a instance of axios to use the same base url.
@@ -12,33 +9,36 @@ const axiosAPI = axios.create({
 });
 
 // Implement a method to execute all the request from here
-const apiRequest = async (method,  url, request) => {
+
+const apiRequest = async (/** @type {string} */ method,  /** @type {any} */ url, /** @type {undefined} */ request) => {
   try {
     const headers = {};
+    // @ts-ignore
     const response = await axiosAPI({ method, url, headers, data: request });
     return response.data;
   } catch (error) {
+    // @ts-ignore
     return error.response;
   }
 };
 
 // Function to excute the http get request
-const get = ( url) => apiRequest("get", url);
+const get = ( /** @type {any} */ url) => apiRequest("get", url);
 
 // Function to excute the http post request
-const post = ( url, request) => apiRequest("post", url, request);
+const post = ( /** @type {any} */ url, /** @type {undefined} */ request) => apiRequest("post", url, request);
 
 // Function to excute the http put request
-const put = ( url, request) => apiRequest("put", url, request);
+const put = ( /** @type {any} */ url, /** @type {undefined} */ request) => apiRequest("put", url, request);
 
 // Function to excute the http delete request
-const deleteRequest = ( url) => apiRequest("delete", url);
+const deleteRequest = ( /** @type {any} */ url) => apiRequest("delete", url);
 
-const API = {
+const MarketAPI = {
   get,
   post,
   put,
   delete: deleteRequest,
 };
 
-export default API;
+export default MarketAPI;
