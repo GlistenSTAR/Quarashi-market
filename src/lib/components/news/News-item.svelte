@@ -34,12 +34,14 @@
         text-decoration: none;
     }
     .news-item {
-        margin: 8px;
+        margin-top: 8px;
         background-color: #0b0b12;
         border-radius: 12px;
-        padding: 20px;
-        padding-bottom: 18px;
-        min-height: 100px;
+        padding: 15px;
+        min-height: 110px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     @media (max-width: 1411px) {
