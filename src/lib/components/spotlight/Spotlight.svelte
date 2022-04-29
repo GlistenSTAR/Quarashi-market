@@ -11,9 +11,6 @@
     export let data = {};
     export let defiData = {};
 
-    /**
-     * @type {any[] | undefined}
-     */
     let topGainers, topLosers, tvlGainers;
 
     if (!isEmpty(data) || !isEmpty(defiData)) {

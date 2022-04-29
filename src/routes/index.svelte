@@ -27,7 +27,7 @@
 		getMarkets();
 		getDefiCoins();
 	});
-	
+
 </script>
 
 <svelte:head>
@@ -196,6 +196,7 @@
 		</div>
 
 		<!-- Spotlight -->
+		<!-- tvl change remain -->
 		<Spotlight data={$markets} defiData = {$defi}/>
 
 		<!-- Top news -->

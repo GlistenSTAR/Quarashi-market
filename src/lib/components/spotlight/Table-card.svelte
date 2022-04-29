@@ -2,10 +2,9 @@
     export let name = "";
     export let method = "";
     export let icon = "";
-    export /**
-     * @type {never[]}
-     */
-    let data = [];
+    export let data = [];
+    console.log(data);
+    import { currencyFormat, percentageFormat } from "./../../../helpers";
 </script>
 
 <div class="table-card">
@@ -19,55 +18,47 @@
     <table class="table table-striped {method}">
         <tr>
             <th width="10%">#</th>
-            <th width="35%">Name</th>
-            <th width="35%" class="price">Price</th>
+            <th width="35%" style="padding-left: 10px">Name</th>
+            <th width="35%" class="price"> Price </th>
             <th width="20%" class="percent">24Hours</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                <i class="fa fa-user" />
-                XDB
-            </td>
-            <td class="price">$ 0.356</td>
-            <td class="percent">+ 14.33%</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                <i class="fa fa-user" />
-                XDB
-            </td>
-            <td class="price">$ 0.356</td>
-            <td class="percent">+ 14.33%</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-                <i class="fa fa-user" />
-                XDB
-            </td>
-            <td class="price">$ 0.356</td>
-            <td class="percent">+ 14.33%</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-                <i class="fa fa-user" />
-                XDB
-            </td>
-            <td class="price">$ 0.356</td>
-            <td class="percent">+ 14.33%</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>
-                <i class="fa fa-user" />
-                XDB
-            </td>
-            <td class="price">$ 0.356</td>
-            <td class="percent">+ 14.33%</td>
-        </tr>
+        {#if name != "TVL Change"}
+            {#each data as item, key}
+                <tr>
+                    <td>{key + 1}</td>
+                    <td class="text-uppercase">
+                        <img
+                            src={item.image}
+                            alt="coin"
+                            width="40"
+                            height="40"
+                        />
+                        <span>{item.symbol}</span>
+                    </td>
+                    <td class="price">{currencyFormat(item.price)}</td>
+                    <td class="percent"
+                        >{percentageFormat(item.priceChange24h)}</td
+                    >
+                </tr>
+            {/each}
+        {:else if name = "TVL Change"}
+            {#each data as item, key}
+                <tr>
+                    <td>{key+1}</td>
+                    <td class="text-uppercase text-center">
+                        <img
+                            src={item.image}
+                            alt="coin"
+                            width="40"
+                            height="40"
+                        />
+                        {item.symbol}
+                    </td>
+                    <td class="price" />
+                    <td class="percent" />
+                </tr>
+            {/each}
+        {/if}
     </table>
 </div>
 
