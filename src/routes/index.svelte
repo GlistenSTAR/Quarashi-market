@@ -1,11 +1,17 @@
 <script>
+	// @ts-nocheck
 	import { onMount } from "svelte";
 
 	import chart from "./../assets/img/Vector.png";
 	import News from "$lib/components/news/News.svelte";
-	import TableCard from "$lib/components/spotlight/Table-card.svelte";
+	import isEmpty from "./../utils/is-empty";
+	import Loading from "$lib/components/loader/Loading.svelte";
+
 	import { currencyFormat, percentageFormat, priceColor } from "./../helpers";
 	import LoaderValue from "$lib/components/loader/LoaderValue.svelte";
+	import Spotlight from "$lib/components/spotlight/Spotlight.svelte";
+
+	import { getDefiCoins, getMarkets, getMarketsGlobal } from "./../api";
 
 	import {
 		coinInfo,
@@ -16,13 +22,12 @@
 		news,
 	} from "../store";
 
-	import { getMarketsGlobal } from "./../api";
-
 	onMount(() => {
 		getMarketsGlobal();
+		getMarkets();
+		getDefiCoins();
 	});
-
-	console.log("asdf", $marketsGlobal);
+	
 </script>
 
 <svelte:head>
@@ -30,161 +35,179 @@
 </svelte:head>
 
 <section>
-	<!-- Overview -->
-	<div style="width: 100%">
-		<h1>Overview</h1>
-		<div class="cards">
-			<div class="card">
-				<div class="info">
-					<p>Total Market Cap</p>
-					<p class={priceColor($marketsGlobal.marketCapDiff24h)}>
-						{#if $marketsGlobal.marketCapDiff24h}
-							{percentageFormat($marketsGlobal.marketCapDiff24h)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</p>
+	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi)}
+		<Loading />
+	{:else}
+		<!-- Overview -->
+		<!-- chart remain -->
+		<div style="width: 100%">
+			<h1>Overview</h1>
+			<div class="cards">
+				<div class="card">
+					<div class="info">
+						<p>Total Market Cap</p>
+						<p class={priceColor($marketsGlobal.marketCapDiff24h)}>
+							{#if $marketsGlobal.marketCapDiff24h}
+								{percentageFormat(
+									$marketsGlobal.marketCapDiff24h
+								)}
+							{:else}
+								<LoaderValue width="44" height="18" key="1" />
+							{/if}
+						</p>
+					</div>
+					<div class="amount">
+						<h2>
+							{#if $marketsGlobal.marketCap}
+								{currencyFormat($marketsGlobal.marketCap, {
+									average: true,
+									totalLength: 3,
+								})}
+							{:else}
+								<LoaderValue width="44" height="18" key="2" />
+							{/if}
+						</h2>
+					</div>
 				</div>
-				<div class="amount">
-					<h2>
-						{#if $marketsGlobal.marketCap}
-							{currencyFormat($marketsGlobal.marketCap, {
-								average: true,
-								totalLength: 3,
-							})}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</h2>
+				<div class="card">
+					<div class="info">
+						<p>Volume 24H</p>
+						<p class={priceColor($marketsGlobal.volume24hDiff)}>
+							{#if $marketsGlobal.volume24hDiff}
+								{percentageFormat($marketsGlobal.volume24hDiff)}
+							{:else}
+								<LoaderValue width="44" height="18" key="3" />
+							{/if}
+						</p>
+					</div>
+					<div class="amount">
+						<h2>
+							{#if $marketsGlobal.volume24h}
+								{currencyFormat($marketsGlobal.volume24h, {
+									average: true,
+									totalLength: 3,
+								})}
+							{:else}
+								<LoaderValue width="44" height="18" key="4" />
+							{/if}
+						</h2>
+					</div>
+					<div class="chart-box">
+						<!-- {points.volume} -->
+						<img src={chart} alt="chart" />
+					</div>
 				</div>
-			</div>
-			<div class="card">
-				<div class="info">
-					<p>Volume 24H</p>
-					<p class={priceColor($marketsGlobal.volume24hDiff)}>
-						{#if $marketsGlobal.volume24hDiff}
-							{percentageFormat($marketsGlobal.volume24hDiff, {forceSign: false})}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</p>
+				<div class="card">
+					<div class="info">
+						<p>BTC Dominance</p>
+						<p
+							class={priceColor(
+								$marketsGlobal.dominanceBTCDiff24h
+							)}
+						>
+							{#if $marketsGlobal.dominanceBTCDiff24h}
+								{percentageFormat(
+									$marketsGlobal.dominanceBTCDiff24h
+								)}
+							{:else}
+								<LoaderValue width="44" height="18" key="5" />
+							{/if}
+						</p>
+					</div>
+					<div class="amount">
+						<h2>
+							{#if $marketsGlobal.dominanceBTC}
+								{percentageFormat($marketsGlobal.dominanceBTC, {
+									forceSign: false,
+								})}
+							{:else}
+								<LoaderValue width="44" height="18" key="6" />
+							{/if}
+						</h2>
+					</div>
+					<div class="chart-box">
+						<!-- points.dominance -->
+						<img src={chart} alt="chart" />
+					</div>
 				</div>
-				<div class="amount">
-					<h2>
-						{#if $marketsGlobal.volume24h}
-							{currencyFormat($marketsGlobal.volume24h, {
-								average: true,
-								totalLength: 3,
-							})}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</h2>
+				<div class="card">
+					<div class="info">
+						<p>DeFi Market Cap</p>
+						<p
+							class={priceColor(
+								$marketsGlobal.marketCapDefiDiff24h
+							)}
+						>
+							{#if $marketsGlobal.marketCapDefiDiff24h}
+								{percentageFormat(
+									$marketsGlobal.marketCapDefiDiff24h
+								)}
+							{:else}
+								<LoaderValue width="44" height="18" key="7" />
+							{/if}
+						</p>
+					</div>
+					<div class="amount">
+						<h2>
+							{#if $marketsGlobal.marketCapDefi}
+								{currencyFormat($marketsGlobal.marketCapDefi)}
+							{:else}
+								<LoaderValue width="44" height="18" key="8" />
+							{/if}
+						</h2>
+					</div>
+					<div class="chart-box">
+						<img src={chart} alt="chart" />
+					</div>
 				</div>
-				<div class="chart-box">
-					<!-- {points.volume} -->
-					<img src={chart} alt="chart" />
-				</div>
-			</div>
-			<div class="card">
-				<div class="info">
-					<p>BTC Dominance</p>
-					<p class={priceColor($marketsGlobal.dominanceBTCDiff24h)}>
-						{#if $marketsGlobal.dominanceBTCDiff24h}
-							{percentageFormat($marketsGlobal.dominanceBTCDiff24h)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</p>
-				</div>
-				<div class="amount">
-					<h2>
-						{#if $marketsGlobal.dominanceBTC}
-							{percentageFormat($marketsGlobal.dominanceBTC, { forceSign: false })}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</h2>
-				</div>
-				<div class="chart-box">
-					<!-- points.dominance -->
-					<img src={chart} alt="chart" />
-				</div>
-			</div>
-			<div class="card">
-				<div class="info">
-					<p>DeFi Market Cap</p>
-					<p class={priceColor($marketsGlobal.marketCapDefiDiff24h)}>
-						{#if $marketsGlobal.marketCapDefiDiff24h}
-							{percentageFormat($marketsGlobal.marketCapDefiDiff24h)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</p>
-				</div>
-				<div class="amount">
-					<h2>
-						{#if $marketsGlobal.marketCapDefi}
-							{currencyFormat($marketsGlobal.marketCapDefi)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</h2>
-				</div>
-				<div class="chart-box">
-					<img src={chart} alt="chart" />
-				</div>
-			</div>
-			<div class="card">
-				<div class="info">
-					<p>TVL In DeFi</p>
-					<p class={priceColor($marketsGlobal.totalValueLockedDiff24h)}>
-						{#if $marketsGlobal.totalValueLockedDiff24h}
-							{percentageFormat($marketsGlobal.totalValueLockedDiff24h)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</p>
-				</div>
-				<div class="amount">
-					<h2>
-						{#if $marketsGlobal.totalValueLocked}
-							{currencyFormat($marketsGlobal.totalValueLocked)}
-						{:else}
-							<LoaderValue width="120" height="35" />
-						{/if}
-					</h2>
-				</div>
-				<div class="chart-box">
-					<img src={chart} alt="chart" />
+				<div class="card">
+					<div class="info">
+						<p>TVL In DeFi</p>
+						<p
+							class={priceColor(
+								$marketsGlobal.totalValueLockedDiff24h
+							)}
+						>
+							{#if $marketsGlobal.totalValueLockedDiff24h}
+								{percentageFormat(
+									$marketsGlobal.totalValueLockedDiff24h
+								)}
+							{:else}
+								<LoaderValue width="44" height="18" key="" />
+							{/if}
+						</p>
+					</div>
+					<div class="amount">
+						<h2>
+							{#if $marketsGlobal.totalValueLocked}
+								{currencyFormat(
+									$marketsGlobal.totalValueLocked
+								)}
+							{:else}
+								<LoaderValue width="44" height="18" key="" />
+							{/if}
+						</h2>
+					</div>
+					<div class="chart-box">
+						<img src={chart} alt="chart" />
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Spotlight -->
-	<div class="spotlight">
-		<h3>Spotlight</h3>
-		<div class="table-cards">
-			<TableCard name="Top Gainers" method="up" icon="fa fa-arrow-up" />
-			<TableCard
-				name="Top Losers"
-				method="down"
-				icon="fa fa-arrow-down"
-			/>
-			<TableCard name="TVL Change" method="lock" icon="fa fa-lock" />
-		</div>
-	</div>
+		<!-- Spotlight -->
+		<Spotlight data={$markets} defiData = {$defi}/>
 
-	<!-- Top news -->
-	<div style="margin-top: 40px; width: 100%">
-		<h3>Top News</h3>
-		<div class="news">
-			<News name="CoinTelegraph" />
-			<News name="TheBlock" />
-			<News name="Decrypt" />
+		<!-- Top news -->
+		<div style="margin-top: 40px; width: 100%">
+			<h3>Top News</h3>
+			<div class="news">
+				<News name="CoinTelegraph" />
+				<News name="TheBlock" />
+				<News name="Decrypt" />
+			</div>
 		</div>
-	</div>
+	{/if}
 </section>
 
 <style>
@@ -195,7 +218,7 @@
 		overflow-x: scroll;
 	}
 
-	::-webkit-scrollbar {
+	::-webkit-scrollbar { 
 		height: 5px !important;
 	}
 
@@ -249,27 +272,10 @@
 		text-transform: uppercase;
 	}
 	.text-success {
-		color: #00A478 !important
+		color: #00a478 !important;
 	}
 	.text-danger {
 		color: #ff4a57 !important;
-	}
-
-	/* spotlight */
-	.spotlight {
-		margin-top: 40px;
-		width: 100%;
-	}
-
-	.spotlight h3 {
-		font-size: 24px;
-	}
-
-	.table-cards {
-		display: flex;
-		margin-top: 20px;
-		font-size: 12px;
-		justify-content: space-around;
 	}
 
 	.news {
