@@ -1,5 +1,8 @@
 import numbro from 'numbro'
 
+/**
+ * @param {any} value
+ */
 export function formatNumber(value, options = { thousandSeparated: true, mantissa: 2 }) {
     if (!value) {
         return null
@@ -8,8 +11,13 @@ export function formatNumber(value, options = { thousandSeparated: true, mantiss
     return numbro(value).format(options)
 }
 
+/**
+ * @param {any} value
+ * @param {string | numbro.Format | undefined} options
+ */
 export function percentageFormat(value, options, na = '') {
     if (!value) {
+        // @ts-ignore
         return document.createElement('span', { className: 'text-grey-50' }, na)
     }
 
@@ -17,12 +25,17 @@ export function percentageFormat(value, options, na = '') {
         trimMantissa: true,
         mantissa: 2,
         forceSign: true,
+        // @ts-ignore
         ...options
     })
 
     return `${number}%`
 }
 
+/**
+ * @param {any} value
+ * @param {string | numbro.Format | undefined} options
+ */
 export function currencyFormat(value, options) {
     if (!value) {
         return ''
@@ -31,14 +44,21 @@ export function currencyFormat(value, options) {
     return numbro(value).formatCurrency(options)
 }
 
+/**
+ * @param {any} value
+ */
 export function currencyFullValue(value, options = { thousandSeparated: true }, na = 'N/A') {
     if (!value) {
+        // @ts-ignore
         return document.createElement('span', { className: 'text-grey-50' }, na)
     }
 
     return currencyFormat(value, options)
 }
 
+/**
+ * @param {any} value
+ */
 export function volume(value) {
     return numbro(value).format({
         thousandSeparated: true,
@@ -46,8 +66,10 @@ export function volume(value) {
     })
 }
 
+/**
+ * @param {any} value
+ */
 export function priceColor(value) {
-    console.log(112312312321321,value)
     if (!value) {
         return null
     }
@@ -64,14 +86,27 @@ export function priceColor(value) {
     // }
 }
 
+/**
+ * @param {number} partialValue
+ * @param {number} totalValue
+ */
 export function calculatePercentage(partialValue, totalValue) {
     return (100 * partialValue) / totalValue
 }
 
+/**
+ * @param {number} input
+ * @param {number} min
+ * @param {number} max
+ */
 export function percentageBetweenRange(input, min, max) {
     return ((input - min) * 100) / (max - min)
 }
 
+/**
+ * @param {string} fullText
+ * @param {number} maxLen
+ */
 export function truncateMiddle(fullText, maxLen) {
     if (fullText.length <= maxLen) return fullText
 
