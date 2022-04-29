@@ -2,6 +2,10 @@
     import None from '../assets/img/coins/none.png'
 </script>
 
+<svelte:head>
+	<title>Markets-Watchlist</title>
+</svelte:head>
+
 <div>
     <h1>
         Watchlist

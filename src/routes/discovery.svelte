@@ -29,6 +29,10 @@
     });
 </script>
 
+<svelte:head>
+	<title>Markets-Discovery</title>
+</svelte:head>
+
 <section>
     <h1>Discovery</h1>
     <div class="tabs">
