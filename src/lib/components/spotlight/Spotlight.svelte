@@ -11,6 +11,9 @@
     export let data = {};
     export let defiData = {};
 
+    /**
+     * @type {any[] | undefined}
+     */
     let topGainers, topLosers, tvlGainers;
 
     if (!isEmpty(data) || !isEmpty(defiData)) {
@@ -23,9 +26,24 @@
 <div class="spotlight">
     <h3>Spotlight</h3>
     <div class="table-cards">
-        <TableCard name="Top Gainers" data={topGainers} method="up" icon="fa fa-arrow-up" />
-        <TableCard name="Top Losers" data={topLosers} method="down" icon="fa fa-arrow-down" />
-        <TableCard name="TVL Change" data={tvlGainers} method="lock" icon="fa fa-lock" />
+        <TableCard
+            name="Top Gainers"
+            data={topGainers}
+            method="up"
+            icon="fa fa-arrow-up"
+        />
+        <TableCard
+            name="Top Losers"
+            data={topLosers}
+            method="down"
+            icon="fa fa-arrow-down"
+        />
+        <TableCard
+            name="TVL Change"
+            data={tvlGainers}
+            method="lock"
+            icon="fa fa-lock"
+        />
     </div>
 </div>
 

@@ -103,7 +103,9 @@ export function normalizeDefiCoins(markets) {
 
         const chain = item.chains.length > 1 ? multiChain : item.chains[0]
         if (chain) {
+            // @ts-ignore
             coin.chain = chain.toLowerCase()
+            // @ts-ignore
             chains[coin.chain] = true
         }
         coins.push(coin)

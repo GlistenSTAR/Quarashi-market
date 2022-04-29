@@ -2,6 +2,10 @@
     export let name = "";
     export let method = "";
     export let icon = "";
+    export /**
+     * @type {never[]}
+     */
+    let data = [];
 </script>
 
 <div class="table-card">
@@ -150,13 +154,12 @@
     }
 
     @media (max-width: 1024px) {
-        .table-card{
+        .table-card {
             width: 100%;
             margin-top: 20px;
             margin-left: 0px;
             margin-right: 0px;
             min-width: 410px;
-
         }
     }
 </style>

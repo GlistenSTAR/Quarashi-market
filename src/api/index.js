@@ -24,6 +24,7 @@ export async function getMarketsGlobal() {
   }
 }
 
+// @ts-ignore
 export async function getMarkets(count = 250) {
   const data = markets.set(normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count)))
   return data
@@ -36,11 +37,11 @@ export function getMarketsByIds(ids) {
   return API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&ids=${ids}`)
 }
 
-export async function getMarkets() {
+// @ts-ignore
+export async function getDefiCoins() {
   const data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
   const result = normalizeDefiCoins(data);
   defi.set(result);
-  // console.log('>>>>>', defi)
   return data
 }
 
