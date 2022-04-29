@@ -63,13 +63,13 @@
     }
 
     @media (max-width: 1380px) {
-        .table-cards{
-            padding: 10px
+        .table-cards {
+            padding: 10px;
         }
     }
 
     @media (max-width: 1024px) {
-        .table-cards{
+        .table-cards {
             display: flex;
             flex-direction: column;
             width: 100%;

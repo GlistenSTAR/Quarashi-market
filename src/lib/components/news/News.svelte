@@ -1,9 +1,11 @@
 <script>
+    import NewsItem from "./News-item.svelte";
+
     export let name = "";
     export let key = "";
     export let data = [];
-    import NewsItem from "./News-item.svelte";
     let news;
+
     if (name == "CoinTelegraph") {
         news = data
             .filter((item) => item.source === "cointelegraph")
@@ -19,7 +21,7 @@
     <h4>{name}</h4>
     <div class="news-group">
         {#each news as item}
-            <NewsItem item={item} key={item.id} />
+            <NewsItem {item} key={item.id} />
         {/each}
     </div>
 </div>
@@ -41,10 +43,10 @@
         flex-direction: column;
     }
 
-    .news-group{
+    .news-group {
         display: flex;
         flex-direction: column;
-        margin-top: 20px
+        margin-top: 20px;
     }
     @media (max-width: 1380px) {
         .news-card {

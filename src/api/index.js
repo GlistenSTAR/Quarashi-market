@@ -1,4 +1,5 @@
 import API from './../utils/api'
+import { API_KEY } from './../utils/API_KEY';
 
 const marketsBaseUrl = 'markets.horizontalsystems.xyz/api/v1'
 const coingeckoBaseUrl = 'api.coingecko.com/api/v3/coins'
@@ -72,7 +73,7 @@ export function getCoinInfo(id) {
 
 export async function getNews() {
   try{
-    const data = await API.get('min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=02453520162496255e8bdfe89cd6ecceaad5437712c8960762045544c9bf0857')
+    const data = await API.get(`min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
     if(data.Message == "News list successfully returned"){
       news.set(data.Data)
     } else {

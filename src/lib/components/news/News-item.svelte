@@ -1,14 +1,19 @@
 <script>
-    import moment from 'moment'
+    import moment from "moment";
 
     export let item = {};
     export let key = "";
-
-    console.log(item, key)
 </script>
 
-<div class="news-item" key={key}>
-    <h5><a href={item.url} className="text-decoration-none text-white" target="_blank" rel="noreferrer">{item.title}</a></h5>
+<div class="news-item" {key}>
+    <h5>
+        <a
+            href={item.url}
+            class="text-decoration-none text-white"
+            target="_blank"
+            rel="noreferrer">{item.title}</a
+        >
+    </h5>
     <h6>{moment(item.published_on * 1000).fromNow()}</h6>
 </div>
 
@@ -21,10 +26,10 @@
         color: rgb(185, 185, 185);
         font-size: 12px;
     }
-    a{
+    a {
         color: white;
     }
-    a:hover{
+    a:hover {
         color: #c921cd;
         text-decoration: none;
     }
