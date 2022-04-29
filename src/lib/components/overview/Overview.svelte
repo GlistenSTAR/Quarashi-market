@@ -151,7 +151,7 @@
     .cards {
         margin-top: 20px;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         overflow-x: scroll;
         overflow-y: hidden;
     }
@@ -175,6 +175,7 @@
         background: #141421;
         padding: 20px 20px;
         z-index: -1;
+        width: 100%
     }
 
     .card .info {

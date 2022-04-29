@@ -32,7 +32,7 @@
         font-size: 18px;
     }
     .news-card {
-        width: 518px;
+        width: 100%;
         height: 659px;
         background: #141421;
         margin-left: 9px;

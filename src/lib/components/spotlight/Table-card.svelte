@@ -64,7 +64,7 @@
 <style>
     .table-card {
         display: flex;
-        width: 520px;
+        width: 100%;
         height: 390px;
         background: #141421;
         margin-left: 9px;
