@@ -7,3 +7,4 @@ export const defi = writable({});
 export const marketsGlobal = writable({});
 export const news = writable({});
 export const watchlist = writable({});
+export const flag = writable("")
