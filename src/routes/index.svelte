@@ -1,20 +1,11 @@
 <script>
 	// @ts-nocheck
-	import { onMount } from "svelte";
-
 	import News from "$lib/components/news/News.svelte";
-	import isEmpty from "./../utils/is-empty";
 	import Loading from "$lib/components/loader/Loading.svelte";
-
 	import Overview from "$lib/components/overview/Overview.svelte";
 	import Spotlight from "$lib/components/spotlight/Spotlight.svelte";
 
-	import {
-		getDefiCoins,
-		getMarkets,
-		getMarketsGlobal,
-		getNews,
-	} from "./../api";
+	import isEmpty from "./../utils/is-empty";
 
 	import {
 		coinInfo,
@@ -24,13 +15,6 @@
 		marketsGlobal,
 		news,
 	} from "../store";
-
-	onMount(() => {
-		getMarketsGlobal();
-		getMarkets();
-		getDefiCoins();
-		getNews();
-	});
 </script>
 
 <svelte:head>

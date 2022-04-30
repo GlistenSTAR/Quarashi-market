@@ -1,6 +1,22 @@
 <script>
+	import {onMount} from 'svelte'
 	import Header from '$lib/components/header/Header.svelte';
 	import '../app.css';
+
+	import {
+		getDefiCoins,
+		getMarkets,
+		getMarketsGlobal,
+		getNews,
+	} from "./../api";
+
+	onMount(() => {
+		getMarketsGlobal();
+		getMarkets();
+		getDefiCoins();
+		getNews();
+	});
+	
 </script>
 
 <Header />
