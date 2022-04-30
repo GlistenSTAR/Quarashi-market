@@ -1,15 +1,24 @@
 <script>
+    import { getCardIcon } from "./getIcon";
+
     export let name = "";
     export let icon = "";
     export let content = "";
 
-    import block_coin from "./../../assets/img/coins/block_coin.png";
+    import { flag } from "./../../store";
+
+    const setActive = () => {
+        flag.set(icon);
+    };
 </script>
 
-<div class="coinbox">
+<div
+    class="coinbox {$flag===icon ? 'active' : ''}"
+    on:click={(event) => setActive(event)}
+>
     <div style="display: flex; align-items: center; padding-bottom: 12px">
-        <img src={icon === "block_coin" ? block_coin : ""} alt="coin" />
-        <h3>{name}</h3>
+        <span><img src={getCardIcon(icon)} alt="coin" /></span>
+        <h3 style="margin-left: 12px;">{name}</h3>
     </div>
     <div>
         <h5>{content}</h5>
@@ -17,14 +26,37 @@
 </div>
 
 <style>
+    /* a {
+        text-decoration: none;
+        color: white;
+    }
+    a:hover {
+        text-decoration: none;
+    } */
     .coinbox {
         background-color: #141421;
         padding: 20px;
         height: 120px;
-        min-width: 300px!important;
+        min-width: 250px !important;
         margin-left: 10px;
         margin-right: 10px;
         border-radius: 12px;
+        cursor: pointer;
+    }
+
+    .coinbox:hover {
+        background-color: #c921cd;
+    }
+
+    .coinbox.active {
+        background-color: #c921cd;
+    }
+
+    .coinbox span {
+        padding: 6px;
+        border-radius: 12px;
+        background-color: #33333e;
+        display: flex;
     }
 
     h3 {

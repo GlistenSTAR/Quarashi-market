@@ -1,8 +1,10 @@
 <script>
-    import CoinBox from "$lib/components/CoinBox.svelte";
-    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
+    // @ts-nocheck
     import { onMount } from "svelte";
     import Select from "svelte-select";
+
+    import CoinBox from "$lib/components/CoinBox.svelte";
+    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
     import {
         top_items,
         volume_items,
@@ -11,107 +13,75 @@
         liquidity_items,
         pricechange_items,
     } from "$lib/filter.js";
-    console.log(top_items);
+    import coinStore from "$lib/coins-store";
+
     let active = "cat";
     /**
      * @type {typeof import("svelte-carousel").default}
      */
-    let Carousel;
-    let carousel;
+    let Carousel, carousel;
 
-    const setActive = (/** @type {string} */ val) => {
-        active = val;
-    };
+    import {
+        coinInfo,
+        discovery,
+        markets,
+        defi,
+        marketsGlobal,
+        news,
+    } from "../store";
 
     onMount(async () => {
         const module = await import("svelte-carousel");
         Carousel = module.default;
     });
+
+    const setActive = (/** @type {string} */ val) => {
+        active = val;
+    };
 </script>
 
 <svelte:head>
-	<title>Markets-Discovery</title>
+    <title>Markets-Discovery</title>
 </svelte:head>
 
 <section>
     <h1>Discovery</h1>
-    <div class="tabs">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <span
-                    class="nav-link {active === 'cat' ? 'active' : ''}"
-                    on:click={() => setActive("cat")}
-                >
-                    Categories
-                </span>
-            </li>
-            <li class="nav-item">
-                <span
-                    class="nav-link {active === 'adv' ? 'active' : ''}"
-                    on:click={() => setActive("adv")}
-                >
-                    Advanced Search
-                </span>
-            </li>
-        </ul>
-    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <span
+                class="nav-link {active === 'cat' ? 'active' : ''}"
+                on:click={() => setActive("cat")}
+            >
+                Categories
+            </span>
+        </li>
+        <li class="nav-item">
+            <span
+                class="nav-link {active === 'adv' ? 'active' : ''}"
+                on:click={() => setActive("adv")}
+            >
+                Advanced Search
+            </span>
+        </li>
+    </ul>
+
     {#if active === "cat"}
-        <div>
-            <div class="card-carousel">
-                <svelte:component
-                    this={Carousel}
-                    bind:this={carousel}
-                    particlesToShow={5}
-                >
+        <div class="card-carousel">
+            <svelte:component
+                this={Carousel}
+                bind:this={carousel}
+                particlesToShow={4}
+            >
+                {#each coinStore.categories as item, index}
                     <CoinBox
-                        name="BlockChain"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
+                        name={item.name}
+                        content={item.description}
+                        icon={item.id}
                     />
-                    <CoinBox
-                        name="Dexes"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="Lending"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="Yield Aggregators"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="Investment Tools"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="BlockChain"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="BlockChain"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="BlockChain"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                    <CoinBox
-                        name="BlockChain"
-                        content="Native cryptocurrencies on major blockchains."
-                        icon="block_coin"
-                    />
-                </svelte:component>
-            </div>
-            <CoinTable />
+                {/each}
+            </svelte:component>
         </div>
+        <CoinTable />
     {/if}
     {#if active === "adv"}
         <div>
@@ -187,25 +157,30 @@
 </section>
 
 <style>
-    .tabs {
+    ul.nav {
         margin-top: 40px;
         cursor: pointer;
     }
+
     .nav-link {
         color: white;
         padding: 20px;
         text-decoration: none;
         margin-bottom: 0px;
     }
+
     .nav-link:focus-visible {
         border-color: transparent;
     }
+
     .nav-tabs {
         border-color: #30333a;
     }
+
     .nav-link:hover {
         border-color: transparent;
     }
+
     .nav-tabs .nav-link.active {
         background-color: transparent;
         color: #c921cd;
