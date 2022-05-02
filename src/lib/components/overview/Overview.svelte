@@ -6,7 +6,6 @@
         priceColor,
     } from "./../../../helpers";
     import ChartLight from "../Chart/ChartLight.svelte";
-    import chart from "../../../assets/img/Vector.png";
 </script>
 
 <!-- chart remain -->

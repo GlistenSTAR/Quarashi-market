@@ -94,20 +94,28 @@ button:focus:not(:focus-visible) {
 .sc-carousel-dots__container{
 	display: none!important
 }
+
 .sc-carousel-arrow__circle{
 	width: 40px!important;
 	height: 40px!important;
 	background-color: #311037!important;
 	color: white!important
 }
+
+.listItem, .selectedItem {
+	font-size: 12px;
+}
+
 .sc-carousel-arrow__circle i{
 	border-color: white!important;
 }
+
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+
 	.sc-carousel__arrow-container{
 		display: none!important;
 	}
@@ -130,6 +138,7 @@ button:focus:not(:focus-visible) {
 	body{
 		padding-right: 20px!important;
 	}
+	
 	.head{
 		padding-left: 2px!important;
 	}
