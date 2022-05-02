@@ -33,7 +33,7 @@
     }
     .news-card {
         width: 100%;
-        height: 659px;
+        min-height: 659px;
         background: #141421;
         margin-left: 9px;
         margin-right: 9px;

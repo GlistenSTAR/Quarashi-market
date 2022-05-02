@@ -31,6 +31,9 @@
     import Identity from "./../../assets/img/coins/identity.svg";
     import YieldTokens from "./../../assets/img/coins/yield_tokens.svg";
 
+/**
+ * @param {any} id
+ */
 export function getCardIcon(id) {
     switch (id) {
         case 'dexes':

@@ -5,6 +5,11 @@
 
     import CoinBox from "$lib/components/CoinBox.svelte";
     import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
+	import Loading from "$lib/components/loader/Loading.svelte";
+
+	import isEmpty from "./../utils/is-empty";
+    
+
     import {
         top_items,
         volume_items,
@@ -12,7 +17,7 @@
         marketcap_items,
         liquidity_items,
         pricechange_items,
-    } from "$lib/filter.js";
+    } from "$lib/selectData.js";
     import coinStore from "$lib/coins-store";
 
     let active = "cat";
@@ -45,114 +50,118 @@
 </svelte:head>
 
 <section>
-    <h1>Discovery</h1>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <span
-                class="nav-link {active === 'cat' ? 'active' : ''}"
-                on:click={() => setActive("cat")}
-            >
-                Categories
-            </span>
-        </li>
-        <li class="nav-item">
-            <span
-                class="nav-link {active === 'adv' ? 'active' : ''}"
-                on:click={() => setActive("adv")}
-            >
-                Advanced Search
-            </span>
-        </li>
-    </ul>
+    {#if isEmpty($markets)}
+		<Loading />
+	{:else}
+        <h1>Discovery</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <span
+                    class="nav-link {active === 'cat' ? 'active' : ''}"
+                    on:click={() => setActive("cat")}
+                >
+                    Categories
+                </span>
+            </li>
+            <li class="nav-item">
+                <span
+                    class="nav-link {active === 'adv' ? 'active' : ''}"
+                    on:click={() => setActive("adv")}
+                >
+                    Advanced Search
+                </span>
+            </li>
+        </ul>
 
-    {#if active === "cat"}
-        <div class="card-carousel">
-            <svelte:component
-                this={Carousel}
-                bind:this={carousel}
-                particlesToShow={4}
-            >
-                {#each coinStore.categories as item, index}
-                    <CoinBox
-                        name={item.name}
-                        content={item.description}
-                        icon={item.id}
-                    />
-                {/each}
-            </svelte:component>
-        </div>
-        <CoinTable />
-    {/if}
-    {#if active === "adv"}
-        <div>
-            <div class="filter_box">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12 col-md-6">
-                        <div class="select_option">
-                            <Select
-                                items={top_items}
-                                value={"Top 250"}
-                                showChevron={true}
-                            />
+        {#if active === "cat"}
+            <div class="card-carousel">
+                <svelte:component
+                    this={Carousel}
+                    bind:this={carousel}
+                    particlesToShow={4}
+                >
+                    {#each coinStore.categories as item, index}
+                        <CoinBox
+                            name={item.name}
+                            content={item.description}
+                            icon={item.id}
+                        />
+                    {/each}
+                </svelte:component>
+            </div>
+            <CoinTable data={$markets}/>
+        {/if}
+        {#if active === "adv"}
+            <div>
+                <div class="filter_box">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12 col-md-6">
+                            <div class="select_option">
+                                <Select
+                                    items={top_items}
+                                    value={"Top 250"}
+                                    showChevron={true}
+                                />
+                            </div>
+                            <div style="margin-top: 20px" class="select_option">
+                                <Select
+                                    items={marketcap_items}
+                                    value={"Market Cap"}
+                                    showChevron={true}
+                                />
+                            </div>
                         </div>
-                        <div style="margin-top: 20px" class="select_option">
-                            <Select
-                                items={marketcap_items}
-                                value={"Market Cap"}
-                                showChevron={true}
-                            />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12 col-md-6">
-                        <div class="select_option">
-                            <Select
-                                items={volume_items}
-                                value={"Volume"}
-                                showChevron={true}
-                            />
-                        </div>
+                        <div class="col-lg-3 col-sm-12 col-md-6">
+                            <div class="select_option">
+                                <Select
+                                    items={volume_items}
+                                    value={"Volume"}
+                                    showChevron={true}
+                                />
+                            </div>
 
-                        <div style="margin-top: 20px" class="select_option">
-                            <Select
-                                items={liquidity_items}
-                                value={"Liquidity"}
-                                showChevron={true}
-                                isDisabled={true}
-                            />
+                            <div style="margin-top: 20px" class="select_option">
+                                <Select
+                                    items={liquidity_items}
+                                    value={"Liquidity"}
+                                    showChevron={true}
+                                    isDisabled={true}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12 col-md-6">
-                        <div class="select_option">
-                            <Select
-                                items={period_items}
-                                value={"Price Period"}
-                                showChevron={true}
-                            />
+                        <div class="col-lg-3 col-sm-12 col-md-6">
+                            <div class="select_option">
+                                <Select
+                                    items={period_items}
+                                    value={"Price Period"}
+                                    showChevron={true}
+                                />
+                            </div>
+                            <div class="select_option" style="margin-top: 20px">
+                                <Select
+                                    items={pricechange_items}
+                                    value={"Price Change"}
+                                    showChevron={true}
+                                />
+                            </div>
                         </div>
-                        <div class="select_option" style="margin-top: 20px">
-                            <Select
-                                items={pricechange_items}
-                                value={"Price Change"}
-                                showChevron={true}
-                            />
-                        </div>
-                    </div>
-                    <div
-                        class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end"
-                    >
-                        <button
-                            class="btn bg-lawrence text-white rounded-4 px-4"
-                            disabled
-                            ><span class="pe-2">Results:</span><span
-                                class="spinner-grow spinner-grow-sm d-none"
-                                role="status"
-                            /><span class="text-white">5</span></button
+                        <div
+                            class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end"
                         >
+                            <button
+                                class="btn bg-lawrence text-white rounded-4 px-4"
+                                disabled
+                                ><span class="pe-2">Results:</span><span
+                                    class="spinner-grow spinner-grow-sm d-none"
+                                    role="status"
+                                /><span class="text-white">5</span></button
+                            >
+                        </div>
                     </div>
                 </div>
+                <CoinTable />
             </div>
-            <CoinTable />
-        </div>
+        {/if}
     {/if}
 </section>
 

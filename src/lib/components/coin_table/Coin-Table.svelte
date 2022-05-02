@@ -1,50 +1,8 @@
 <script>
-    import None from "./../../../assets/img/coins/none.png";
+    // @ts-nocheck
     import Select from "svelte-select";
-    import { total_items } from "./../../filter";
-
-    import { Datatable } from "svelte-simple-datatables";
-    let data = [
-        {
-            id: 1,
-            first_name: "Tobie",
-            last_name: "Vint",
-            email: "tvint0@fotki.com",
-        },
-        {
-            id: 2,
-            first_name: "Zacharias",
-            last_name: "Cerman",
-            email: "zcerman1@sciencedirect.com",
-        },
-        {
-            id: 3,
-            first_name: "Gerianna",
-            last_name: "Bunn",
-            email: "gbunn2@foxnews.com",
-        },
-        {
-            id: 4,
-            first_name: "Bee",
-            last_name: "Saurin",
-            email: "bsaurin3@live.com",
-        },
-        {
-            id: 5,
-            first_name: "Meyer",
-            last_name: "Garnul",
-            email: "mgarnul4@yellowbook.com",
-        },
-    ];
-    
-    const settings = {
-        // columnFilter: true,
-        blocks: {
-            searchInput: false,
-        },
-    };
-
-    let rows;
+    import { total_items } from "../../selectData";
+    export let data = [];
 </script>
 
 <div class="coin-table">
@@ -58,30 +16,35 @@
         </div>
     </div>
     <div>
-        <!-- <Datatable
-            {data}
-            {settings}
-            bind:dataRows={rows}
-            id={'table'}
-        >
-            <tr class="header">
-                <td data-key="first_name">First Name</td>
-                <td data-key="last_name">Last Name</td>
-                <td data-key="email">Email</td>
-            </tr>
-            <tr>
-                {#if rows}
-                    {#each $rows as row}
+        <!-- <Datatable settings={settings} data={data} bind:dataRows={dataRows}>
+            <thead>
+                <th>Watchlist</th>
+                <th>#</th>
+                <th data-key="name">Name</th>
+                <th data-key="price">Price</th>
+                <th data-key="priceChange24h">24 Hours</th>
+                <th data-key="priceChange7d">7 days</th>
+                <th data-key="marketCap">Market Cap</th>
+                <th data-key="totalVolume" align="right">Volume</th>
+            </thead>
+            <tbody>
+                {#if dataRows}
+                    {#each dataRows as row}
                         <tr>
-                            <td>{row.first_name}</td>
-                            <td>{row.last_name}</td>
-                            <td>{row.email}</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>{row.name}</td>
+                            <td>{row.price}</td>
+                            <td>{row.priceChange24h}</td>
+                            <td>{row.priceChange7d}</td>
+                            <td>{row.marketCap}</td>
+                            <td>{row.totalVolume}</td>
                         </tr>
                     {/each}
                 {/if}
-            </tr>
+            </tbody>
         </Datatable> -->
-        <table class="table table-striped">
+        <!-- <table class="table table-striped">
             <tr class="header">
                 <td>Watchlist</td>
                 <td>#</td>
@@ -128,7 +91,7 @@
                 <td>$ 29,403,580,087</td>
                 <td align="right">$ 2,267,032,452</td>
             </tr>
-        </table>
+        </table> -->
     </div>
 </div>
 
@@ -143,18 +106,18 @@
         --disabledBackground: #0b0b12;
         --disabledColor: grey;
         --indicatorColor: #c921cd;
-        --itemHoverBG: #007AFF
+        --itemHoverBG: #007aff;
     }
-    .coin-table{
+    .coin-table {
         margin-top: 40px;
         width: 100%;
-        height: 770px;
+        min-height: 770px;
         background-color: #141421;
         border-radius: 12px;
-        padding: 20px
+        padding: 20px;
     }
 
-    #coin_kind{
+    /* #coin_kind{
         width: 283px;
         height: 48px;
         border-radius: 12px;
@@ -168,7 +131,6 @@
 
     .table{
         margin-top: 40px;
-        /* padding: 20px; */
         color: white;
         font-size: 12px;
     }
@@ -186,5 +148,5 @@
         padding-top: 16px;
         padding-bottom: 16px;
         border-bottom: 1px solid #353535;
-    }
+    } */
 </style>
