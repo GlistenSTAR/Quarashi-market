@@ -9,174 +9,59 @@
         priceColor,
         currencyFullValue,
     } from "./../../../helpers";
+    import isEmpty from "./../../../utils/is-empty";
 
     export let data = [];
+    export let watchlist;
+    console.log(watchlist)
 
     let rows = [];
     let page = 0,
         pageIndex = 0,
         pageSize = 50; //inital value
 
-    let loading = true;
-    let rowsCount = 0;
-    let text;
     let sorting;
+    let oldWatchlist = {};
 
     onMount(() => {
-        load(page);
-    });
-
-    async function load(_page) {
-        loading = true;
-        const data1 = await getData(_page, pageSize, text, sorting);
-        rows = data1.rows;
-        rowsCount = data1.rowsCount;
-        loading = false;
-    }
-
-    function getData(page, pageSize, text, sorting) {
-        let originalData = data;
-
-        if (sorting) {
-            if (sorting.key === "rank") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "price") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "priceChange24h") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "name") {
-                originalData = sortString(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortString(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "marketCap") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "priceChange7d") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-            if (sorting.key === "totalVolume") {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            } else {
-                originalData = sortNumber(
-                    originalData,
-                    sorting.dir,
-                    sorting.key
-                );
-            }
-        }
-
-        return new Promise((resolve, reject) => {
-            setTimeout(function () {
-                let rowsCount = originalData.length;
-                const originalRows = data;
-                let rows = [];
-
-                if (text && text.length > 0) {
-                    for (let i in originalRows) {
-                        for (let j in originalRows[i]) {
-                            if (
-                                originalRows[i][j]
-                                    .toString()
-                                    .toLowerCase()
-                                    .indexOf(text) > -1
-                            ) {
-                                rows.push(originalRows[i]);
-                                break;
-                            }
-                        }
-                    }
-
-                    rowsCount = rows.length;
-                } else {
-                    rows = originalRows;
+        oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
+        if( watchlist){
+            let filterData = [];
+            data.map((item)=>{
+                if(oldWatchlist[`${item.id}`]){
+                    filterData.push(item);
                 }
-
-                resolve({
-                    rows: rows.slice(0, pageSize),
-                    rowsCount: rowsCount - 1,
-                });
-            }, 500);
-        });
-    }
-
-    function onPageChange(event) {
-        load(event.detail.page);
-        page = event.detail.page;
-    }
+            })
+            rows = filterData
+        } else {
+            rows = data;
+        }
+    });
 
     async function onSort(event) {
         sorting = { dir: event.detail.dir, key: event.detail.key };
         await load(page);
     }
+
+    function setFav(id, event) {
+        if (!isEmpty(oldWatchlist)) {
+            if (oldWatchlist[`${id}`] === true) {
+                event.target.classList.remove("active");
+                delete oldWatchlist[`${id}`];
+            } else {
+                event.target.classList.add("active");
+                oldWatchlist[`${id}`] = true;
+            }
+        } else {
+            oldWatchlist = {};
+            oldWatchlist[`${id}`] = true;
+        }
+        let storage = JSON.stringify(oldWatchlist);
+        localStorage.setItem("watchlist", storage);
+    }
 </script>
 
-<Table {loading} {rows} {pageIndex} {pageSize} let:rows={rows2}>
+<Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
     <thead slot="head">
         <tr>
             <th width="1%">Watchlist</th>
@@ -204,7 +89,16 @@
     <tbody>
         {#each rows2 as row, index (row)}
             <Row {index}>
-                <td align="center"><i class="far fa-star" /></td>
+                <td
+                    align="center"
+                    on:click|preventDefault={(event) => setFav(row.id, event)}
+                >
+                    {#if oldWatchlist[`${row.id}`]}
+                        <i class="far fa-star active" />
+                    {:else}
+                        <i class="far fa-star" />
+                    {/if}
+                </td>
                 <td>{row.rank}</td>
                 <td
                     ><img
@@ -226,15 +120,6 @@
             </Row>
         {/each}
     </tbody>
-    <div slot="bottom" class="bottom">
-        <Pagination
-            {page}
-            {pageSize}
-            count={rowsCount}
-            serverSide={true}
-            on:pageChange={onPageChange}
-        />
-    </div>
 </Table>
 
 <style>
@@ -252,5 +137,8 @@
     .text-right {
         text-align: right;
         padding-right: 20px;
+    }
+    i.active {
+        color: #c921cd;
     }
 </style>

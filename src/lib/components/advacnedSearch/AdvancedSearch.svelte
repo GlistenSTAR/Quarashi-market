@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import Select from "svelte-select";
     import {
         top_items,

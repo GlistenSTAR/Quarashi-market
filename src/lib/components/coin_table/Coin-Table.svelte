@@ -4,6 +4,7 @@
     import { total_items } from "../../selectData";
     import Datatable from "./Datatable.svelte";
     export let data = [];
+    export let watchlist;
 </script>
 
 <div class="coin-table">
@@ -17,7 +18,7 @@
         </div>
     </div>
     <div>
-        <Datatable {data} />
+        <Datatable {data} {watchlist}/>
     </div>
 </div>
 
@@ -41,6 +42,6 @@
         background-color: #141421;
         border-radius: 12px;
         padding: 20px;
-        padding-bottom: 40px;
+        padding-bottom: 60px;
     }
 </style>

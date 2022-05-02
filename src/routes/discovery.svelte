@@ -10,8 +10,8 @@
 	import isEmpty from "./../utils/is-empty";
     import coinStore from "$lib/coins-store";
     
-
     let active = "cat";
+    let watchlist = false;
     /**
      * @type {typeof import("svelte-carousel").default}
      */
@@ -75,7 +75,7 @@
                     {/each}
                 </svelte:component>
             </div>
-            <CoinTable data={$markets}/>
+            <CoinTable data={$markets} {watchlist}/>
         {/if}
         {#if active === "adv"}
             <AdvancedSearch />
