@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <CoinTable data={$markets} />
+    <CoinTable data={$markets} watchlist={false}/>
 </div>
 
 <style>

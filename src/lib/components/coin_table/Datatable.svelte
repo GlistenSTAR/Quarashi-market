@@ -13,7 +13,7 @@
 
     export let data = [];
     export let watchlist;
-    console.log(watchlist)
+    console.log(watchlist);
 
     let rows = [];
     let page = 0,
@@ -25,22 +25,33 @@
 
     onMount(() => {
         oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
-        if( watchlist){
+        if (watchlist) {
             let filterData = [];
-            data.map((item)=>{
-                if(oldWatchlist[`${item.id}`]){
+            data.map((item) => {
+                if (oldWatchlist[`${item.id}`]) {
                     filterData.push(item);
                 }
-            })
-            rows = filterData
+            });
+            rows = filterData;
         } else {
             rows = data;
         }
     });
 
-    async function onSort(event) {
-        sorting = { dir: event.detail.dir, key: event.detail.key };
-        await load(page);
+    function onSortString(event) {
+        event.detail.rows = sortString(
+            event.detail.rows,
+            event.detail.dir,
+            event.detail.key
+        );
+    }
+
+    function onSortNumber(event) {
+        event.detail.rows = sortNumber(
+            event.detail.rows,
+            event.detail.dir,
+            event.detail.key
+        );
     }
 
     function setFav(id, event) {
@@ -65,24 +76,24 @@
     <thead slot="head">
         <tr>
             <th width="1%">Watchlist</th>
-            <th width="5%"><Sort key="rank" on:sort={onSort} title="#" /></th>
+            <th width="5%"><Sort key="rank" on:sort={onSortNumber} title="#" /></th>
             <th width="20%">
-                <Sort key="name" on:sort={onSort} title="Name" />
+                <Sort key="name" on:sort={onSortString} title="Name" />
             </th>
             <th>
-                <Sort key="price" on:sort={onSort} title="Price" />
+                <Sort key="price" on:sort={onSortNumber} title="Price" />
             </th>
             <th class="text-center">
-                <Sort key="priceChange24h" on:sort={onSort} title="24 Hours" />
+                <Sort key="priceChange24h" on:sort={onSortNumber} title="24 Hours" />
             </th>
             <th class="text-center">
-                <Sort key="priceChange7d" on:sort={onSort} title="7 days" />
+                <Sort key="priceChange7d" on:sort={onSortNumber} title="7 days" />
             </th>
             <th>
-                <Sort key="marketCap" on:sort={onSort} title="Market Cap" />
+                <Sort key="marketCap" on:sort={onSortNumber} title="Market Cap" />
             </th>
             <th class="text-right">
-                <Sort key="totalVolume" on:sort={onSort} title="Volume" />
+                <Sort key="totalVolume" on:sort={onSortNumber} title="Volume" />
             </th>
         </tr>
     </thead>

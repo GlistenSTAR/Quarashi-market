@@ -12,18 +12,6 @@
     <h1>
         Watchlist
     </h1>
-    <div class="coin-table">
-        <CoinTable data={$markets} {watchlist}/>
-    </div>
+    <CoinTable data={$markets} {watchlist}/>
 </div>
 
-<style>
-    .coin-table{
-        margin-top: 40px;
-        width: 100%;
-        min-height: 770px;
-        background-color: #141421;
-        border-radius: 12px;
-        padding: 20px
-    }
-</style>

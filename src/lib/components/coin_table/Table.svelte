@@ -57,6 +57,7 @@
     function onPageChange(event) {
         dispatch("pageChange", event.detail);
     }
+    
 </script>
 
 <table class={"table " + $$props.class} class:responsive>
