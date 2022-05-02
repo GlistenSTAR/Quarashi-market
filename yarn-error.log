@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Lionheart\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add svelte-content-loader
+  C:\Program Files\nodejs\node.exe C:\Users\Lionheart\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @activewidgets/svelte
 
 PATH: 
   C:\Users\Lionheart\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Lionheart\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python\Python39\Scripts;C:\Python\Python39;C:\Python\Python39\Scripts;C:\Python\Python39;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\ProgramData\ComposerSetup\bin;C:\Program Files\PuTTY;C:\Users\Lionheart\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\Lionheart\.cargo\bin;C:\Users\Lionheart\AppData\Local\Microsoft\WindowsApps;C:\Users\Lionheart\AppData\Roaming\npm;D:\All_Xampp\xampp_7.4\php;C:\Users\Lionheart\AppData\Roaming\Composer\vendor\bin;C:\curl-7.74.0_2-win64-mingw\bin;C:\Program Files\JetBrains\WebStorm 2021.2.3\bin;C:\Users\Lionheart\AppData\Local\Android\Sdk\emulator;C:\Users\Lionheart\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Lionheart\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\curl-7.74.0_2-win64-mingw\bin;C:\Program Files\heroku\bin;C:\Program Files\Java\jdk1.8.0_271\bin;C:\Program Files\MongoDB\Server\4.4\bin;C:\flutter\bin;C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.11.25503\bin\HostX64\x64;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:67:26)
 
 npm manifest: 
@@ -50,11 +50,13 @@ npm manifest:
       "@reduxjs/toolkit": "^1.8.1",
       "axios": "^0.27.2",
       "cookie": "^0.4.1",
+      "dotenv": "^16.0.0",
+      "lightweight-charts": "^3.8.0",
+      "moment": "^2.29.3",
       "numbro": "^2.3.6",
       "svelte-carousel": "^1.0.17-rc4",
       "svelte-content-loader": "^1.1.3",
       "svelte-select": "4.4.4",
-      "svelte-simple-datatables": "^0.2.3",
       "sveltestrap": "^5.9.0"
     }
   }
@@ -1087,6 +1089,11 @@ Lockfile:
     dependencies:
       esutils "^2.0.2"
   
+  dotenv@^16.0.0:
+    version "16.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
+    integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
+  
   electron-to-chromium@^1.4.84:
     version "1.4.118"
     resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.118.tgz#2d917c71712dac9652cc01af46c7d0bd51552974"
@@ -1408,6 +1415,11 @@ Lockfile:
       yauzl "^2.10.0"
     optionalDependencies:
       "@types/yauzl" "^2.9.1"
+  
+  fancy-canvas@0.2.2:
+    version "0.2.2"
+    resolved "https://registry.yarnpkg.com/fancy-canvas/-/fancy-canvas-0.2.2.tgz#33fd4976724169a1eda5015f515a2a1302d1ec91"
+    integrity sha512-50qi8xA0QkHbjmb8h7XQ6k2fvD7y/yMfiUw9YTarJ7rWrq6o5/3CCXPouYk+XSLASvvxtjyiQLRBFt3qkE3oyA==
   
   fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
     version "3.1.3"
@@ -1819,6 +1831,13 @@ Lockfile:
       prelude-ls "^1.2.1"
       type-check "~0.4.0"
   
+  lightweight-charts@^3.8.0:
+    version "3.8.0"
+    resolved "https://registry.yarnpkg.com/lightweight-charts/-/lightweight-charts-3.8.0.tgz#8c41ad7c1c083f18621f11ece7fc1096e131a0d3"
+    integrity sha512-7yFGnYuE1RjRJG9RwUTBz5wvF1QtjBOSW4FFlikr8Dh+/TDNt4ci+HsWSYmStgQUpawpvkCJ3j5/W25GppGj9Q==
+    dependencies:
+      fancy-canvas "0.2.2"
+  
   lodash.clonedeep@^4.5.0:
     version "4.5.0"
     resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
@@ -1925,6 +1944,11 @@ Lockfile:
     integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
     dependencies:
       minimist "^1.2.6"
+  
+  moment@^2.29.3:
+    version "2.29.3"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.3.tgz#edd47411c322413999f7a5940d526de183c031f3"
+    integrity sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==
   
   mri@^1.1.0:
     version "1.2.0"
@@ -2498,11 +2522,6 @@ Lockfile:
     version "4.4.4"
     resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-4.4.4.tgz#c8edcc829fb163d66adec5505507321ad857e6e0"
     integrity sha512-Jfa8NM3AtPb2qDKuOJuVXtTBm4q7wfUnGSQ7uhQLoMop5gzk1lKVOY5nWhUD1jnPnUfw5C6aK0WSnA7PthBSxA==
-  
-  svelte-simple-datatables@^0.2.3:
-    version "0.2.3"
-    resolved "https://registry.yarnpkg.com/svelte-simple-datatables/-/svelte-simple-datatables-0.2.3.tgz#ccb437392a9523749d062884d800bf8d74320a77"
-    integrity sha512-WsWbB66KzvpYN9r9WpRgXthGejsH2QFJfoRw/ssKw81Fn659IBMVzAZtOojR5mgEDZ2j24j4BJvoThcH8DXxwA==
   
   svelte@^3.47.0:
     version "3.47.0"

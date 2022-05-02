@@ -2456,11 +2456,6 @@ svelte-select@4.4.4:
   resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-4.4.4.tgz#c8edcc829fb163d66adec5505507321ad857e6e0"
   integrity sha512-Jfa8NM3AtPb2qDKuOJuVXtTBm4q7wfUnGSQ7uhQLoMop5gzk1lKVOY5nWhUD1jnPnUfw5C6aK0WSnA7PthBSxA==
 
-svelte-simple-datatables@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/svelte-simple-datatables/-/svelte-simple-datatables-0.2.3.tgz#ccb437392a9523749d062884d800bf8d74320a77"
-  integrity sha512-WsWbB66KzvpYN9r9WpRgXthGejsH2QFJfoRw/ssKw81Fn659IBMVzAZtOojR5mgEDZ2j24j4BJvoThcH8DXxwA==
-
 svelte@^3.47.0:
   version "3.47.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.47.0.tgz#ba46fe4aea99fc650d6939c215cd4694f5325a19"
