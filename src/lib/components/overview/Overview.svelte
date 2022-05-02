@@ -1,11 +1,12 @@
 <script>
+    //@ts-nocheck
     export let item = {};
     import {
         currencyFormat,
         percentageFormat,
         priceColor,
     } from "./../../../helpers";
-    import ChartLight from "../Chart/ChartLight.svelte";
+    import ChartLight from "../chart/ChartLight.svelte";
 </script>
 
 <!-- chart remain -->
@@ -108,6 +109,7 @@
                 </h2>
             </div>
             <div class="chart-box">
+                <!-- points.defiMarket -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.defiMarket}
@@ -134,6 +136,7 @@
                 </h2>
             </div>
             <div class="chart-box">
+                <!-- points.tvl -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.tvl}

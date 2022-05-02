@@ -8,8 +8,6 @@
 	import isEmpty from "./../utils/is-empty";
 
 	import {
-		coinInfo,
-		discovery,
 		markets,
 		defi,
 		marketsGlobal,

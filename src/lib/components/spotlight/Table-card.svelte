@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     export let name = "";
     export let method = "";
     export let icon = "";

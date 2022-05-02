@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import isEmpty from "../../../utils/is-empty";
     import TableCard from "./Table-card.svelte";
 

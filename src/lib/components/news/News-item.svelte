@@ -1,6 +1,6 @@
 <script>
     import moment from "moment";
-
+    //@ts-nocheck
     export let item = {};
     export let key = "";
 </script>

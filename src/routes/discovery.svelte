@@ -1,24 +1,15 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
-    import Select from "svelte-select";
 
     import CoinBox from "$lib/components/CoinBox.svelte";
     import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
 	import Loading from "$lib/components/loader/Loading.svelte";
+    import AdvancedSearch from "$lib/components/advacnedSearch/AdvancedSearch.svelte";
 
 	import isEmpty from "./../utils/is-empty";
-    
-
-    import {
-        top_items,
-        volume_items,
-        period_items,
-        marketcap_items,
-        liquidity_items,
-        pricechange_items,
-    } from "$lib/selectData.js";
     import coinStore from "$lib/coins-store";
+    
 
     let active = "cat";
     /**
@@ -27,12 +18,7 @@
     let Carousel, carousel;
 
     import {
-        coinInfo,
-        discovery,
         markets,
-        defi,
-        marketsGlobal,
-        news,
     } from "../store";
 
     onMount(async () => {
@@ -80,7 +66,7 @@
                     bind:this={carousel}
                     particlesToShow={4}
                 >
-                    {#each coinStore.categories as item, index}
+                    {#each coinStore.categories as item}
                         <CoinBox
                             name={item.name}
                             content={item.description}
@@ -92,75 +78,7 @@
             <CoinTable data={$markets}/>
         {/if}
         {#if active === "adv"}
-            <div>
-                <div class="filter_box">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-12 col-md-6">
-                            <div class="select_option">
-                                <Select
-                                    items={top_items}
-                                    value={"Top 250"}
-                                    showChevron={true}
-                                />
-                            </div>
-                            <div style="margin-top: 20px" class="select_option">
-                                <Select
-                                    items={marketcap_items}
-                                    value={"Market Cap"}
-                                    showChevron={true}
-                                />
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-12 col-md-6">
-                            <div class="select_option">
-                                <Select
-                                    items={volume_items}
-                                    value={"Volume"}
-                                    showChevron={true}
-                                />
-                            </div>
-
-                            <div style="margin-top: 20px" class="select_option">
-                                <Select
-                                    items={liquidity_items}
-                                    value={"Liquidity"}
-                                    showChevron={true}
-                                    isDisabled={true}
-                                />
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-12 col-md-6">
-                            <div class="select_option">
-                                <Select
-                                    items={period_items}
-                                    value={"Price Period"}
-                                    showChevron={true}
-                                />
-                            </div>
-                            <div class="select_option" style="margin-top: 20px">
-                                <Select
-                                    items={pricechange_items}
-                                    value={"Price Change"}
-                                    showChevron={true}
-                                />
-                            </div>
-                        </div>
-                        <div
-                            class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end"
-                        >
-                            <button
-                                class="btn bg-lawrence text-white rounded-4 px-4"
-                                disabled
-                                ><span class="pe-2">Results:</span><span
-                                    class="spinner-grow spinner-grow-sm d-none"
-                                    role="status"
-                                /><span class="text-white">5</span></button
-                            >
-                        </div>
-                    </div>
-                </div>
-                <CoinTable />
-            </div>
+            <AdvancedSearch />
         {/if}
     {/if}
 </section>
@@ -201,26 +119,6 @@
         margin-top: 40px;
         margin-left: -50px;
         margin-right: -50px;
-    }
-
-    .filter_box {
-        margin-top: 40px;
-        background-color: #141421;
-        padding: 20px;
-        border-radius: 12px;
-    }
-
-    .select_option {
-        --background: #0b0b12;
-        --borderRadius: 12px;
-        --listBackground: #0b0b12;
-        --clearSelectColor: #c921cd;
-        --clearSelectFocusColor: #c921cd;
-        --inputFontSize: 12px;
-        --disabledBackground: #0b0b12;
-        --disabledColor: grey;
-        --indicatorColor: #c921cd;
-        --itemHoverBG: #007aff;
     }
 
     @media (max-width: 1352px) {

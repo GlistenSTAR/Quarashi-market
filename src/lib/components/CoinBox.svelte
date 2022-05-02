@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import { getCardIcon } from "./getIcon";
 
     export let name = "";

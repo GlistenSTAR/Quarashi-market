@@ -78,7 +78,6 @@ export function normalizeCoins(markets) {
  * @param {any[] | Promise<any>} markets
  */
 export function normalizeDefiCoins(markets) {
-    console.log('marktes for deficoin', markets);
     const coins = []
     const chains = {}
     const multiChain = 'Multi-Chain'

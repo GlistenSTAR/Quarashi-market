@@ -5,8 +5,6 @@ const marketsBaseUrl = 'markets.horizontalsystems.xyz/api/v1'
 const coingeckoBaseUrl = 'api.coingecko.com/api/v3/coins'
 
 import {
-  coinInfo,
-  discovery,
   markets,
   defi,
   marketsGlobal,

@@ -1,6 +1,6 @@
 <script>
+    //@ts-nocheck
     import NewsItem from "./News-item.svelte";
-
     export let name = "";
     export let key = "";
     export let data = [];

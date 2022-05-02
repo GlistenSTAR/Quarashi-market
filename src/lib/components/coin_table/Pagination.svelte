@@ -1,6 +1,12 @@
 <script context="module">
+    /**
+     * @type {any}
+     */
     let globalLabels;
 
+    /**
+     * @param {any} labels
+     */
     export function setLabels(labels) {
         globalLabels = labels;
     }
