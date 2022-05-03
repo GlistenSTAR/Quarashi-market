@@ -7,12 +7,8 @@
 
 	import isEmpty from "./../utils/is-empty";
 
-	import {
-		markets,
-		defi,
-		marketsGlobal,
-		news,
-	} from "../store";
+	import { markets, defi, marketsGlobal, news } from "../store";
+	// console.log('markets', $markets, 'defi', $defi, 'marketsGlobal', $marketsGlobal, 'news', $news)
 </script>
 
 <svelte:head>

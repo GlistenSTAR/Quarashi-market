@@ -33,7 +33,7 @@
                     />
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12 col-md-6">
+            <div class="col-lg-3 col-sm-12 col-md-6 middle">
                 <div class="select_option">
                     <Select
                         items={volume_items}
@@ -51,7 +51,7 @@
                     />
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12 col-md-6">
+            <div class="col-lg-3 col-sm-12 col-md-6 last">
                 <div class="select_option">
                     <Select
                         items={period_items}
@@ -76,12 +76,12 @@
                     ><span class="pe-2">Results:</span><span
                         class="spinner-grow spinner-grow-sm d-none"
                         role="status"
-                    /><span class="text-white">5</span></button
+                    /><span class="text-white">{$markets.length}</span></button
                 >
             </div>
         </div>
     </div>
-    <CoinTable data={$markets} watchlist={false}/>
+    <CoinTable watchlist={false}/>
 </div>
 
 <style>
@@ -95,6 +95,7 @@
     .select_option {
         --background: #0b0b12;
         --borderRadius: 12px;
+        --border: 1px solid rgb(88, 88, 88);
         --listBackground: #0b0b12;
         --clearSelectColor: #c921cd;
         --clearSelectFocusColor: #c921cd;
@@ -103,5 +104,17 @@
         --disabledColor: grey;
         --indicatorColor: #c921cd;
         --itemHoverBG: #007aff;
+        --disabledBorderColor: rgb(88, 88, 88)
+    }
+
+    @media (max-width: 991px){
+        .col-lg-3.col-sm-12.col-md-6.last{
+            margin-top: 20px!important;
+        }
+    }
+    @media (max-width: 767px){
+        .col-lg-3.col-sm-12.col-md-6.middle{
+            margin-top: 20px!important;
+        }
     }
 </style>

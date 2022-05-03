@@ -144,6 +144,7 @@
 	li.active a {
 		color: #c921cd;
 	}
+
 	nav a {
 		color: white;
 		font-weight: 700;
@@ -176,6 +177,7 @@
 		height: 48px;
 		border-right: none;
 		color: white;
+		/* font-size: 12px; */
 	}
 
 	.search .input-group input::placeholder {
