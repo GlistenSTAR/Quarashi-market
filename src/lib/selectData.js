@@ -18,5 +18,12 @@ export const pricechange_items = [
 ];
 
 export const total_items = [
-    'Highest Cap', 'Lowest Cap', 'Highest Volume', 'Lowest Volume', 'Highest Price', 'Lowest Price', 'Top Gainers', 'Top Losers'
+    {label: 'Highest Cap', value:"highestCap"},
+    {label: 'Lowest Cap', value:"lowestCap"},
+    {label: 'Highest Volume', value:"highestVol"},
+    {label: 'Lowest Volume', value:"lowestVol"},
+    {label: 'Highest Price', value:"highestPrice"},
+    {label:  'Lowest Price', value:"lowestPrice"},
+    {label: 'Top Gainers', value:"topGainer"},
+    {label: 'Top Losers', value:"topLoser"}
 ]

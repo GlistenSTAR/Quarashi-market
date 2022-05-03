@@ -9,3 +9,4 @@ node_modules
 .vercel
 .output
 /src/utils/API_KEY.js
+.vscode

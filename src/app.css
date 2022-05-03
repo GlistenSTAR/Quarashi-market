@@ -110,6 +110,10 @@ button:focus:not(:focus-visible) {
 	border-color: white!important;
 }
 
+/* .sort.active span{
+	display:contents!important;
+} */
+
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;
