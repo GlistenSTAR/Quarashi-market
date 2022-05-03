@@ -198,12 +198,6 @@
         width: 100%;
         height: 100%;
     }
-    .chart-box img {
-        position: absolute;
-        bottom: 0;
-        right: -20px;
-        z-index: -1;
-    }
 
     .amount h2 {
         font-size: 26px;
@@ -212,9 +206,11 @@
         z-index: 1;
         text-transform: uppercase;
     }
+
     .text-success {
         color: #00a478 !important;
     }
+    
     .text-danger {
         color: #ff4a57 !important;
     }

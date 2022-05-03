@@ -22,6 +22,7 @@
     };
 
     function onClick(event) {
+        // event.target.classList.add("active");
         const state = stateContext.getState();
         let rows;
 
@@ -65,4 +66,7 @@
         padding: 0 0.5em;
         color: #999;
     }
+    /* .sort span{
+        display: none;
+    } */
 </style>

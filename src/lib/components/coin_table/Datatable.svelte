@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
-    import Table, { Pagination, Row, Sort } from "./Table.svelte";
+    import Table, { Row, Sort } from "./Table.svelte";
     import { sortNumber, sortString } from "./sorting.js";
     import {
         volume,
@@ -10,20 +10,18 @@
         currencyFullValue,
     } from "./../../../helpers";
     import isEmpty from "./../../../utils/is-empty";
-
-    export let data = [];
+    import { markets } from "./../../../store";
     export let watchlist;
-    console.log(watchlist);
 
     let rows = [];
-    let page = 0,
-        pageIndex = 0,
+    let pageIndex = 0,
+        data = $markets,
         pageSize = 50; //inital value
 
-    let sorting;
     let oldWatchlist = {};
 
     onMount(() => {
+        data = $markets;
         oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
         if (watchlist) {
             let filterData = [];
@@ -37,6 +35,7 @@
             rows = data;
         }
     });
+
 
     function onSortString(event) {
         event.detail.rows = sortString(
@@ -76,7 +75,9 @@
     <thead slot="head">
         <tr>
             <th width="1%">Watchlist</th>
-            <th width="5%"><Sort key="rank" on:sort={onSortNumber} title="#" /></th>
+            <th width="5%"
+                ><Sort key="rank" on:sort={onSortNumber} title="#" /></th
+            >
             <th width="20%">
                 <Sort key="name" on:sort={onSortString} title="Name" />
             </th>
@@ -84,13 +85,25 @@
                 <Sort key="price" on:sort={onSortNumber} title="Price" />
             </th>
             <th class="text-center">
-                <Sort key="priceChange24h" on:sort={onSortNumber} title="24 Hours" />
+                <Sort
+                    key="priceChange24h"
+                    on:sort={onSortNumber}
+                    title="24 Hours"
+                />
             </th>
             <th class="text-center">
-                <Sort key="priceChange7d" on:sort={onSortNumber} title="7 days" />
+                <Sort
+                    key="priceChange7d"
+                    on:sort={onSortNumber}
+                    title="7 days"
+                />
             </th>
             <th>
-                <Sort key="marketCap" on:sort={onSortNumber} title="Market Cap" />
+                <Sort
+                    key="marketCap"
+                    on:sort={onSortNumber}
+                    title="Market Cap"
+                />
             </th>
             <th class="text-right">
                 <Sort key="totalVolume" on:sort={onSortNumber} title="Volume" />

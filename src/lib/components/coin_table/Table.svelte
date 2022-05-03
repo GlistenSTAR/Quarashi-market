@@ -1,4 +1,5 @@
 <script context="module">
+    //@ts-nocheck
     import Pagination, {
         setLabels as _setPaginationLabels,
     } from "./Pagination.svelte";
@@ -6,6 +7,9 @@
     import Sort, { setLabels as _setSortLabels } from "./Sort.svelte";
     export { Pagination, Row, Sort };
 
+    /**
+     * @type {any}
+     */
     let globalLabels;
 
     export function setTableLabels(labels) {
@@ -24,7 +28,7 @@
     export let page = 0;
     export let pageIndex = 0;
     export let pageSize = 10;
-    export let responsive = true;
+    export let responsive = false;
     export let rows;
     export let serverSide = false;
     export let labels = {
@@ -57,7 +61,6 @@
     function onPageChange(event) {
         dispatch("pageChange", event.detail);
     }
-    
 </script>
 
 <table class={"table " + $$props.class} class:responsive>
@@ -136,55 +139,11 @@
         margin-top: 1em;
     }
 
-    @media screen and (max-width: 767px) {
-        table.responsive {
-            border: 0;
+    @media screen and (max-width: 830px) {
+        .table{
+            min-width: 830px;
+            overflow-x: auto;
         }
-
-        table.responsive :global(thead) {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        table.responsive :global(tr) {
-            border-bottom: 2px solid #ddd;
-            display: block;
-            padding-bottom: 0.3em;
-            margin-bottom: 0.3em;
-        }
-
-        table.responsive :global(td) {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: 0.8em;
-            text-align: right;
-        }
-
-        table.responsive :global(td::before) {
-            /*
-      * aria-label has no advantage, it won't be read inside a table content: attr(aria-label);
-      */
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-        }
-
-        table.responsive :global(td[data-label-normal]::before) {
-            font-weight: normal;
-        }
-
-        table.responsive :global(td[data-label-upper]::before) {
-            text-transform: uppercase;
-        }
-
-        table.responsive :global(td:last-child) {
-            border-bottom: 0;
-        }
+        
     }
 </style>

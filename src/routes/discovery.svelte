@@ -4,22 +4,19 @@
 
     import CoinBox from "$lib/components/CoinBox.svelte";
     import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
-	import Loading from "$lib/components/loader/Loading.svelte";
+    import Loading from "$lib/components/loader/Loading.svelte";
     import AdvancedSearch from "$lib/components/advacnedSearch/AdvancedSearch.svelte";
 
-	import isEmpty from "./../utils/is-empty";
+    import isEmpty from "./../utils/is-empty";
     import coinStore from "$lib/coins-store";
-    
+    import { markets } from "./../store";
+
     let active = "cat";
     let watchlist = false;
     /**
      * @type {typeof import("svelte-carousel").default}
      */
     let Carousel, carousel;
-
-    import {
-        markets,
-    } from "../store";
 
     onMount(async () => {
         const module = await import("svelte-carousel");
@@ -37,8 +34,8 @@
 
 <section>
     {#if isEmpty($markets)}
-		<Loading />
-	{:else}
+        <Loading />
+    {:else}
         <h1>Discovery</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -75,10 +72,10 @@
                     {/each}
                 </svelte:component>
             </div>
-            <CoinTable data={$markets} {watchlist}/>
+            <CoinTable {watchlist} />
         {/if}
         {#if active === "adv"}
-            <AdvancedSearch />
+            <AdvancedSearch {watchlist} />
         {/if}
     {/if}
 </section>

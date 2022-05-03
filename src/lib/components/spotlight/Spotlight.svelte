@@ -63,12 +63,6 @@
         justify-content: space-around;
     }
 
-    @media (max-width: 1380px) {
-        .table-cards {
-            padding: 10px;
-        }
-    }
-
     @media (max-width: 1024px) {
         .table-cards {
             display: flex;
