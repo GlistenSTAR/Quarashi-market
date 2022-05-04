@@ -9,6 +9,7 @@ import {
   defi,
   marketsGlobal,
   news,
+  watchlist
 } from "./../store";
 
 import { normalize, normalizeCoins, normalizeDefiCoins } from './filters';
@@ -21,6 +22,11 @@ export async function getMarketsGlobal() {
   } catch (error) {
     console.error(error);
   }
+}
+
+export async function getWatchlist() {
+  // @ts-ignore
+  watchlist.set(JSON.parse(localStorage.getItem("watchlist")))
 }
 
 // @ts-ignore
@@ -70,15 +76,15 @@ export function getCoinInfo(id) {
 }
 
 export async function getNews() {
-  try{
+  try {
     const data = await API.get(`min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
-    if(data.Message == "News list successfully returned"){
+    if (data.Message == "News list successfully returned") {
       news.set(data.Data)
     } else {
       console.log(data.Message)
     }
     return data
-  } catch (error){
+  } catch (error) {
     console.log(error)
   }
 }
