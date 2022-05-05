@@ -8,7 +8,6 @@
         categoriesData,
         advancedData,
         watchlistData,
-markets,
     } from "./../../../store";
 
     export let method = "";

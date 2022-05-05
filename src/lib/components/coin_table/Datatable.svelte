@@ -16,7 +16,9 @@
         watchlistData,
         categoriesData,
         advancedData,
+        flag,
     } from "./../../../store";
+    import coinStore from "$lib/coins-store";
 
     export let method = "";
 
@@ -26,7 +28,25 @@
     let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
 
     $: if (method == "cat") {
-        rows = $categoriesData;
+        if (!isEmpty($flag)) {
+            let cat_tab_data = [];
+            $markets.map((item) => {
+                if (
+                    !isEmpty(coinStore.coins) &&
+                    !isEmpty(coinStore.coins[`${item.id}`]) &&
+                    !isEmpty(coinStore.coins[`${item.id}`].categories) &&
+                    !isEmpty(
+                        coinStore.coins[`${item.id}`].categories.find(test => test == $flag)
+                    )
+                ) {
+                    cat_tab_data.push(item);
+                }
+            });
+            categoriesData.set(cat_tab_data)
+            rows = $categoriesData
+        } else {
+            rows = $categoriesData;
+        }
     } else if (method == "adv") {
         rows = $advancedData;
     } else if (method == "watch") {
