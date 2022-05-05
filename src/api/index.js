@@ -26,7 +26,7 @@ export async function getMarketsGlobal() {
 
 export async function getWatchlist() {
   // @ts-ignore
-  watchlist.set(JSON.parse(localStorage.getItem("watchlist")))
+  watchlist.set(await JSON.parse(localStorage.getItem("watchlist")))
 }
 
 // @ts-ignore

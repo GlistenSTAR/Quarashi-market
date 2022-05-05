@@ -16,7 +16,7 @@
 </svelte:head>
 
 <section>
-	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi) || isEmpty($news)}
+	{#if isEmpty($marketsGlobal) || isEmpty($markets) || (isEmpty($defi) && isEmpty($news))}
 		<Loading />
 	{:else}
 		<!-- Overview -->
@@ -26,14 +26,16 @@
 		<Spotlight data={$markets} defiData={$defi} />
 
 		<!-- Top news -->
-		<div style="margin-top: 40px; width: 100%">
-			<h3>Top News</h3>
-			<div class="news">
-				<News name="CoinTelegraph" data={$news} key="0" />
-				<News name="TheBlock" data={$news} key="1" />
-				<News name="Decrypt" data={$news} key="2" />
+		{#if !isEmpty($news)}
+			<div style="margin-top: 40px; width: 100%">
+				<h3>Top News</h3>
+				<div class="news">
+					<News name="CoinTelegraph" data={$news} key="0" />
+					<News name="TheBlock" data={$news} key="1" />
+					<News name="Decrypt" data={$news} key="2" />
+				</div>
 			</div>
-		</div>
+		{/if}
 	{/if}
 </section>
 
