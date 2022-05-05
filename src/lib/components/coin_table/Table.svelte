@@ -7,9 +7,6 @@
     import Sort, { setLabels as _setSortLabels } from "./Sort.svelte";
     export { Pagination, Row, Sort };
 
-    /**
-     * @type {any}
-     */
     let globalLabels;
 
     export function setTableLabels(labels) {
@@ -32,11 +29,11 @@
     export let rows;
     export let serverSide = false;
     export let labels = {
-        empty: "No records available",
-        loading: "Loading data",
+        empty: "There is no datas....",
+        loading: "Loading data...",
         ...globalLabels,
     };
-
+    
     let buttons = [-2, -1, 0, 1, 2];
     let pageCount = 0;
 
@@ -68,7 +65,7 @@
     {#if loading}
         <tbody>
             <tr>
-                <td class="center" colspan="100%">
+                <td class="center" colspan="100%" style="height: 100px;border: none; color: #C921CD">
                     <span>
                         {@html labels.loading}
                     </span>
@@ -78,7 +75,7 @@
     {:else if visibleRows.length === 0}
         <tbody>
             <tr>
-                <td class="center" colspan="100%">
+                <td class="center" colspan="100%" style="height: 100px;border: none; color: #C921CD">
                     <span>
                         {@html labels.empty}
                     </span>
@@ -91,18 +88,20 @@
     <slot name="foot" />
 </table>
 
-<slot name="bottom">
-    <div class="slot-bottom">
-        <svelte:component
-            this={Pagination}
-            {page}
-            {pageSize}
-            {serverSide}
-            count={filteredRows.length - 1}
-            on:pageChange={onPageChange}
-        />
-    </div>
-</slot>
+{#if rows.length != 0}
+    <slot name="bottom">
+        <div class="slot-bottom">
+            <svelte:component
+                this={Pagination}
+                {page}
+                {pageSize}
+                {serverSide}
+                count={filteredRows.length - 1}
+                on:pageChange={onPageChange}
+            />
+        </div>
+    </slot>
+{/if}
 
 <style>
     .table {
@@ -140,10 +139,9 @@
     }
 
     @media screen and (max-width: 830px) {
-        .table{
+        .table {
             min-width: 830px;
             overflow-x: auto;
         }
-        
     }
 </style>

@@ -20,7 +20,7 @@ export async function getMarketsGlobal() {
     marketsGlobal.set(normalize(response));
     return response
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
@@ -80,8 +80,6 @@ export async function getNews() {
     const data = await API.get(`min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
     if (data.Message == "News list successfully returned") {
       news.set(data.Data)
-    } else {
-      console.log(data.Message)
     }
     return data
   } catch (error) {
@@ -99,7 +97,7 @@ const getMarketsRecursive = async (page = 1, perPage = 250, count = 250) => {
     return data.concat(await getMarketsRecursive(page + 1, count))
 
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 

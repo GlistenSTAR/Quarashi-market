@@ -1,41 +1,37 @@
 <script>
     // @ts-nocheck
-    import { onMount } from "svelte";
     import Table, { Row, Sort } from "./Table.svelte";
     import { sortNumber, sortString } from "./sorting.js";
+    import isEmpty from "./../../../utils/is-empty";
     import {
         volume,
         percentageFormat,
         priceColor,
         currencyFullValue,
     } from "./../../../helpers";
-    import isEmpty from "./../../../utils/is-empty";
-    import { markets } from "./../../../store";
-    export let watchlist;
+
+    import {
+        markets,
+        watchlist,
+        watchlistData,
+        categoriesData,
+        advancedData,
+    } from "./../../../store";
+
+    export let method = "";
 
     let rows = [];
     let pageIndex = 0,
-        data = $markets,
-        pageSize = 50; //inital value
+        pageSize = 50;
+    let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
 
-    let oldWatchlist = {};
-
-    onMount(() => {
-        data = $markets;
-        oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
-        if (watchlist) {
-            let filterData = [];
-            data.map((item) => {
-                if (oldWatchlist[`${item.id}`]) {
-                    filterData.push(item);
-                }
-            });
-            rows = filterData;
-        } else {
-            rows = data;
-        }
-    });
-
+    $: if (method == "cat") {
+        rows = $categoriesData;
+    } else if (method == "adv") {
+        rows = $advancedData;
+    } else if (method == "watch") {
+        rows = $watchlistData;
+    }
 
     function onSortString(event) {
         event.detail.rows = sortString(
@@ -66,8 +62,16 @@
             oldWatchlist = {};
             oldWatchlist[`${id}`] = true;
         }
-        let storage = JSON.stringify(oldWatchlist);
-        localStorage.setItem("watchlist", storage);
+        let changedData = [];
+        $markets.map((item) => {
+            if (oldWatchlist[`${item.id}`]) {
+                changedData.push(item);
+            }
+        });
+        localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
+        watchlistData.set(changedData);
+        watchlist.set(oldWatchlist);
+        // console.log('watchlist', $watchlist, 'temp', $temp, 'watchlistData', $watchlistData)
     }
 </script>
 
@@ -112,12 +116,12 @@
     </thead>
     <tbody>
         {#each rows2 as row, index (row)}
-            <Row {index}>
+            <Row index={method + index}>
                 <td
                     align="center"
                     on:click|preventDefault={(event) => setFav(row.id, event)}
                 >
-                    {#if oldWatchlist[`${row.id}`]}
+                    {#if oldWatchlist && oldWatchlist[`${row.id}`]}
                         <i class="far fa-star active" />
                     {:else}
                         <i class="far fa-star" />
@@ -132,7 +136,7 @@
                         height="24"
                     /><span class="ml-5">{row.name}</span></td
                 >
-                <td>{currencyFullValue(row.price)}</td>
+                <td>{currencyFullValue(row.price)} {method + index}</td>
                 <td class="{priceColor(row.priceChange24h)} text-center"
                     >{percentageFormat(row.priceChange24h)}</td
                 >

@@ -1,18 +1,19 @@
 <script>
     // @ts-nocheck
-    
     import Loading from "$lib/components/loader/Loading.svelte";
     import AdvancedSearch from "$lib/components/Search/AdvancedSearch.svelte";
     import CategorySearch from "$lib/components/Search/CategorySearch.svelte";
 
     import isEmpty from "./../utils/is-empty";
-    import { markets, temp} from "./../store";
+    import { markets, categoriesData, advancedData } from "./../store";
 
     let active = "cat";
 
     const setActive = (val) => {
         active = val;
     };    
+    $: categoriesData.set({})
+    $: advancedData.set({})
 </script>
 
 <svelte:head>

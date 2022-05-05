@@ -11,9 +11,17 @@
     } from "$lib/selectData.js";
     import CoinTable from "../coin_table/Coin-Table.svelte";
 
-    import { markets, advancedData, temp } from "../../../store";
+    import { markets, advancedData } from "../../../store";
+    import isEmpty from "./../../../utils/is-empty";
 
-    $: advancedData.set($markets)
+    let data = [];
+    $: if(!isEmpty($markets)){
+        $markets.map(item=>{
+            data.push(item)
+        })
+        advancedData.set(data)
+    }
+
     
 </script>
 

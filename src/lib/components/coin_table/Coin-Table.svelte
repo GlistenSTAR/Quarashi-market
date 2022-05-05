@@ -3,28 +3,61 @@
     import Select from "svelte-select";
     import { total_items } from "../../selectData";
     import Datatable from "./Datatable.svelte";
-    
-    export let watchlist;
-    import { markets } from "./../../../store";
+    import isEmpty from "./../../../utils/is-empty";
+    import {
+        categoriesData,
+        advancedData,
+        watchlistData,
+markets,
+    } from "./../../../store";
 
-    let filter = "";
-    let newData = [];
-    let selected = "Highest Cap";
-    
+    export let method = "";
+
+    let filter = "",
+        data = [],
+        filterData = [];
+
+    if (method == "cat") {
+        data = $categoriesData;
+    } else if (method == "adv") {
+        data = $advancedData;
+    } else if (method == "watch") {
+        data = $watchlistData;
+    }
+
     const handleSelect = (e) => {
         filter = e.detail.value;
-        if (filter === "lowestCap") {
-            newData = $markets.sort((a, b) => {
-                return a.marketCap - b.marketCap;
-            });
-        } else if (filter === "highestCap") {
-            newData = $markets.sort((b, a) => {
-                return a.marketCap - b.marketCap;
-            });
-        }
-        markets.set(newData);
-    };
+        if (!isEmpty(data)) {
+            if (filter === "lowestCap") {
+                filterData = data.sort((a, b) => {
+                    return a.marketCap - b.marketCap;
+                });
+            } else if (filter === "highestCap") {
+                filterData = data.sort((b, a) => {
+                    return a.marketCap - b.marketCap;
+                });
+            } else if (filter === "highestVol") {
+                filterData = data.sort((b, a) => {
+                    return a.totalVolume - b.totalVolume;
+                });
+            } else if (filter === "lowestVol") {
+                filterData = data.sort((a, b) => {
+                    return a.totalVolume - b.totalVolume;
+                });
+            }
 
+            if (method == "cat") {
+                categoriesData.set(filterData);
+            } else if (method == "adv") {
+                advancedData.set(filterData);
+            } else if (method == "watch") {
+                watchlistData.set(filterData);
+            }
+
+            // console.log('markets', $markets, 'cat', $categoriesData, 'adv', $advancedData, 'watch', $watchlistData)
+
+        }
+    };
 </script>
 
 <div class="coin-table">
@@ -32,14 +65,14 @@
         <div class="coin_kind col-md-4">
             <Select
                 items={total_items}
-                value={selected}
+                value={"Highest Cap"}
                 showChevron={true}
                 on:select={handleSelect}
             />
         </div>
     </div>
     <div>
-        <Datatable {watchlist} />
+        <Datatable {method} />
     </div>
 </div>
 
@@ -67,7 +100,7 @@
         padding-bottom: 60px;
         /* min-width: 830px; */
     }
-    @media (max-width: 830px){
+    @media (max-width: 830px) {
         .coin-table {
             overflow-x: auto;
         }

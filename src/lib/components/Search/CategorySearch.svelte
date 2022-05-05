@@ -1,20 +1,28 @@
 <script>
-    import coinStore from "$lib/coins-store";
+    //@ts-nocheck
     import { onMount } from "svelte";
 
+    import coinStore from "$lib/coins-store";
     import CoinBox from "$lib/components/CoinBox.svelte";
     import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
 
-    import { markets, categoriesData, temp } from "./../../../store";
+    import { markets, categoriesData } from "./../../../store";
+    import isEmpty from "./../../../utils/is-empty";
 
     let Carousel, carousel;
-    
+
     onMount(async () => {
         const module = await import("svelte-carousel");
         Carousel = module.default;
     });
 
-    $: categoriesData.set($markets)
+    let data = [];
+    $: if(!isEmpty($markets)){
+        $markets.map(item=>{
+            data.push(item)
+        })
+        categoriesData.set(data)
+    }
 
 </script>
 
@@ -38,7 +46,6 @@
 </div>
 
 <style>
-    
     .card-carousel {
         margin-top: 40px;
         margin-left: -50px;
