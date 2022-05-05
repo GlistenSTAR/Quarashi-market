@@ -14,6 +14,7 @@
 
     let filter = "",
         data = [],
+        selected = "Highest Cap",
         filterData = [];
 
     if (method == "cat") {
@@ -44,6 +45,23 @@
                     return a.totalVolume - b.totalVolume;
                 });
             }
+            if (filter === "lowestPrice") {
+                filterData = data.sort((a, b) => {
+                    return a.price - b.price;
+                });
+            } else if (filter === "highestPrice") {
+                filterData = data.sort((b, a) => {
+                    return a.price - b.price;
+                });
+            } else if (filter === "topGainer") {
+                filterData = data.sort((b, a) => {
+                    return a.priceChange24h - b.priceChange24h;
+                });
+            } else if (filter === "topLoser") {
+                filterData = data.sort((a, b) => {
+                    return a.priceChange24h - b.priceChange24h;
+                });
+            }
 
             if (method == "cat") {
                 categoriesData.set(filterData);
@@ -64,7 +82,7 @@
         <div class="coin_kind col-md-4">
             <Select
                 items={total_items}
-                value={"Highest Cap"}
+                value={selected}
                 showChevron={true}
                 on:select={handleSelect}
             />

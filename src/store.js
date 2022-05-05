@@ -11,6 +11,5 @@ export const watchlist = writable({});
 export const categoriesData  = writable({});
 export const advancedData  = writable({});
 export const watchlistData  = writable({});
-export const temp  = writable({});
 
 export const flag = writable("")

@@ -30,20 +30,30 @@
     $: if (method == "cat") {
         if (!isEmpty($flag)) {
             let cat_tab_data = [];
-            $markets.map((item) => {
+            $categoriesData.map((item) => {
                 if (
                     !isEmpty(coinStore.coins) &&
                     !isEmpty(coinStore.coins[`${item.id}`]) &&
                     !isEmpty(coinStore.coins[`${item.id}`].categories) &&
                     !isEmpty(
-                        coinStore.coins[`${item.id}`].categories.find(test => test == $flag)
+                        coinStore.coins[`${item.id}`].categories.find(
+                            (test) => test == $flag
+                        )
                     )
                 ) {
                     cat_tab_data.push(item);
                 }
             });
-            categoriesData.set(cat_tab_data)
-            rows = $categoriesData
+            categoriesData.set(cat_tab_data);
+            rows = $categoriesData;
+
+            let reset = [];
+            if (!isEmpty($markets)) {
+                $markets.map((item) => {
+                    reset.push(item);
+                });
+                categoriesData.set(reset);
+            }
         } else {
             rows = $categoriesData;
         }
@@ -91,7 +101,6 @@
         localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
         watchlistData.set(changedData);
         watchlist.set(oldWatchlist);
-        // console.log('watchlist', $watchlist, 'temp', $temp, 'watchlistData', $watchlistData)
     }
 </script>
 
