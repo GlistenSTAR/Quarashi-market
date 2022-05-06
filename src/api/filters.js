@@ -160,3 +160,61 @@ export const selectTopLosers = (/** @type {any[]} */ arrays) => {
 export const selectDefiCoins = (/** @type {any[]} */ arrays) => {
     return arrays.slice().sort((a, b) => b.priceChange24h - a.priceChange24h)
 }
+
+export const filterByVolume = (/** @type {any} */ value, /** @type {any[]} */ list, field = 'totalVolume') => {
+    switch (value) {
+        case '<5M':
+            return list.filter(coin => coin[field] <= 5_000_000)
+        case '5M-20M':
+            return list.filter(coin => coin[field] >= 5_000_000 && coin[field] <= 20_000_000)
+        case '20M-100M':
+            return list.filter(coin => coin[field] >= 20_000_000 && coin[field] <= 100_000_000)
+        case '100M-1B':
+            return list.filter(coin => coin[field] >= 100_000_000 && coin[field] <= 1_000_000_000)
+        case '1B-5B':
+            return list.filter(coin => coin[field] >= 1_000_000_000 && coin[field] <= 5_000_000_000)
+        case '>5B':
+            return list.filter(coin => coin[field] >= 5_000_000_000)
+        default:
+            return list
+    }
+}
+
+// @ts-ignore
+export const filterByPrice = ({ priceChange, pricePeriod }, list) => {
+    if (!pricePeriod.value) {
+        return list
+    }
+
+    let field
+    if (pricePeriod.value === '1 Day')
+        field = 'priceChange24h'
+    else if (pricePeriod.value === '1 Week')
+        field = 'priceChange7d'
+    else if (pricePeriod.value === '2 Weeks')
+        field = 'priceChange14d'
+    else if (pricePeriod.value === '1 Month')
+        field = 'priceChange30d'
+    else if (pricePeriod.value === '6 Months')
+        field = 'priceChange200d'
+    else if (pricePeriod.value === '1 Year')
+        field = 'priceChange1y'
+    else return list
+
+    switch (priceChange.value) {
+        case 10:
+        case 25:
+        case 50:
+        case 100: {
+            return list.filter(coin => coin[field] >= priceChange.value).sort((a, b) => b[field] - a[field])
+        }
+        case -10:
+        case -25:
+        case -50:
+        case -100: {
+            return list.filter(coin => coin[field] <= priceChange.value).sort((a, b) => a[field] - b[field])
+        }
+        default:
+            return list
+    }
+}

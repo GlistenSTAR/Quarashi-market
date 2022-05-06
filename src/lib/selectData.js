@@ -1,20 +1,46 @@
 export const top_items = [
-    'Top 100', 'Top 250', 'Top 500', 'Top 1000', 'Top 1500'
+    { value: 100, label: 'Top 100' },
+    { value: 250, label: 'Top 250' },
+    { value: 500, label: 'Top 500' },
+    { value: 1000, label: 'Top 1000' },
+    { value: 1500, label: 'Top 1500' }
 ];
 export const volume_items = [
-    '< 5M', '5M-20M', '20M-100M', '100M-1B', '1B-5B', '> 5B'
+    { value: '<5M', label: '< 5M' },
+    { value: '5M-20M', label: '5M-20M' },
+    { value: '20M-100M', label: '20M-100M' },
+    { value: '100M-1B', label: '100M-1B' },
+    { value: '1B-5B', label: '1B-5B' },
+    { value: '>5B', label: '> 5B' }
 ];
 export const period_items = [
-    '1 Day', '1 Week', '2 Weeks', '1 Month', '6 Months', '1 Year'
+    { value: '1 Day', label: '1 Day' },
+    { value: '1 Week', label: '1 Week' },
+    { value: '2 Weeks', label: '2 Weeks' },
+    { value: '1 Month', label: '1 Month' },
+    { value: '6 Months', label: '6 Months' },
+    { value: '1 Year', label: '1 Year' }
 ];
 export const marketcap_items = [
-    '< 5M', '5M-20M', '20M-100M', '100M-1B', '1B-5B', '> 5B'
+    { value: '<5M', label: '< 5M' },
+    { value: '5M-20M', label: '5M-20M' },
+    { value: '20M-100M', label: '20M-100M' },
+    { value: '100M-1B', label: '100M-1B' },
+    { value: '1B-5B', label: '1B-5B' },
+    { value: '>5B', label: '> 5B' }
 ];
 export const liquidity_items = [
     ''
 ];
 export const pricechange_items = [
-    '>10%', '>25%', '>50%', '>100%', '<-10%', '<-25%', '<-50%', '<-100%'
+    { value: 10, label: '> 10%' },
+    { value: 25, label: '> 25%' },
+    { value: 50, label: '> 50%' },
+    { value: 100, label: '> 100%' },
+    { value: -10, label: '< -10%' },
+    { value: -25, label: '< -25%' },
+    { value: -50, label: '< -50%' },
+    { value: -100, label: '< -100%' }
 ];
 
 export const total_items = [

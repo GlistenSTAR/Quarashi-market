@@ -165,7 +165,7 @@
                         height="24"
                     /><span class="ml-5">{row.name}</span></td
                 >
-                <td>{currencyFullValue(row.price)} {method + index}</td>
+                <td>{currencyFullValue(row.price)}/td>
                 <td class="{priceColor(row.priceChange24h)} text-center"
                     >{percentageFormat(row.priceChange24h)}</td
                 >
