@@ -3,7 +3,7 @@
  * @param {string} dir
  * @param {string | number} key
  */
-export function sortString(rows, dir, key) {
+export const sortString = (rows, dir, key) => {
     return rows.sort((a, b) =>
         dir === "asc"
             ? ("" + b[key]).localeCompare(a[key])
@@ -16,7 +16,7 @@ export function sortString(rows, dir, key) {
  * @param {string} dir
  * @param {string | number} key
  */
-export function sortNumber(rows, dir, key) {
+export const sortNumber = (rows, dir, key) => {
     return rows.sort((a, b) =>
         dir === "asc" ? a[key] - b[key] : b[key] - a[key]
     );

@@ -1,7 +1,7 @@
 /**
  * @param {any[]} data
  */
-export function normalize(data) {
+export const normalize = (data) => {
     if (!data || !data.length) {
         return {
             markets: [],
@@ -55,7 +55,7 @@ export function normalize(data) {
 /**
  * @param {any[]} markets
  */
-export function normalizeCoins(markets) {
+export const normalizeCoins = (markets) => {
     return markets.map(item => ({
         id: item.id,
         name: item.name,
@@ -77,7 +77,7 @@ export function normalizeCoins(markets) {
 /**
  * @param {any[] | Promise<any>} markets
  */
-export function normalizeDefiCoins(markets) {
+export const normalizeDefiCoins = (markets) => {
     const coins = []
     const chains = {}
     const multiChain = 'Multi-Chain'
@@ -120,7 +120,7 @@ export function normalizeDefiCoins(markets) {
 /**
  * @param {{ code: string; name: any; coingecko_id: any; }} item
  */
-function normalizeSymbol(item) {
+const normalizeSymbol = (item) => {
     if (item.code === '-') {
         return item.name
     }
@@ -131,21 +131,21 @@ function normalizeSymbol(item) {
 /**
  * @param {any[]} data
  */
-export function selectTopGainers5(data) {
+export const selectTopGainers5 = (data) => {
     return selectTopGainers(data).slice(0, 5);
 }
 
 /**
  * @param {any[]} data
  */
-export function selectTopLosers5(data) {
+export const selectTopLosers5 = (data) => {
     return selectTopLosers(data).slice(0, 5);
 }
 
 /**
  * @param {any} data
  */
-export function selectDefiCoins5(data) {
+export const selectDefiCoins5 = (data) => {
     return selectDefiCoins(data).slice(0, 5);
 }
 

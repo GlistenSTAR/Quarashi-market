@@ -28,7 +28,7 @@ import { invalidate } from '$app/navigation';
  *   }) => void;
  * }} [opts]
  */
-export function enhance(form, { pending, error, result } = {}) {
+export const enhance = (form, { pending, error, result } = {}) => {
 	let current_token;
 
 	/** @param {SubmitEvent} e */
