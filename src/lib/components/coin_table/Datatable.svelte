@@ -19,6 +19,7 @@
         flag,
     } from "./../../../store";
     import coinStore from "$lib/coins-store";
+    import { StarIcon } from 'svelte-feather-icons'
 
     export let method = "";
 
@@ -102,6 +103,7 @@
         watchlistData.set(changedData);
         watchlist.set(oldWatchlist);
     }
+
 </script>
 
 <Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
@@ -111,7 +113,7 @@
             <th width="5%"
                 ><Sort key="rank" on:sort={onSortNumber} title="#" /></th
             >
-            <th width="20%">
+            <th width="25%">
                 <Sort key="name" on:sort={onSortString} title="Name" />
             </th>
             <th>
@@ -151,9 +153,9 @@
                     on:click|preventDefault={(event) => setFav(row.id, event)}
                 >
                     {#if oldWatchlist && oldWatchlist[`${row.id}`]}
-                        <i class="far fa-star active" />
+                        <StarIcon class="active" size="16"/>
                     {:else}
-                        <i class="far fa-star" />
+                        <StarIcon size="16"/>
                     {/if}
                 </td>
                 <td>{row.rank}</td>
@@ -165,8 +167,8 @@
                         height="24"
                     /><span class="ml-5">{row.name}</span></td
                 >
-                <td>{currencyFullValue(row.price)}/td>
-                <td class="{priceColor(row.priceChange24h)} text-center"
+                <td>{currencyFullValue(row.price)}</td><td
+                    class="{priceColor(row.priceChange24h)} text-center"
                     >{percentageFormat(row.priceChange24h)}</td
                 >
                 <td class="{priceColor(row.priceChange7d)} text-center"
@@ -194,8 +196,5 @@
     .text-right {
         text-align: right;
         padding-right: 20px;
-    }
-    i.active {
-        color: #c921cd;
     }
 </style>

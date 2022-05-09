@@ -5,12 +5,19 @@
     export let icon = "";
     export let data = [];
     import { currencyFormat, percentageFormat } from "./../../../helpers";
+    import { ArrowUpIcon, ArrowDownIcon,  LockIcon} from 'svelte-feather-icons'
 </script>
 
 <div class="table-card">
     <div class="card-hearder">
         <div style="display: flex; align-items: center;">
-            <i class="{icon} {method}" size="32" />
+            {#if method == "up"}
+                <ArrowUpIcon size="16" class="i up"/>
+            {:else if method == "down"}
+                <ArrowDownIcon size="16" class="i down"/>
+            {:else}
+                <LockIcon size="16" class="i lock"/>
+            {/if}
             <span style="margin-left: 12px;">{name}</span>
         </div>
         <div class="see_all">See All</div>
@@ -82,31 +89,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-    }
-
-    i {
-        font-size: 16px;
-    }
-
-    i.up {
-        color: #00a478;
-        padding: 9px;
-        border-radius: 12px;
-        background-color: #112a2e;
-    }
-
-    i.down {
-        color: #d50012;
-        padding: 9px;
-        border-radius: 12px;
-        background-color: #31111f;
-    }
-
-    i.lock {
-        color: #0b0b12;
-        padding: 9px;
-        border-radius: 12px;
-        background-color: #33333e;
     }
 
     .see_all {

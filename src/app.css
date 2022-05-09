@@ -114,6 +114,44 @@ button:focus:not(:focus-visible) {
 	display:contents!important;
 } */
 
+svg.active {
+	color: #c921cd;
+}
+
+svg.text-dangerouse.i {
+	color: #c921cd!important;
+}
+
+svg.i.up {
+	color: #00a478;
+	border-radius: 8px;
+	background-color: #112a2e;
+	padding: 7px;
+	width: 24px;
+	height: 24px;
+	font-size: 16px;
+}
+
+svg.i.down {
+	color: #d50012;
+	border-radius: 8px;
+	background-color: #31111f;
+	padding: 7px;
+	width: 24px;
+	height: 24px;
+	font-size: 16px;
+}
+
+svg.i.lock {
+	color: #0b0b12;
+	border-radius: 8px;
+	background-color: #33333e;
+	padding: 7px;
+	width: 24px;
+	height: 24px;
+	font-size: 16px;
+}
+
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;

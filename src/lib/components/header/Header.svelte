@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 	import logo from "./../../../assets/img/logo.png";
 	import search_logo from "./../../../assets/img/search.png";
-
+	import { MenuIcon } from 'svelte-feather-icons'
 	let search = "";
 
 	let show = false;
@@ -27,7 +27,7 @@
 			data-bs-toggle="collapse"
 			data-bs-target="#mynavbar"
 		>
-			<i class="fas fa-bars" />
+			<MenuIcon size="28" class="text-dangerouse i"/>
 		</button>
 		<a href="/">
 			<span class="logo">
@@ -257,9 +257,6 @@
 			border-radius: 12px;
 			align-items: center;
 			justify-content: center;
-		}
-		.navbar-toggler i {
-			color: #c921cd;
 		}
 		.search_box {
 			position: absolute;
