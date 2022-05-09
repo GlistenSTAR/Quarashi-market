@@ -18,8 +18,8 @@
     <table class="table table-striped {method}">
         <tr>
             <th width="10%">#</th>
-            <th width="35%" style="padding-left: 10px">Name</th>
-            <th width="35%" class="price"> Price </th>
+            <th width="40%" style="padding-left: 10px">Name</th>
+            <th width="30%" class="price"> Price </th>
             <th width="20%" class="percent">24Hours</th>
         </tr>
         {#if name != "TVL Change"}
