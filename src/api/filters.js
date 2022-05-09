@@ -150,15 +150,15 @@ export function selectDefiCoins5(data) {
 }
 
 export const selectTopGainers = (/** @type {any[]} */ arrays) => {
-    return arrays.slice().sort((a, b) => b.priceChange24h - a.priceChange24h)
+    return arrays?.slice().sort((a, b) => b.priceChange24h - a.priceChange24h)
 }
 
 export const selectTopLosers = (/** @type {any[]} */ arrays) => {
-    return arrays.slice().sort((a, b) => a.priceChange24h - b.priceChange24h)
+    return arrays?.slice().sort((a, b) => a.priceChange24h - b.priceChange24h)
 }
 
 export const selectDefiCoins = (/** @type {any[]} */ arrays) => {
-    return arrays.slice().sort((a, b) => b.priceChange24h - a.priceChange24h)
+    return arrays?.slice().sort((a, b) => b.priceChange24h - a.priceChange24h)
 }
 
 export const filterByVolume = (/** @type {any} */ value, /** @type {any[]} */ list, field = 'totalVolume') => {

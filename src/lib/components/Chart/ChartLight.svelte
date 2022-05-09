@@ -2,7 +2,7 @@
     // @ts-nocheck
     import { onMount } from "svelte";
 
-    import { createChart } from "lightweight-charts";
+    import { createChart } from "lightweight-charts/dist/lightweight-charts.esm.development";
 
     export let points = [];
     export let change;
