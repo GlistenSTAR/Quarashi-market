@@ -1,5 +1,5 @@
 <script>
-    import Loading from './../../../assets/img/Loading.gif'
+    import Loading from "./../../../assets/img/Loading.gif";
 </script>
 
 <div class="loading">
@@ -7,7 +7,7 @@
 </div>
 
 <style>
-    .loading{
+    .loading {
         display: flex;
         justify-content: center;
         align-items: center;

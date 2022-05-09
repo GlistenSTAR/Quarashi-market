@@ -38,7 +38,7 @@
         margin-left: 9px;
         margin-right: 9px;
         border-radius: 12px;
-        padding: 20px!important;
+        padding: 20px !important;
         padding-bottom: 5px;
         flex-direction: column;
     }

@@ -6,7 +6,7 @@
 </script>
 
 <span>
-    <ContentLoader uniqueKey={key} >
-        <rect x="0" y="0" rx="3" ry="3" {width} {height}/>
+    <ContentLoader uniqueKey={key}>
+        <rect x="0" y="0" rx="3" ry="3" {width} {height} />
     </ContentLoader>
 </span>

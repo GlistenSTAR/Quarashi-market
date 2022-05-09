@@ -50,7 +50,7 @@ export async function getDefiCoins() {
     const result = normalizeDefiCoins(data);
     defi.set(result);
     return data
-  } catch(err){
+  } catch (err) {
     console.log(err)
   }
 }

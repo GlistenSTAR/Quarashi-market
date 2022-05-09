@@ -10,7 +10,7 @@
     import isEmpty from "./../../../utils/is-empty";
 
     let Carousel, carousel;
-    
+
     onMount(async () => {
         const module = await import("svelte-carousel");
         Carousel = module.default;

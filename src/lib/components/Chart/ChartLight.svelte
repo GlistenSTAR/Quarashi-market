@@ -6,7 +6,7 @@
 
     export let points = [];
     export let change;
-    export let id=""
+    export let id = "";
 
     onMount(() => {
         let topColor, bottomColor, lineColor;
@@ -18,7 +18,7 @@
                 textColor: "#808085",
             },
             rightPriceScale: {
-                visible: false
+                visible: false,
             },
             timeScale: {
                 visible: false,
@@ -29,14 +29,14 @@
             },
         });
 
-        if(change >= 0){
+        if (change >= 0) {
             topColor = "rgba(33, 150, 243, 0.56)";
-            bottomColor = "rgba(33, 150, 243, 0.04)"
-            lineColor =  "rgba(33, 150, 243, 1)"
+            bottomColor = "rgba(33, 150, 243, 0.04)";
+            lineColor = "rgba(33, 150, 243, 1)";
         } else {
-            topColor = "rgba(175,35,111,0.29)"
-            bottomColor = "rgba(116,19,214,0)"
-            lineColor = "#ED402E"
+            topColor = "rgba(175,35,111,0.29)";
+            bottomColor = "rgba(116,19,214,0)";
+            lineColor = "#ED402E";
         }
 
         const lineSeries = chart.addAreaSeries({
@@ -50,13 +50,12 @@
     });
 </script>
 
-<div id="{id}" class="chart_area">
-</div>
+<div {id} class="chart_area" />
 
 <style>
-    .chart_area{
-        height: 50px!important;
-        width: 140px!important;
+    .chart_area {
+        height: 50px !important;
+        width: 140px !important;
         position: absolute;
         bottom: 25px;
         right: 30px;

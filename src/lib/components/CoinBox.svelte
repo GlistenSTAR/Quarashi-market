@@ -9,7 +9,7 @@
     import { flag } from "./../../store";
 
     const setActive = (id) => {
-        if(id === $flag){
+        if (id === $flag) {
             flag.set({});
         } else {
             flag.set(id);
@@ -18,7 +18,7 @@
 </script>
 
 <div
-    class="coinbox {$flag===icon ? 'active' : ''}"
+    class="coinbox {$flag === icon ? 'active' : ''}"
     on:click={() => setActive(icon)}
 >
     <div style="display: flex; align-items: center; padding-bottom: 12px">

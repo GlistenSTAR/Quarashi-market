@@ -41,10 +41,10 @@
                     >
                 </tr>
             {/each}
-        {:else if name = "TVL Change"}
+        {:else if (name = "TVL Change")}
             {#each data as item, key}
                 <tr>
-                    <td>{key+1}</td>
+                    <td>{key + 1}</td>
                     <td class="text-uppercase">
                         <img
                             src={item.image}
@@ -55,7 +55,9 @@
                         {item.symbol}
                     </td>
                     <td class="price">{currencyFormat(item.tvl)}</td>
-                    <td class="percent">{percentageFormat(item.priceChange24h)}</td>
+                    <td class="percent"
+                        >{percentageFormat(item.priceChange24h)}</td
+                    >
                 </tr>
             {/each}
         {/if}

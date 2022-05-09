@@ -177,7 +177,7 @@
         background: #141421;
         padding: 20px 20px;
         z-index: -1;
-        width: 100%
+        width: 100%;
     }
 
     .card .info {
@@ -210,7 +210,7 @@
     .text-success {
         color: #00a478 !important;
     }
-    
+
     .text-danger {
         color: #ff4a57 !important;
     }

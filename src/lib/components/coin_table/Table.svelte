@@ -33,7 +33,7 @@
         loading: "Loading data...",
         ...globalLabels,
     };
-    
+
     let buttons = [-2, -1, 0, 1, 2];
     let pageCount = 0;
 
@@ -65,7 +65,11 @@
     {#if loading}
         <tbody>
             <tr>
-                <td class="center" colspan="100%" style="height: 100px;border: none; color: #C921CD">
+                <td
+                    class="center"
+                    colspan="100%"
+                    style="height: 100px;border: none; color: #C921CD"
+                >
                     <span>
                         {@html labels.loading}
                     </span>
@@ -75,7 +79,11 @@
     {:else if visibleRows.length === 0}
         <tbody>
             <tr>
-                <td class="center" colspan="100%" style="height: 100px;border: none; color: #C921CD">
+                <td
+                    class="center"
+                    colspan="100%"
+                    style="height: 100px;border: none; color: #C921CD"
+                >
                     <span>
                         {@html labels.empty}
                     </span>

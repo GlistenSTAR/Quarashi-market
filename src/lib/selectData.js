@@ -44,12 +44,12 @@ export const pricechange_items = [
 ];
 
 export const total_items = [
-    {label: 'Highest Cap', value:"highestCap"},
-    {label: 'Lowest Cap', value:"lowestCap"},
-    {label: 'Highest Volume', value:"highestVol"},
-    {label: 'Lowest Volume', value:"lowestVol"},
-    {label: 'Highest Price', value:"highestPrice"},
-    {label:  'Lowest Price', value:"lowestPrice"},
-    {label: 'Top Gainers', value:"topGainer"},
-    {label: 'Top Losers', value:"topLoser"}
+    { label: 'Highest Cap', value: "highestCap" },
+    { label: 'Lowest Cap', value: "lowestCap" },
+    { label: 'Highest Volume', value: "highestVol" },
+    { label: 'Lowest Volume', value: "lowestVol" },
+    { label: 'Highest Price', value: "highestPrice" },
+    { label: 'Lowest Price', value: "lowestPrice" },
+    { label: 'Top Gainers', value: "topGainer" },
+    { label: 'Top Losers', value: "topLoser" }
 ]
