@@ -1,8 +1,8 @@
 import API from './../utils/api'
 import { API_KEY } from './../utils/API_KEY';
 
-const marketsBaseUrl = 'markets.horizontalsystems.xyz/api/v1'
-const coingeckoBaseUrl = 'api.coingecko.com/api/v3/coins'
+const marketsBaseUrl = 'https://markets.horizontalsystems.xyz/api/v1'
+const coingeckoBaseUrl = 'https://api.coingecko.com/api/v3/coins'
 
 import {
   markets,
@@ -44,10 +44,15 @@ export function getMarketsByIds(ids) {
 
 // @ts-ignore
 export async function getDefiCoins() {
-  const data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
-  const result = normalizeDefiCoins(data);
-  defi.set(result);
-  return data
+  try {
+    const data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
+    console.log('data', data)
+    const result = normalizeDefiCoins(data);
+    defi.set(result);
+    return data
+  } catch(err){
+    console.log(err)
+  }
 }
 
 /**

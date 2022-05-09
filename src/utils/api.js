@@ -1,12 +1,7 @@
 import axios from "axios";
 
-let baseURL = 'https://';
-
-
 // Create a instance of axios to use the same base url.
-const axiosAPI = axios.create({
-  baseURL
-});
+const axiosAPI = axios.create();
 
 // Implement a method to execute all the request from here
 
