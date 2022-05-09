@@ -17,10 +17,10 @@
     </div>
     <table class="table table-striped {method}">
         <tr>
-            <th width="10%">#</th>
-            <th width="40%" style="padding-left: 10px">Name</th>
-            <th width="30%" class="price"> Price </th>
-            <th width="20%" class="percent">24Hours</th>
+            <th width="5%">#</th>
+            <th width="50%" style="padding-left: 10px">Name</th>
+            <th width="22%" class="price"> Price </th>
+            <th width="22%" class="percent">24Hours</th>
         </tr>
         {#if name != "TVL Change"}
             {#each data as item, key}

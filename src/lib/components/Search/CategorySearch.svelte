@@ -10,20 +10,19 @@
     import isEmpty from "./../../../utils/is-empty";
 
     let Carousel, carousel;
-
+    
     onMount(async () => {
         const module = await import("svelte-carousel");
         Carousel = module.default;
     });
 
     let data = [];
-    $: if(!isEmpty($markets)){
-        $markets.map(item=>{
-            data.push(item)
-        })
-        categoriesData.set(data)
+    $: if (!isEmpty($markets)) {
+        $markets.map((item) => {
+            data.push(item);
+        });
+        categoriesData.set(data);
     }
-
 </script>
 
 <div>
