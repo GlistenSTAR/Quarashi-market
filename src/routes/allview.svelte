@@ -6,10 +6,16 @@
     import Loading from "$lib/components/loader/Loading.svelte";
 
     import { page } from "$app/stores";
+    import { goto } from '$app/navigation';
 
     const method = $page.url.searchParams.get("table");
 
-    let data = [], filterData;
+    let data = [],
+        filterData;
+
+    if (isEmpty(method)) {
+        goto('/overview');
+    }
 
     $: if (!isEmpty($markets)) {
         markets.subscribe((item) => {
@@ -19,15 +25,14 @@
             filterData = data.sort((b, a) => {
                 return a.priceChange24h - b.priceChange24h;
             });
-        } else if(method == "down"){
+        } else if (method == "down") {
             filterData = data.sort((a, b) => {
                 return a.priceChange24h - b.priceChange24h;
             });
         }
-        console.log('$viewAllData', filterData)
+        console.log("$viewAllData", filterData);
         viewAllData.set(filterData);
     }
-
 </script>
 
 <svelte:head>
@@ -38,7 +43,7 @@
 
 {#if isEmpty($markets)}
     <Loading />
-{:else}
+{:else if !isEmpty(method)}
     <div>
         <h1>{method == "up" ? "Top Gainers" : "Top Losers"}</h1>
         <CoinTable method="view_all" />

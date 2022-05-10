@@ -7,6 +7,10 @@
         priceColor,
     } from "./../../../helpers";
     import ChartLight from "../chart/ChartLight.svelte";
+
+    const goChartPage = (id) =>{
+        window.location = "/chart?chart="+id
+    }
 </script>
 
 <!-- chart remain -->
@@ -52,13 +56,14 @@
                     {/if}
                 </h2>
             </div>
-            <div class="chart-box">
+            <div class="chart-box" on:click={()=>goChartPage("volume")}>
                 <!-- {points.volume} -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.volume}
                         change={item.volume24hDiff}
                         id="volume"
+                        size={"small"}
                     />
                 {/if}
             </div>
@@ -81,13 +86,14 @@
                     {/if}
                 </h2>
             </div>
-            <div class="chart-box">
+            <div class="chart-box" on:click={()=>goChartPage("dominance")}>
                 <!-- points.dominance -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.dominance}
                         change={item.dominanceBTCDiff24h}
                         id="domaince"
+                        size={"small"}
                     />
                 {/if}
             </div>
@@ -108,13 +114,14 @@
                     {/if}
                 </h2>
             </div>
-            <div class="chart-box">
+            <div class="chart-box" on:click={()=>goChartPage("defimarket")}>
                 <!-- points.defiMarket -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.defiMarket}
                         change={item.marketCapDefiDiff24h}
                         id="defi"
+                        size={"small"}
                     />
                 {/if}
             </div>
@@ -135,13 +142,14 @@
                     {/if}
                 </h2>
             </div>
-            <div class="chart-box">
+            <div class="chart-box" on:click={()=>goChartPage("tvl")}>
                 <!-- points.tvl -->
                 {#if item.points}
                     <ChartLight
                         points={item.points.tvl}
                         change={item.totalValueLockedDiff24h}
                         id="tvl"
+                        size={"small"}
                     />
                 {/if}
             </div>
@@ -176,7 +184,7 @@
         border-radius: 12px;
         background: #141421;
         padding: 20px 20px;
-        z-index: -1;
+        z-index: 0;
         width: 100%;
     }
 
@@ -197,6 +205,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        z-index: 1;
     }
 
     .amount h2 {

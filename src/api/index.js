@@ -87,7 +87,7 @@ export const getCoinInfo = (id) => {
 
 export const getNews = async () => {
   try {
-    const data = await API.get(`min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
+    const data = await API.get(`https://min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
     if (data.Message == "News list successfully returned") {
       news.set(data.Data)
     }
