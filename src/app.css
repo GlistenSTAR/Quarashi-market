@@ -110,10 +110,6 @@ button:focus:not(:focus-visible) {
 	border-color: white!important;
 }
 
-/* .sort.active span{
-	display:contents!important;
-} */
-
 svg.active {
 	color: #c921cd;
 }

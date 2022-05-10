@@ -72,7 +72,6 @@
             }
 
             // console.log('markets', $markets, 'cat', $categoriesData, 'adv', $advancedData, 'watch', $watchlistData)
-
         }
     };
 </script>

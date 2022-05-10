@@ -12,4 +12,6 @@ export const categoriesData  = writable({});
 export const advancedData  = writable({});
 export const watchlistData  = writable({});
 
+export const filter = writable({});
+
 export const flag = writable("")

@@ -52,7 +52,6 @@ export const getMarketsByIds = (ids) => {
 export const getDefiCoins = async () => {
   try {
     const data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
-    console.log('data', data)
     const result = normalizeDefiCoins(data);
     defi.set(result);
     return data

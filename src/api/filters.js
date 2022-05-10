@@ -182,37 +182,37 @@ export const filterByVolume = (/** @type {any} */ value, /** @type {any[]} */ li
 
 // @ts-ignore
 export const filterByPrice = ({ priceChange, pricePeriod }, list) => {
-    if (!pricePeriod.value) {
+    if (!pricePeriod) {
         return list
     }
 
     let field
-    if (pricePeriod.value === '1 Day')
+    if (pricePeriod=== '1 Day')
         field = 'priceChange24h'
-    else if (pricePeriod.value === '1 Week')
+    else if (pricePeriod=== '1 Week')
         field = 'priceChange7d'
-    else if (pricePeriod.value === '2 Weeks')
+    else if (pricePeriod=== '2 Weeks')
         field = 'priceChange14d'
-    else if (pricePeriod.value === '1 Month')
+    else if (pricePeriod=== '1 Month')
         field = 'priceChange30d'
-    else if (pricePeriod.value === '6 Months')
+    else if (pricePeriod=== '6 Months')
         field = 'priceChange200d'
-    else if (pricePeriod.value === '1 Year')
+    else if (pricePeriod=== '1 Year')
         field = 'priceChange1y'
     else return list
 
-    switch (priceChange.value) {
+    switch (priceChange) {
         case 10:
         case 25:
         case 50:
         case 100: {
-            return list.filter(coin => coin[field] >= priceChange.value).sort((a, b) => b[field] - a[field])
+            return list.filter(coin => coin[field] >= priceChange).sort((a, b) => b[field] - a[field])
         }
         case -10:
         case -25:
         case -50:
         case -100: {
-            return list.filter(coin => coin[field] <= priceChange.value).sort((a, b) => a[field] - b[field])
+            return list.filter(coin => coin[field] <= priceChange).sort((a, b) => a[field] - b[field])
         }
         default:
             return list

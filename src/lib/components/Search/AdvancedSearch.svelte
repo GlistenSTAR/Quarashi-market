@@ -11,18 +11,36 @@
     } from "$lib/selectData.js";
     import CoinTable from "../coin_table/Coin-Table.svelte";
 
-    import { markets, advancedData } from "../../../store";
+    import { markets, advancedData, filter } from "../../../store";
     import isEmpty from "./../../../utils/is-empty";
+    import { filterByVolume, filterByPrice } from "./../../../api/filters";
 
     let data = [];
-    $: if(!isEmpty($markets)){
-        $markets.map(item=>{
-            data.push(item)
-        })
-        advancedData.set(data)
+    $: if (!isEmpty($markets)) {
+        $markets.map((item) => {
+            data.push(item);
+        });
+        advancedData.set(data);
     }
 
-    
+    const changeFilter = (item) => {
+        let filters = { ...$filter, ...item };
+        filter.set(filters)
+        let list = data.slice(0, filters.top);
+        if (!isEmpty(filters.volumes)) {
+            list = filterByVolume(filters.volumes, list, "totalVolume");
+        }
+        if (!isEmpty(filters.marketCap)) {
+            list = filterByVolume(filters.marketCap, list, "marketCap");
+        }
+        if (!isEmpty(filters.priceChange) || !isEmpty(filter.pricePeriod)) {
+            let priceFilter = {};
+            priceFilter.priceChange = filters.priceChange;
+            priceFilter.pricePeriod = filters.pricePeriod;
+            list = filterByPrice(priceFilter, list);
+        }
+        advancedData.set(list);
+    };
 </script>
 
 <div>
@@ -34,6 +52,8 @@
                         items={top_items}
                         value={"Top 250"}
                         showChevron={true}
+                        on:select={(value) =>
+                            changeFilter({ top: value.detail.value })}
                     />
                 </div>
                 <div style="margin-top: 20px" class="select_option">
@@ -41,6 +61,8 @@
                         items={marketcap_items}
                         value={"Market Cap"}
                         showChevron={true}
+                        on:select={(value) =>
+                            changeFilter({ marketCap: value.detail.value })}
                     />
                 </div>
             </div>
@@ -50,6 +72,8 @@
                         items={volume_items}
                         value={"Volume"}
                         showChevron={true}
+                        on:select={(value) =>
+                            changeFilter({ volumes: value.detail.value })}
                     />
                 </div>
 
@@ -59,6 +83,7 @@
                         value={"Liquidity"}
                         showChevron={true}
                         isDisabled={true}
+                        on:select={changeFilter}
                     />
                 </div>
             </div>
@@ -68,6 +93,8 @@
                         items={period_items}
                         value={"Price Period"}
                         showChevron={true}
+                        on:select={(value) =>
+                            changeFilter({ pricePeriod: value.detail.value })}
                     />
                 </div>
                 <div class="select_option" style="margin-top: 20px">
@@ -75,6 +102,8 @@
                         items={pricechange_items}
                         value={"Price Change"}
                         showChevron={true}
+                        on:select={(value) =>
+                            changeFilter({ priceChange: value.detail.value })}
                     />
                 </div>
             </div>
@@ -87,7 +116,7 @@
                     ><span class="pe-2">Results:</span><span
                         class="spinner-grow spinner-grow-sm d-none"
                         role="status"
-                    /><span class="text-white">{$markets.length}</span></button
+                    /><span class="text-white">{$advancedData.length}</span></button
                 >
             </div>
         </div>
