@@ -28,19 +28,16 @@
             name="Top Gainers"
             data={topGainers}
             method="up"
-            icon="fa fa-arrow-up"
         />
         <TableCard
             name="Top Losers"
             data={topLosers}
             method="down"
-            icon="fa fa-arrow-down"
         />
         <TableCard
             name="TVL Change"
             data={tvlGainers}
             method="lock"
-            icon="fa fa-lock"
         />
     </div>
 </div>

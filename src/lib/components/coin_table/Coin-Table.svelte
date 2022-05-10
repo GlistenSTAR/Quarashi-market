@@ -8,6 +8,7 @@
         categoriesData,
         advancedData,
         watchlistData,
+        viewAllData
     } from "./../../../store";
 
     export let method = "";
@@ -17,12 +18,24 @@
         selected = "Highest Cap",
         filterData = [];
 
+    import { page } from "$app/stores";
+
+    const show_way = $page.url.searchParams.get("table");
+    
+    if(!isEmpty(show_way) || show_way == "up"){
+        selected = "Top Gainers"
+    } else if(!isEmpty(show_way) || show_way == "down") {
+        selected = "Top Losers"
+    }
+
     if (method == "cat") {
         data = $categoriesData;
     } else if (method == "adv") {
         data = $advancedData;
     } else if (method == "watch") {
         data = $watchlistData;
+    } else if (method == "view_all") {
+        data = $viewAllData;
     }
 
     const handleSelect = (e) => {

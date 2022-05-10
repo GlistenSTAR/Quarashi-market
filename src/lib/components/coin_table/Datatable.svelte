@@ -17,6 +17,7 @@
         categoriesData,
         advancedData,
         flag,
+        viewAllData,
     } from "./../../../store";
     import coinStore from "$lib/coins-store";
     import { StarIcon } from 'svelte-feather-icons'
@@ -62,6 +63,8 @@
         rows = $advancedData;
     } else if (method == "watch") {
         rows = $watchlistData;
+    } else if (method == "view_all") {
+        rows = $viewAllData;    
     }
 
     function onSortString(event) {

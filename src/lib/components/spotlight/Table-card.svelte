@@ -2,10 +2,15 @@
     //@ts-nocheck
     export let name = "";
     export let method = "";
-    export let icon = "";
     export let data = [];
     import { currencyFormat, percentageFormat } from "./../../../helpers";
     import { ArrowUpIcon, ArrowDownIcon,  LockIcon} from 'svelte-feather-icons'
+    
+    const goViewAll = () => {
+        if(name == "Top Gainers" || name == "Top Losers"){
+            window.location = "/allview?table="+method;
+        }
+    }
 </script>
 
 <div class="table-card">
@@ -20,7 +25,7 @@
             {/if}
             <span style="margin-left: 12px;">{name}</span>
         </div>
-        <div class="see_all">See All</div>
+        <div class="see_all" on:click={()=>goViewAll()}>See All</div>
     </div>
     <table class="table table-striped {method}">
         <tr>
@@ -93,6 +98,12 @@
 
     .see_all {
         color: #c921cd;
+        cursor: pointer;
+    }
+
+    .see_all:hover{
+        border-bottom: 1px dotted #c921cd;
+        padding-bottom: 0px;
     }
 
     table {
