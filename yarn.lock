@@ -1301,11 +1301,6 @@ fancy-canvas@0.2.2:
   resolved "https://registry.yarnpkg.com/fancy-canvas/-/fancy-canvas-0.2.2.tgz#33fd4976724169a1eda5015f515a2a1302d1ec91"
   integrity sha512-50qi8xA0QkHbjmb8h7XQ6k2fvD7y/yMfiUw9YTarJ7rWrq6o5/3CCXPouYk+XSLASvvxtjyiQLRBFt3qkE3oyA==
 
-fancy-canvas@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fancy-canvas/-/fancy-canvas-2.0.1.tgz#577bbc8d444bd48029f940b2b4d5bd56a18bfdc0"
-  integrity sha512-Ije+dFB3OeOIi2xaC2jbHwk97t+zuO85ZwxCcJxqEdmhpFaoQG6OE3KvMBQGjL5M6SaYi3Wn6kwaDMoJEGo1Ug==
-
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
@@ -2349,6 +2344,13 @@ svelte-content-loader@^1.1.3:
   resolved "https://registry.yarnpkg.com/svelte-content-loader/-/svelte-content-loader-1.1.3.tgz#58c049e4a2e60a93e1225d7d8727434a19237dcc"
   integrity sha512-hXkwyAXiZ+2uNvWUHPj9U7M+8PGqgZVFNxyOHjLUF1ng4W9P9+9wlyT/bNx5BjuqoJsfjv1IZP1/5T1LfRKtYA==
 
+svelte-feather-icons@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-feather-icons/-/svelte-feather-icons-4.0.0.tgz#fdffcce3a81782008f7e621cb37a29d041630aef"
+  integrity sha512-4ieUsjp+VYa1r6y80jDt9zRiRUZyJNbESpRdHdJJhiBubyuXX96A7f1UZSK4olxzP6Qsg5ZAuyZlnmvD+/swAA==
+  dependencies:
+    svelte "^3.38.2"
+
 svelte-hmr@^0.14.11:
   version "0.14.11"
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.11.tgz#63d532dc9c2c849ab708592f034765fa2502e568"
@@ -2370,6 +2372,11 @@ svelte-select@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/svelte-select/-/svelte-select-4.4.4.tgz#c8edcc829fb163d66adec5505507321ad857e6e0"
   integrity sha512-Jfa8NM3AtPb2qDKuOJuVXtTBm4q7wfUnGSQ7uhQLoMop5gzk1lKVOY5nWhUD1jnPnUfw5C6aK0WSnA7PthBSxA==
+
+svelte@^3.38.2:
+  version "3.48.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.48.0.tgz#f98c866d45e155bad8e1e88f15f9c03cd28753d3"
+  integrity sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==
 
 svelte@^3.47.0:
   version "3.47.0"
