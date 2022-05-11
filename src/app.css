@@ -95,11 +95,27 @@ button:focus:not(:focus-visible) {
 	display: none!important
 }
 
-.sc-carousel-arrow__circle{
+.card-carousel .swiper-button-prev,.card-carousel  .swiper-button-next{
+	display: none;
+}
+
+.card-carousel.active .swiper-button-prev,.card-carousel.active  .swiper-button-next{
+	display:flex;
+}
+
+.swiper-button-prev{
+	left: 20px!important;
+}
+
+.swiper-button-prev, .swiper-button-next{
 	width: 40px!important;
 	height: 40px!important;
 	background-color: #311037!important;
-	color: white!important
+	color: white!important;
+	border-radius: 50%;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+	font-size: 16px;
 }
 
 .listItem, .selectedItem {

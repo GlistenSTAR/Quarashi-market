@@ -1,6 +1,7 @@
 <script>
     //@ts-nocheck
-    import { onMount } from "svelte";
+    import { Pagination, Navigation } from "swiper";
+    import { Swiper, SwiperSlide } from "swiper/svelte";
 
     import coinStore from "$lib/coins-store";
     import CoinBox from "$lib/components/CoinBox.svelte";
@@ -9,12 +10,10 @@
     import { markets, categoriesData } from "./../../../store";
     import isEmpty from "./../../../utils/is-empty";
 
-    let Carousel, carousel;
+    import "swiper/css";
 
-    onMount(async () => {
-        const module = await import("svelte-carousel");
-        Carousel = module.default;
-    });
+    import "swiper/css/pagination";
+    import "swiper/css/navigation";
 
     let data = [];
     $: if (!isEmpty($markets)) {
@@ -23,23 +22,36 @@
         });
         categoriesData.set(data);
     }
+
+    const showArrow = (e) =>{
+        e.target.classList.add("active");
+    }
+
+    const hiddenArrow = (e) => {
+        e.target.classList.remove("active");
+    }
 </script>
 
 <div>
-    <div class="card-carousel">
-        <svelte:component
-            this={Carousel}
-            bind:this={carousel}
-            particlesToShow={4}
+    <div class="card-carousel" on:mouseleave={(event)=>hiddenArrow(event)} on:mouseenter={(event)=>showArrow(event)}>
+        <Swiper
+            slidesPerView={4}
+            loop={true}
+            loopFillGroupWithBlank={true}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+            class="mySwiper"
         >
             {#each coinStore.categories as item}
-                <CoinBox
-                    name={item.name}
-                    content={item.description}
-                    icon={item.id}
-                />
+                <SwiperSlide>
+                    <CoinBox
+                        name={item.name}
+                        content={item.description}
+                        icon={item.id}
+                    />
+                </SwiperSlide>
             {/each}
-        </svelte:component>
+        </Swiper>
     </div>
     <CoinTable method={"cat"} />
 </div>
@@ -47,8 +59,10 @@
 <style>
     .card-carousel {
         margin-top: 40px;
-        margin-left: -50px;
-        margin-right: -50px;
+        z-index: 1;
+    }
+    .mySwiper{
+        z-index: 2;
     }
 
     @media (max-width: 1352px) {
