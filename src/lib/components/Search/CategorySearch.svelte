@@ -23,17 +23,21 @@
         categoriesData.set(data);
     }
 
-    const showArrow = (e) =>{
+    const showArrow = (e) => {
         e.target.classList.add("active");
-    }
+    };
 
     const hiddenArrow = (e) => {
         e.target.classList.remove("active");
-    }
+    };
 </script>
 
 <div>
-    <div class="card-carousel" on:mouseleave={(event)=>hiddenArrow(event)} on:mouseenter={(event)=>showArrow(event)}>
+    <div
+        class="card-carousel"
+        on:mouseleave={(event) => hiddenArrow(event)}
+        on:mouseenter={(event) => showArrow(event)}
+    >
         <Swiper
             slidesPerView={4}
             loop={true}
@@ -61,7 +65,7 @@
         margin-top: 40px;
         z-index: 1;
     }
-    .mySwiper{
+    .mySwiper {
         z-index: 2;
     }
 
