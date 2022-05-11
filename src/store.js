@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
 
-export const coinInfo = writable({});
 export const markets = writable({});
 export const defi = writable({});
 export const marketsGlobal = writable({});

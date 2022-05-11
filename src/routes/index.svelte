@@ -16,7 +16,7 @@
 </svelte:head>
 
 <section>
-	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi) && isEmpty($news)}
+	{#if isEmpty($marketsGlobal) || isEmpty($markets) || isEmpty($defi) || isEmpty($news)}
 		<Loading />
 	{:else}
 		<!-- Overview -->

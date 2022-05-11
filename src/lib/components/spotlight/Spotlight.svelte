@@ -9,8 +9,10 @@
         selectDefiCoins5,
     } from "../../../api/filters";
 
-    export let data = {};
-    export let defiData = {};
+	import { markets, defi } from "./../../../store";
+
+    export let data = [] || $markets;
+    export let defiData = [] || $defi;
 
     let topGainers, topLosers, tvlGainers;
 

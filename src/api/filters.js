@@ -132,21 +132,36 @@ const normalizeSymbol = (item) => {
  * @param {any[]} data
  */
 export const selectTopGainers5 = (data) => {
-    return selectTopGainers(data).slice(0, 5);
+    try {
+        let sortedData = selectTopGainers(data);
+        return sortedData.slice(0, 5);
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 /**
  * @param {any[]} data
  */
 export const selectTopLosers5 = (data) => {
-    return selectTopLosers(data).slice(0, 5);
+    try {
+        let sortedData = selectTopLosers(data);
+        return sortedData.slice(0, 5);
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 /**
  * @param {any} data
  */
 export const selectDefiCoins5 = (data) => {
-    return selectDefiCoins(data).slice(0, 5);
+    try {
+        let sortedData = selectDefiCoins(data);
+        return sortedData.slice(0, 5);
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export const selectTopGainers = (/** @type {any[]} */ arrays) => {
@@ -187,17 +202,17 @@ export const filterByPrice = ({ priceChange, pricePeriod }, list) => {
     }
 
     let field
-    if (pricePeriod=== '1 Day')
+    if (pricePeriod === '1 Day')
         field = 'priceChange24h'
-    else if (pricePeriod=== '1 Week')
+    else if (pricePeriod === '1 Week')
         field = 'priceChange7d'
-    else if (pricePeriod=== '2 Weeks')
+    else if (pricePeriod === '2 Weeks')
         field = 'priceChange14d'
-    else if (pricePeriod=== '1 Month')
+    else if (pricePeriod === '1 Month')
         field = 'priceChange30d'
-    else if (pricePeriod=== '6 Months')
+    else if (pricePeriod === '6 Months')
         field = 'priceChange200d'
-    else if (pricePeriod=== '1 Year')
+    else if (pricePeriod === '1 Year')
         field = 'priceChange1y'
     else return list
 
