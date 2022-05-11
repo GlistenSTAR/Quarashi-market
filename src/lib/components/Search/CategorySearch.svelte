@@ -85,7 +85,6 @@
 <style>
     .card-carousel {
         margin-top: 40px;
-        z-index: 1;
     }
 
     @media (max-width: 1352px) {

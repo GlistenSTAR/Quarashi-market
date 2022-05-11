@@ -32,19 +32,15 @@
             breakpoints={{
                 "667": {
                     slidesPerView: 2,
-                    spaceBetween: 10,
                 },
                 "947": {
                     slidesPerView: 3,
-                    spaceBetween: 10,
                 },
                 "1541": {
                     slidesPerView: 4,
-                    spaceBetween: 10,
                 },
                 "1843": {
                     slidesPerView: 5,
-                    spaceBetween: 10,
                 },
             }}
         >
