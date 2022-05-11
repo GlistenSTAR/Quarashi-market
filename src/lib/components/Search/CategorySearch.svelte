@@ -39,12 +39,34 @@
         on:mouseenter={(event) => showArrow(event)}
     >
         <Swiper
-            slidesPerView={4}
+            slidesPerView={1}
             loop={true}
             loopFillGroupWithBlank={true}
             navigation={true}
             modules={[Pagination, Navigation]}
             class="mySwiper"
+            breakpoints={{
+                "667": {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                "947": {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                },
+                "1072": {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                "1636": {
+                    slidesPerView: 5,
+                    spaceBetween: 10,
+                },
+                "2160": {
+                    slidesPerView: 7,
+                    spaceBetween: 10,
+                },
+            }}
         >
             {#each coinStore.categories as item}
                 <SwiperSlide>
@@ -64,9 +86,6 @@
     .card-carousel {
         margin-top: 40px;
         z-index: 1;
-    }
-    .mySwiper {
-        z-index: 2;
     }
 
     @media (max-width: 1352px) {
