@@ -1,21 +1,72 @@
 <script>
 	import { page } from "$app/stores";
-	import { onMount } from "svelte";
 	import logo from "./../../../assets/img/logo.png";
 	import search_logo from "./../../../assets/img/search.png";
-	import { MenuIcon } from 'svelte-feather-icons'
+	import { MenuIcon } from "svelte-feather-icons";
+	import { coins } from "./../../../store";
+
+	import isEmpty from "./../../../utils/is-empty";
+
 	let search = "";
 
 	let show = false;
 
-	onMount(() => {
-		show = false;
-	});
+	let equalCoin = [],
+		equalCoins = [];
 
 	const handleSeachInput = () => {
 		if (document.body.scrollWidth < 1042) {
 			show = !show;
 		}
+	};
+
+	const searchCoin = () => {
+		let key = search.toLowerCase();
+		let data;
+		equalCoin = [];
+
+		if (!isEmpty($coins) || search.length > 0) {
+			data = $coins.map((item) => ({
+				id: item.id,
+				name: item.name.toLowerCase(),
+				label: `${item.name} (${item.symbol})`,
+				symbol: item.symbol,
+				priority: platformPriority(item),
+			}));
+
+			data.map((coin) => {
+				if (coin.symbol === key) {
+					equalCoin.push(coin);
+				} else if (coin.name === key) {
+					equalCoin.push(coin);
+				} else if (coin.symbol.match(key)) {
+					equalCoin.push(coin);
+				} else if (coin.name.match(key)) {
+					equalCoin.push(coin);
+				}
+			});
+
+			equalCoins = equalCoin
+				.filter(
+					({ id }) => !id.includes("long") && !id.includes("short")
+				)
+				.sort((a, b) => a.priority - b.priority)
+				.slice(0, 10);
+		}
+	};
+
+	const platformPriority = ({ platforms = {} }) => {
+		const { ethereum, "binance-smart-chain": binance } = platforms;
+
+		if (ethereum && ethereum.length) {
+			return 1;
+		}
+
+		if (binance && binance.length) {
+			return 2;
+		}
+
+		return 0;
 	};
 </script>
 
@@ -27,7 +78,7 @@
 			data-bs-toggle="collapse"
 			data-bs-target="#mynavbar"
 		>
-			<MenuIcon size="28" class="text-dangerouse i"/>
+			<MenuIcon size="28" class="text-dangerouse i" />
 		</button>
 		<a href="/">
 			<span class="logo">
@@ -59,7 +110,7 @@
 		</div>
 		<div class="search_box">
 			<form class="d-flex">
-				<div class="search">
+				<div class="search" width="100%">
 					<div class="input-group">
 						<input
 							type="text"
@@ -69,6 +120,7 @@
 							id="search"
 							bind:value={search}
 							aria-describedby="search-icon"
+							on:input={searchCoin}
 						/>
 						<span class="input-group-text" id="search-icon">
 							<img
@@ -78,6 +130,15 @@
 							/>
 						</span>
 					</div>
+					{#if !isEmpty(equalCoins) && search.length > 0}
+						<div class="search_result">
+							{#each equalCoins as item}
+								<li>
+									<span style="text-transform: capitalize;">{item.name} </span>({item.symbol})
+								</li>
+							{/each}
+						</div>
+					{/if}
 				</div>
 				{#if show}
 					<div class="modal_search" style="display: flex;">
@@ -87,10 +148,8 @@
 							placeholder="Search Here"
 							name="search"
 							id="search"
-							bind:value={search}
 							aria-describedby="search-icon"
 						/>
-						<button class="btn btn-outline-success">Search</button>
 					</div>
 				{/if}
 			</form>
@@ -201,6 +260,28 @@
 		margin-bottom: 0;
 	}
 
+	.search_result {
+		background-color: #141421;
+		position: absolute;
+		z-index: 9999999;
+		border-radius: 12px;
+		color: rgb(197, 196, 196);
+		font-size: 14px;
+		max-height: 350px;
+		overflow-y: scroll;
+		margin-top: 5px;
+		border: 2px solid #0b0b12;
+	}
+	::-webkit-scrollbar-thumb {
+		background: black;
+		border-radius: 10px;
+	}
+	.search_result li {
+		padding: 15px;
+		list-style: none;
+		border-bottom: 1px solid rgb(49, 49, 49);
+	}
+
 	@media (max-width: 1042px) {
 		.search .input-group input {
 			display: none;
@@ -233,12 +314,6 @@
 		}
 		.modal_search input::placeholder {
 			color: white;
-		}
-
-		.modal_search .btn-outline-success {
-			border-color: #4f1455;
-			border-width: 2px;
-			color: #4f1455;
 		}
 	}
 	@media (max-width: 767px) {

@@ -9,7 +9,8 @@ import {
   defi,
   marketsGlobal,
   news,
-  watchlist
+  watchlist,
+  coins
 } from "./../store";
 
 import { normalize, normalizeCoins, normalizeDefiCoins } from './filters';
@@ -57,6 +58,12 @@ export const getDefiCoins = async () => {
   } catch (err) {
     console.log(err)
   }
+}
+
+export const getCoins = async () => {
+  const data =  await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
+  coins.set(data)
+  return data
 }
 
 /**

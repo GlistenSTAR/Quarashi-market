@@ -4,6 +4,7 @@ export const markets = writable({});
 export const defi = writable({});
 export const marketsGlobal = writable({});
 export const news = writable({});
+export const coins = writable({});
 
 export const watchlist = writable({});
 

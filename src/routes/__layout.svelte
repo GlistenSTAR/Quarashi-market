@@ -8,7 +8,8 @@
 		getMarkets,
 		getMarketsGlobal,
 		getNews,
-		getWatchlist
+		getWatchlist,
+		getCoins
 	} from "./../api";
 
 	onMount(() => {
@@ -17,6 +18,7 @@
 		getDefiCoins();
 		getNews();
 		getWatchlist();
+		getCoins()
 	});
 </script>
 
