@@ -103,8 +103,8 @@ button:focus:not(:focus-visible) {
 	display:flex;
 }
 
-.swiper-button-prev{
-	left: 20px!important;
+.swiper-button-next{
+	right: 20px!important;
 }
 
 .swiper-button-prev, .swiper-button-next{
@@ -115,7 +115,7 @@ button:focus:not(:focus-visible) {
 	border-radius: 50%;
 }
 .swiper-button-next:after, .swiper-button-prev:after{
-	font-size: 16px;
+	font-size: 16px!important;
 }
 
 .listItem, .selectedItem {

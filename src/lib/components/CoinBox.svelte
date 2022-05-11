@@ -43,7 +43,6 @@
         padding: 20px;
         height: 120px;
         min-width: 250px !important;
-        margin-left: 10px;
         margin-right: 10px;
         border-radius: 12px;
         cursor: pointer;
