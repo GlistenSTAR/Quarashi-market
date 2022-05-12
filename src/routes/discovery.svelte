@@ -11,9 +11,9 @@
 
     const setActive = (val) => {
         active = val;
-    };    
-    $: categoriesData.set({})
-    $: advancedData.set({})
+    };
+    $: categoriesData.set({});
+    $: advancedData.set({});
 </script>
 
 <svelte:head>
@@ -84,5 +84,4 @@
         border: none;
         border-bottom: 2px solid #c921cd;
     }
-
 </style>

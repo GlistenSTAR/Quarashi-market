@@ -11,9 +11,7 @@
         isFull = !isFull;
     };
 
-    $: isFull
-        ? subMarkets.set(markets)
-        : subMarkets.set(markets.slice(0, 5));
+    $: isFull ? subMarkets.set(markets) : subMarkets.set(markets.slice(0, 5));
 </script>
 
 <div class="mt-4 markets">

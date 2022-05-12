@@ -6,7 +6,7 @@
     import Loading from "$lib/components/loader/Loading.svelte";
 
     import { page } from "$app/stores";
-    import { goto } from '$app/navigation';
+    import { goto } from "$app/navigation";
 
     const method = $page.url.searchParams.get("table");
 

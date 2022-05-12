@@ -70,8 +70,8 @@
 	};
 
 	const goCoinDetail = (id) => {
-		window.location = "/coins?id="+id;
-	}
+		window.location = "/coins?id=" + id;
+	};
 </script>
 
 <header>
@@ -137,8 +137,10 @@
 					{#if !isEmpty(equalCoins) && search.length > 0}
 						<div class="search_result">
 							{#each equalCoins as item}
-								<li on:click={()=>goCoinDetail(item.id)}>
-									<span style="text-transform: capitalize;">{item.name} </span>({item.symbol})
+								<li on:click={() => goCoinDetail(item.id)}>
+									<span style="text-transform: capitalize;"
+										>{item.name}
+									</span>({item.symbol})
 								</li>
 							{/each}
 						</div>
@@ -377,6 +379,5 @@
 		.modal_search input::placeholder {
 			color: white;
 		}
-
 	}
 </style>

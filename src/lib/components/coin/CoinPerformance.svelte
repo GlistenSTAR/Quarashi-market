@@ -53,7 +53,9 @@
     </div>
     <div class="col-6 box">
         <h5 class="title">Performance</h5>
-        <table class="table table-borderless mb-0 table-zebra text-bran table-striped">
+        <table
+            class="table table-borderless mb-0 table-zebra text-bran table-striped"
+        >
             <thead>
                 <tr class="small text-grey">
                     <td class="pb-2 pt-2">VS</td>
@@ -125,7 +127,7 @@
         flex-direction: column;
         justify-content: space-between;
     }
-    .table-striped>tbody>tr:nth-of-type(odd){
+    .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: #343948;
     }
 </style>

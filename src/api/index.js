@@ -32,7 +32,7 @@ export const getMarketsGlobal = async () => {
 export const getWatchlist = async () => {
   // @ts-ignore
   let watchlistData = await JSON.parse(localStorage.getItem("watchlist"));
-  if(!isEmpty(watchlistData)){
+  if (!isEmpty(watchlistData)) {
     watchlist.set(watchlistData)
   } else {
     watchlist.set({})
@@ -64,7 +64,7 @@ export const getDefiCoins = async () => {
 }
 
 export const getCoins = async () => {
-  const data =  await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
+  const data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
   coins.set(data)
   return data
 }
@@ -91,7 +91,7 @@ export const getDefiMarkets = () => {
  * @param {any} id
  */
 export const getCoinInfo = async (id) => {
-  const data =  await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
+  const data = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
   coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
   return data
 }

@@ -15,10 +15,10 @@
     import coinStore from "$lib/coins-store";
     import Chart from "$lib/components/chart/Chart.svelte";
     import CoinPerformance from "$lib/components/coin/CoinPerformance.svelte";
-    import CoinVolume from '$lib/components/coin/CoinVolume.svelte'
-    import CoinMarkets from '$lib/components/coin/CoinMarkets.svelte'
-    import CoinInfo from '$lib/components/coin/CoinInfo.svelte'
-    import CoinSidebar from '$lib/components/coin/CoinSidebar.svelte'
+    import CoinVolume from "$lib/components/coin/CoinVolume.svelte";
+    import CoinMarkets from "$lib/components/coin/CoinMarkets.svelte";
+    import CoinInfo from "$lib/components/coin/CoinInfo.svelte";
+    import CoinSidebar from "$lib/components/coin/CoinSidebar.svelte";
 
     const coinID = $page.url.searchParams.get("id");
 
@@ -36,13 +36,13 @@
         $defi.coins.map((item) => {
             if (item.id === coinID) {
                 filterData1 = item;
-                console.log('filterData1', filterData1)
+                // console.log("filterData1", filterData1);
             }
         });
         $markets.map((item) => {
             if (item.id === coinID) {
                 filterData2 = item;
-                console.log('filterData2', filterData2)
+                // console.log("filterData2", filterData2);
             }
         });
         filterData3 = coinStore.coins[`${coinID}`];
@@ -83,12 +83,11 @@
                                 >
                                 <span
                                     class="ms-3 text-bran bg-lawrence rounded-2 px-3 py-1"
-                                    >Rank: 
+                                    >Rank:
                                     {#if filterData.rank != null}
                                         {filterData.rank}
                                     {/if}
-                                </span
-                                >
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -150,22 +149,33 @@
                     <CoinVolume
                         volumes={filterData.volumes}
                         symbol={filterData.symbol}
-                        coinId = {coinID}
+                        coinId={coinID}
                         launchDate={filterData.launchDate}
                     />
                 </div>
                 <!-- markets -->
                 <div class="mt-mb-3">
-                    <CoinMarkets className="my-3" markets={filterData.markets} />
+                    <CoinMarkets
+                        className="my-3"
+                        markets={filterData.markets}
+                    />
                 </div>
 
                 <!-- description -->
                 <div class="mt-5">
-                    <CoinInfo description={filterData.description} guide={filterData.guide} whitepaper={filterData.whitepaper} />
+                    <CoinInfo
+                        description={filterData.description}
+                        guide={filterData.guide}
+                        whitepaper={filterData.whitepaper}
+                    />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
-              <CoinSidebar coin={filterData.id} links={filterData.links} platforms={filterData.platforms} />
+                <CoinSidebar
+                    coin={filterData.id}
+                    links={filterData.links}
+                    platforms={filterData.platforms}
+                />
             </div>
         </div>
     </div>
