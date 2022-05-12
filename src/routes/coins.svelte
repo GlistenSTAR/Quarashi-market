@@ -25,7 +25,6 @@
     let data, filterData1, filterData2, filterData3, filterData4, filterData;
 
     $: getCoinInfo(coinID);
-    // $: console.log('data view', $coinInfo)
 
     $: if (
         !isEmpty(coinID) &&
@@ -37,21 +36,21 @@
         $defi.coins.map((item) => {
             if (item.id === coinID) {
                 filterData1 = item;
-                // console.log("filterData1", filterData1);
+                console.log('filterData1', filterData1)
             }
         });
         $markets.map((item) => {
             if (item.id === coinID) {
                 filterData2 = item;
-                // console.log("filterData2", filterData2);
+                console.log('filterData2', filterData2)
             }
         });
         filterData3 = coinStore.coins[`${coinID}`];
         filterData = {
-            ...$coinInfo,
             ...filterData2,
             ...filterData1,
             ...filterData3,
+            ...$coinInfo,
         };
         console.log(filterData);
     }
@@ -68,7 +67,7 @@
                     <div class="d-flex flex-column flex-md-row">
                         <img
                             class="object-contain rounded-circle d-none d-md-block"
-                            src={filterData.image}
+                            src={filterData.image.large}
                             height="86"
                             alt=""
                         />
@@ -84,7 +83,11 @@
                                 >
                                 <span
                                     class="ms-3 text-bran bg-lawrence rounded-2 px-3 py-1"
-                                    >Rank: {filterData.rank}</span
+                                    >Rank: 
+                                    {#if filterData.rank != null}
+                                        {filterData.rank}
+                                    {/if}
+                                </span
                                 >
                             </div>
                         </div>
@@ -116,15 +119,15 @@
                     </span>
                     <span
                         class={`fs-4 d-flex align-items-center ${priceColor(
-                            filterData.priceChange24h
+                            filterData.priceChange24
                         )}`}
                     >
-                        {#if filterData.priceChange24h > 0}
+                        {#if filterData.priceChange24 > 0}
                             <ArrowUpIcon size="16" class="i up" />
                         {:else}
                             <ArrowDownIcon size="16" class="i down" />
                         {/if}&nbsp;
-                        {percentageFormat(Math.abs(filterData.priceChange24h), {
+                        {percentageFormat(Math.abs(filterData.priceChange24), {
                             forceSign: false,
                         })}
                     </span>

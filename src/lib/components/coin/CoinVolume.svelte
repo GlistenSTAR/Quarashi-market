@@ -26,19 +26,27 @@
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">Market Cap</div>
-                <span class="text-oz"
-                    >{currencyFullValue(volumes.marketCap)}</span
-                >
+                <span class="text-oz">
+                    {#if volumes.marketCap == 0}
+                        <span class="text-grey">N/A</span>
+                    {:else}
+                        {currencyFullValue(volumes.marketCap)}
+                    {/if}
+                </span>
             </li>
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">In Circulation</div>
                 <div class="text-oz">
-                    {currencyFullValue(volumes.circulatingSupply, {
-                        thousandSeparated: true,
-                        mantissa: 0,
-                    })}
+                    {#if volumes.circulatingSupply == 0}
+                        <span class="text-grey">N/A</span>
+                    {:else}
+                        {currencyFullValue(volumes.circulatingSupply, {
+                            thousandSeparated: true,
+                            mantissa: 0,
+                        })}
+                    {/if}
                 </div>
             </li>
             <li
@@ -46,7 +54,11 @@
             >
                 <div class="text-grey">Total Supply</div>
                 <div class="text-oz">
-                    {currencyFullValue(volumes.totalSupply)}
+                    {#if volumes.totalSupply == 0 || "null" || "undefined"}
+                        <span class="text-grey">N/A</span>
+                    {:else}
+                        {currencyFullValue(volumes.totalSupply)}
+                    {/if}
                 </div>
             </li>
             <li
@@ -54,7 +66,11 @@
             >
                 <div class="text-grey">Diluted MCap</div>
                 <div class="text-oz">
-                    {currencyFullValue(volumes.dilutedValuation)}
+                    {#if volumes.dilutedValuation == 0 || "null" || "undefined"}
+                        <span class="text-grey">N/A</span>
+                    {:else}
+                        {currencyFullValue(volumes.dilutedValuation)}
+                    {/if}
                 </div>
             </li>
             <li
@@ -65,7 +81,7 @@
                     {#if !isEmpty(launchDate)}
                         {launchDate}
                     {:else}
-                        <span class="text-grey-50">N/A</span>
+                        <span class="text-grey">N/A</span>
                     {/if}
                 </div>
             </li>
@@ -87,7 +103,7 @@
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">Volume Rank</div>
-                <span class="text-grey-50">N/A</span>
+                <span class="text-grey">N/A</span>
             </li>
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
@@ -97,7 +113,7 @@
                 <div class="text-grey">Total Value Locked</div>
                 <div class="text-oz">
                     {#if volumes.tvl === null}
-                        N/A
+                        <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.tvl)}
                     {/if}
@@ -107,7 +123,7 @@
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">TVL Rank</div>
-                <div class="text-grey-50">N/A</div>
+                <div class="text-grey">N/A</div>
             </li>
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
@@ -115,7 +131,7 @@
                 <div class="text-grey">M.cap / TVL ratio</div>
                 <div class="text-oz">
                     {#if percentageFormat( mCapTvlRatio, { forceSign: false } ) == "0%"}
-                        <span class="text-grey-50">N/A</span>
+                        <span class="text-grey">N/A</span>
                     {:else}
                         {percentageFormat(mCapTvlRatio, { forceSign: false })}
                     {/if}
