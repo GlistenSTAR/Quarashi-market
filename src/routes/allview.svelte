@@ -13,9 +13,9 @@
     let data = [],
         filterData;
 
-    if (isEmpty(method)) {
-        goto('/overview');
-    }
+    // $: if (isEmpty(method)) {
+    //     goto('/', null)
+    // }
 
     $: if (!isEmpty($markets)) {
         markets.subscribe((item) => {
