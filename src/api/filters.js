@@ -1,5 +1,5 @@
 import { percentageBetweenRange, truncateMiddle } from './../helpers'
-
+import coinsStore from '$lib/coins-store'
 /**
  * @param {any[]} data
  */

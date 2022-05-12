@@ -11,6 +11,10 @@
             window.location = "/allview?table="+method;
         }
     }
+
+    const goCoinDetail = (id) => {
+		window.location = "/coins?id="+id;
+    }
 </script>
 
 <div class="table-card">
@@ -38,7 +42,7 @@
             {#each data as item, key}
                 <tr>
                     <td>{key + 1}</td>
-                    <td class="text-uppercase">
+                    <td class="text-uppercase" style="cursor: pointer;" on:click={()=>goCoinDetail(item.id)}>
                         <img
                             src={item.image}
                             alt="coin"

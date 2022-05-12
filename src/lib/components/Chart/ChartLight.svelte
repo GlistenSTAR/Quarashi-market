@@ -7,7 +7,7 @@
     export let points = [];
     export let change;
     export let id = "";
-    export let size = "";
+    // export let size = "";
 
     onMount(() => {
         let topColor, bottomColor, lineColor;
