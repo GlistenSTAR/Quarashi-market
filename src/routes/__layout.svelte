@@ -18,7 +18,7 @@
 		getDefiCoins();
 		getNews();
 		getWatchlist();
-		getCoins()
+		getCoins();
 	});
 </script>
 

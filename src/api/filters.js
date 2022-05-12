@@ -1,3 +1,5 @@
+import { percentageBetweenRange, truncateMiddle } from './../helpers'
+
 /**
  * @param {any[]} data
  */
@@ -128,6 +130,30 @@ const normalizeSymbol = (item) => {
     return item.code || item.name || item.coingecko_id
 }
 
+export const normalizeCoinInfo = (coin, storedCoin) => {
+    const marketData = coin.market_data
+    const mergedCoin = {
+        id: coin.id,
+        name: coin.name,
+        symbol: coin.symbol,
+        image: coin.image,
+        rank: coin.coingecko_rank,
+        description: coin.description.en,
+        price: marketData.current_price.usd,
+        platforms: coin.platforms,
+        priceChange24: marketData.price_change_percentage_24h,
+
+        links: normalizeLinks(coin.links),
+        markets: normalizeMarkets(coin.tickers),
+        performance: normalizePerformance(coin.market_data),
+        priceRanges: normalizePriceRange(coin.market_data),
+        volumes: normalizeVolumes(coin.market_data),
+        launchDate: coin.genesis_date
+    }
+
+    return mergeStoredData(mergedCoin, storedCoin)
+}
+
 /**
  * @param {any[]} data
  */
@@ -232,4 +258,133 @@ export const filterByPrice = ({ priceChange, pricePeriod }, list) => {
         default:
             return list
     }
+}
+
+export const mergeStoredData = (coin, storedCoin) => {
+    if (!storedCoin) {
+        return coin
+    }
+
+    // Merge only existing links
+    Object.keys(storedCoin.links).forEach(key => {
+        const link = storedCoin.links[key]
+        if (link) {
+            coin.links[key] = link
+        }
+    })
+
+    coin.categories = storedCoin.categories
+    coin.guide = storedCoin.guide
+    coin.whitepaper = storedCoin.whitepaper
+    coin.funds = storedCoin.funds.map(fund => coinsStore.funds[fund])
+
+    if (storedCoin.description) {
+        coin.description = storedCoin.description
+    }
+
+    return coin
+}
+
+export const normalizeLinks = (links) => {
+    const map = {
+        reddit: links.subreddit_url
+    }
+
+    if (links.telegram_channel_identifier) {
+        map.telegram = `https://t.me/${links.telegram_channel_identifier}`
+    }
+
+    if (links.twitter_screen_name) {
+        map.telegram = `https://twitter.com/${links.twitter_screen_name}`
+    }
+
+    if (links.homepage && links.homepage.length) {
+        map.website = links.homepage[0]
+    }
+
+    if (links.repos_url) {
+        if (links.repos_url.github && links.repos_url.github.length) {
+            map.github = links.homepage[0]
+        }
+
+        if (links.repos_url.bitbucket && links.repos_url.bitbucket.length) {
+            map.bitbucket = links.homepage[0]
+        }
+    }
+
+    return map
+}
+
+export const normalizeMarkets = (tickers) => {
+    return tickers.map(
+        item => {
+            return ({
+                name: item.market.name,
+                pair: `${truncateMiddle(item.base, 15)}/${truncateMiddle(item.target, 15)}`,
+                price: item.converted_last.usd,
+                volume: item.converted_volume.usd
+            })
+        }
+    ).sort((a, b) =>
+        b.volume - a.volume
+    )
+}
+
+export const normalizeVolumes = (marketData) => {
+    return {
+        totalVolume: marketData.total_volume.usd,
+        totalSupply: marketData.total_supply,
+        circulatingSupply: marketData.circulating_supply,
+        marketCap: marketData.market_cap.usd,
+        dilutedValuation: marketData.fully_diluted_valuation.usd,
+        tvl: marketData.total_value_locked ? marketData.total_value_locked.usd : null
+    }
+}
+
+export const normalizePerformance = (marketData) => {
+    const performance = []
+    const performanceCoins = ['usd', 'btc', 'eth', 'bnb']
+    const performancePeriods = [
+        { name: '1w', key: 'price_change_percentage_7d_in_currency' },
+        { name: '1m', key: 'price_change_percentage_30d_in_currency' }
+    ]
+
+    performanceCoins.forEach(code => {
+        const perf = { code }
+        performancePeriods.forEach(period => {
+            const data = marketData[period.key]
+            if (data && data[code]) {
+                perf[period.name] = data[code]
+            }
+        })
+
+        performance.push(perf)
+    })
+
+    return performance
+}
+
+export const normalizePriceRange = (marketData) => {
+    const range24h = {
+        type: '24h Range',
+        min: marketData.low_24h.usd,
+        max: marketData.high_24h.usd
+    }
+
+    const range7d = {
+        type: '7d Range',
+        min: Math.min(...marketData.sparkline_7d.price),
+        max: Math.max(...marketData.sparkline_7d.price)
+    }
+
+    const rangeAll = {
+        type: 'All Time',
+        min: marketData.atl.usd,
+        max: marketData.ath.usd
+    }
+
+    return [range24h, range7d, rangeAll].map(item => {
+        item.value = percentageBetweenRange(marketData.current_price.usd, item.min, item.max)
+        return item
+    })
 }

@@ -10,10 +10,13 @@ import {
   marketsGlobal,
   news,
   watchlist,
-  coins
+  coins,
+  coinInfo
 } from "./../store";
+import coinsStore from '$lib/coins-store'
 
-import { normalize, normalizeCoins, normalizeDefiCoins } from './filters';
+
+import { normalize, normalizeCoins, normalizeDefiCoins, normalizeCoinInfo } from './filters';
 import isEmpty from './../utils/is-empty';
 
 export const getMarketsGlobal = async () => {
@@ -87,8 +90,10 @@ export const getDefiMarkets = () => {
 /**
  * @param {any} id
  */
-export const getCoinInfo = (id) => {
-  return API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
+export const getCoinInfo = async (id) => {
+  const data =  await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
+  coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
+  return data
 }
 
 export const getNews = async () => {

@@ -1,28 +1,40 @@
 <script>
+    //@ts-nocheck
     import { page } from "$app/stores";
     import isEmpty from "./../utils/is-empty";
 
-    import { coins, markets, marketsGlobal } from "./../store";
+    import { coins, markets, defi, coinInfo } from "./../store";
     import Loading from "$lib/components/loader/Loading.svelte";
     import {
         currencyFullValue,
         priceColor,
         percentageFormat,
     } from "./../helpers";
+    import { getCoinInfo } from "./../api/index";
     import { ArrowUpIcon, ArrowDownIcon } from "svelte-feather-icons";
     import coinStore from "$lib/coins-store";
-    import Chart from '$lib/components/chart/Chart.svelte'
+    import Chart from "$lib/components/chart/Chart.svelte";
+    import CoinPerformance from "$lib/components/coin/CoinPerformance.svelte";
+    import CoinVolume from '$lib/components/coin/CoinVolume.svelte'
+    import CoinMarkets from '$lib/components/coin/CoinMarkets.svelte'
+    import CoinInfo from '$lib/components/coin/CoinInfo.svelte'
+    import CoinSidebar from '$lib/components/coin/CoinSidebar.svelte'
 
     const coinID = $page.url.searchParams.get("id");
 
-    let list, filterData1, filterData2, filterData3, filterData;
+    let data, filterData1, filterData2, filterData3, filterData4, filterData;
+
+    $: getCoinInfo(coinID);
+    // $: console.log('data view', $coinInfo)
+
     $: if (
         !isEmpty(coinID) &&
-        !isEmpty($coins) &&
+        !isEmpty($defi) &&
         !isEmpty($markets) &&
+        !isEmpty($coinInfo) &&
         !isEmpty(coinStore)
     ) {
-        $coins.map((item) => {
+        $defi.coins.map((item) => {
             if (item.id === coinID) {
                 filterData1 = item;
                 // console.log("filterData1", filterData1);
@@ -35,18 +47,24 @@
             }
         });
         filterData3 = coinStore.coins[`${coinID}`];
-        filterData = { ...filterData1, ...filterData2, ...filterData3 };
+        filterData = {
+            ...$coinInfo,
+            ...filterData2,
+            ...filterData1,
+            ...filterData3,
+        };
         console.log(filterData);
     }
 </script>
 
-{#if isEmpty(coinID) || isEmpty($coins) || isEmpty($markets)}
+{#if isEmpty(coinID) || isEmpty($coins) || isEmpty($markets) || isEmpty($coinInfo) || isEmpty($defi)}
     <Loading />
 {:else}
     <div class="coin_view">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 chart_view">
                 <div class="title">
+                    <!-- coin kind -->
                     <div class="d-flex flex-column flex-md-row">
                         <img
                             class="object-contain rounded-circle d-none d-md-block"
@@ -71,25 +89,27 @@
                             </div>
                         </div>
                     </div>
+                    <!-- category -->
                     {#if !isEmpty(filterData.categories)}
-                    <div class="category mb-3">
-                        <span class="text-grey">Category: </span>
-                        {#each filterData.categories as item, i}
-                            <a
-                                key={i}
-                                class="text-jacob text-capitalize text-decoration-none px-2"
-                                href="/"
-                            >
-                                {item}
-                            </a>
+                        <div class="category mb-3">
+                            <span class="text-grey">Category: </span>
+                            {#each filterData.categories as item, i}
+                                <a
+                                    key={i}
+                                    class="text-jacob text-capitalize text-decoration-none px-2"
+                                    href="/"
+                                >
+                                    {item}
+                                </a>
 
-                            {#if i !== filterData.categories.length - 1}
-                                <span key={`${i}-sep`}> | </span>
-                            {/if}
-                        {/each}
-                    </div>
+                                {#if i !== filterData.categories.length - 1}
+                                    <span key={`${i}-sep`}> | </span>
+                                {/if}
+                            {/each}
+                        </div>
                     {/if}
                 </div>
+                <!-- price -->
                 <div class="d-flex flex-column flex-md-row mt-3">
                     <span class="fs-1 text-oz fw-bold">
                         {currencyFullValue(filterData.price)} &nbsp;
@@ -109,15 +129,41 @@
                         })}
                     </span>
                 </div>
+                <!-- chart -->
                 <div class="mb-3 mt-3">
                     {#if filterData.symbol}
-                            <Chart
-                                coin={filterData.symbol} coinId={coinID}
-                            />
+                        <Chart coin={filterData.symbol} coinId={coinID} />
                     {/if}
                 </div>
+                <!-- price change -->
+                <div class="mb-3 mt-3">
+                    <CoinPerformance
+                        performance={filterData.performance}
+                        priceRanges={filterData.priceRanges}
+                    />
+                </div>
+                <!-- coin volume -->
+                <div class="mb-3 mt-3">
+                    <CoinVolume
+                        volumes={filterData.volumes}
+                        symbol={filterData.symbol}
+                        coinId = {coinID}
+                        launchDate={filterData.launchDate}
+                    />
+                </div>
+                <!-- markets -->
+                <div class="mt-mb-3">
+                    <CoinMarkets className="my-3" markets={filterData.markets} />
+                </div>
+
+                <!-- description -->
+                <div class="mt-5">
+                    <CoinInfo description={filterData.description} guide={filterData.guide} whitepaper={filterData.whitepaper} />
+                </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">world</div>
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
+              <CoinSidebar coin={filterData.id} links={filterData.links} platforms={filterData.platforms} />
+            </div>
         </div>
     </div>
 {/if}
@@ -135,7 +181,7 @@
         background-color: #252933;
         border-radius: 40px !important;
     }
-    .text-jacob{
-        color: #C921CD;
+    .text-jacob {
+        color: #c921cd;
     }
 </style>
