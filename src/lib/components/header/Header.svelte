@@ -68,6 +68,10 @@
 
 		return 0;
 	};
+
+	const goCoinDetail = (id) => {
+		window.location = "/coins?id="+id;
+	}
 </script>
 
 <header>
@@ -133,7 +137,7 @@
 					{#if !isEmpty(equalCoins) && search.length > 0}
 						<div class="search_result">
 							{#each equalCoins as item}
-								<li>
+								<li on:click={()=>goCoinDetail(item.id)}>
 									<span style="text-transform: capitalize;">{item.name} </span>({item.symbol})
 								</li>
 							{/each}
@@ -280,6 +284,7 @@
 		padding: 15px;
 		list-style: none;
 		border-bottom: 1px solid rgb(49, 49, 49);
+		cursor: pointer;
 	}
 
 	@media (max-width: 1042px) {
@@ -373,10 +378,5 @@
 			color: white;
 		}
 
-		.modal_search .btn-outline-success {
-			border-color: #4f1455;
-			border-width: 2px;
-			color: #4f1455;
-		}
 	}
 </style>
