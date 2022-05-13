@@ -4,7 +4,6 @@
     export let platforms = {};
 
     import { watchlist } from "./../../../store";
-    console.log(links);
 
     import { StarIcon } from "svelte-feather-icons";
     import Globe from "./../../../assets/img/coins/globe.svg";
@@ -13,6 +12,21 @@
     import Telegram from "./../../../assets/img/coins/telegram.svg";
     import Reddit from "./../../../assets/img/coins/reddit.svg";
     import Twitter from "./../../../assets/img/coins/twitter.svg";
+
+    const setFav = (event) => {
+        let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
+
+        if ($watchlist[`${coin}`]) {
+            event.target.classList.remove("active");
+            delete oldWatchlist[`${coin}`];
+        } else {
+            event.target.classList.add("active");
+            oldWatchlist[`${coin}`] = true;
+        }
+
+        localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
+        watchlist.set(oldWatchlist);
+    };
 </script>
 
 <div>
@@ -22,7 +36,7 @@
         {:else}
             <StarIcon size="20" />
         {/if}
-        <span class="px-3">Add to Watchlist</span>
+        <span class="px-3" on:click={setFav}>Add to Watchlist</span>
     </div>
     <div class="web_links mt-3 mb-3">
         {#if links.website}
@@ -77,22 +91,22 @@
             </a>
         {/if}
     </div>
-    {#if platforms.length>0}
-    <div class="platforms">
-        <li class="list-group-item bg-lawrence mh-48">
-            <img src={Copy} alt="copy" class="mr-2"/>
-            {#if platforms.ethereum}
-                &nbsp; ethereum
-                <small class="font-monospace">{platforms.ethereum}</small>
-            {/if}
-            {#if platforms.solana}
-                <span>solana</span>
-                <div class="text-truncate">
-                    <small class="font-monospace">{platforms.solana}</small>
-                </div>
-            {/if}
-        </li>
-    </div>
+    {#if platforms.length > 0}
+        <div class="platforms">
+            <li class="list-group-item bg-lawrence mh-48">
+                <img src={Copy} alt="copy" class="mr-2" />
+                {#if platforms.ethereum}
+                    &nbsp; ethereum
+                    <small class="font-monospace">{platforms.ethereum}</small>
+                {/if}
+                {#if platforms.solana}
+                    <span>solana</span>
+                    <div class="text-truncate">
+                        <small class="font-monospace">{platforms.solana}</small>
+                    </div>
+                {/if}
+            </li>
+        </div>
     {/if}
 </div>
 
@@ -104,6 +118,7 @@
         padding-left: 20px;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
     .active {
         color: #c921cd;
@@ -123,7 +138,7 @@
         padding-bottom: 7px;
         border-bottom: 1px solid rgb(46, 46, 46);
     }
-    .platforms li{
+    .platforms li {
         background-color: #141421;
         color: white;
         border-radius: 12px;

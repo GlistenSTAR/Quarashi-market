@@ -16,11 +16,6 @@ export function formatNumber(value, options = { thousandSeparated: true, mantiss
  * @param {string | numbro.Format | undefined} options
  */
 export function percentageFormat(value, options, na = '') {
-    // if (!value) {
-    //     // @ts-ignore
-    //     return document.createElement('span', { className: 'text-grey-50' }, na)
-    // }
-
     const number = numbro(value).format({
         trimMantissa: true,
         mantissa: 2,
@@ -50,7 +45,7 @@ export function currencyFormat(value, options) {
 export function currencyFullValue(value, options = { thousandSeparated: true }, na = 'N/A') {
     if (!value) {
         // @ts-ignore
-        return document.createElement('span', { className: 'text-grey-50' }, na)
+        return document.createElement('span', { class: 'text-grey-50' }, na)
     }
 
     return currencyFormat(value, options)

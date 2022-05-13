@@ -156,7 +156,7 @@
                 <!-- markets -->
                 <div class="mt-mb-3">
                     <CoinMarkets
-                        className="my-3"
+                        class="my-3"
                         markets={filterData.markets}
                     />
                 </div>
