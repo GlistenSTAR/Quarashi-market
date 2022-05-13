@@ -1,4 +1,5 @@
 <script>
+	//@ts-nocheck
 	import { page } from "$app/stores";
 	import logo from "./../../../assets/img/logo.png";
 	import search_logo from "./../../../assets/img/search.png";
@@ -155,6 +156,8 @@
 							name="search"
 							id="search"
 							aria-describedby="search-icon"
+							on:input={searchCoin}
+							bind:value={search}
 						/>
 					</div>
 				{/if}
@@ -277,6 +280,8 @@
 		overflow-y: scroll;
 		margin-top: 5px;
 		border: 2px solid #0b0b12;
+		right: 0px;
+		min-width: 290px;
 	}
 	::-webkit-scrollbar-thumb {
 		background: black;
@@ -321,6 +326,11 @@
 		}
 		.modal_search input::placeholder {
 			color: white;
+		}
+		
+		.search_result {
+			top: 150px;
+			min-width: 350px;
 		}
 	}
 	@media (max-width: 767px) {

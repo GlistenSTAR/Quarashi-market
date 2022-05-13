@@ -1,7 +1,7 @@
 <script>
+    //@ts-nocheck
     export let markets = [];
 
-    import { afterUpdate } from "svelte";
     import { ChevronDownIcon, ChevronUpIcon } from "svelte-feather-icons";
     import { currencyFullValue } from "./../../../helpers";
     import { subMarkets } from "./../../../store";

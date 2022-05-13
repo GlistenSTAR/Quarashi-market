@@ -107,6 +107,10 @@
         watchlist.set(oldWatchlist);
     }
 
+    const goCoindetail = (id) => {
+		window.location = "/coins?id="+id;
+    }
+
 </script>
 
 <Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
@@ -162,8 +166,7 @@
                     {/if}
                 </td>
                 <td>{row.rank}</td>
-                <td
-                    ><img
+                <td on:click={goCoindetail(row.id)} style="cursor: pointer;"><img
                         src={row.image}
                         alt="coin"
                         width="24"

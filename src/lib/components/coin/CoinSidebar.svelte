@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     export let coin = "";
     export let links = {};
     export let platforms = {};
@@ -119,9 +120,6 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-    }
-    .active {
-        color: #c921cd;
     }
     .web_links {
         background-color: #141421;

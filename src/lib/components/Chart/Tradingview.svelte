@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import { onMount } from "svelte";
 
     export let symbol = "";

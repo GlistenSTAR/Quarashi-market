@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     export let volumes = {};
     export let launchDate = "";
 

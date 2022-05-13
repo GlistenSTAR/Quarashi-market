@@ -1,16 +1,14 @@
 <script>
+    //@ts-nocheck
     export let coin = "";
     export let coinId = "";
 
-    import Tradingview from "./Tradingview.svelte"
-    import HistoryProvider from './api/HistoryProvider'
+    import Tradingview from "./Tradingview.svelte";
+    import HistoryProvider from "./api/HistoryProvider";
 
-    const historyProvider = new HistoryProvider(coinId)
+    const historyProvider = new HistoryProvider(coinId);
 
-    let resolveSymbol = (
-        symbolName,
-        onSymbolResolvedCallback
-    ) => {
+    let resolveSymbol = (symbolName, onSymbolResolvedCallback) => {
         setTimeout(
             () =>
                 onSymbolResolvedCallback({
@@ -83,7 +81,6 @@
         subscribeBars: () => {},
         unsubscribeBars: () => {},
     };
-
 </script>
 
 <div>

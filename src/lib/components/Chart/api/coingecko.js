@@ -1,3 +1,4 @@
+//@ts-nocheck
 import axios from 'axios'
 
 const baseUrl = 'https://api.coingecko.com/api/v3/coins'

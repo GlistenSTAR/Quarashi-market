@@ -134,6 +134,10 @@ svg.text-dangerouse.i {
 	color: #c921cd!important;
 }
 
+.watchlist.active {
+	color: #c921cd;
+}
+
 svg.i.up {
 	color: #00a478;
 	border-radius: 8px;
