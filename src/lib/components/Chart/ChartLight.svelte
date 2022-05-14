@@ -9,8 +9,6 @@
     export let id = "";
     export let size = "";
 
-    console.log('points', points, "size", size)
-
     let options = {};
 
     $: if (size == "large") {
@@ -103,5 +101,6 @@
         background-color: #141421;
         border-radius: 12px;
         z-index: -1;
+        margin-left: 30px;
     }
 </style>

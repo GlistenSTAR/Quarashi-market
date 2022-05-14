@@ -23,8 +23,11 @@ export function percentageFormat(value, options, na = '') {
         // @ts-ignore
         ...options
     })
-
-    return `${number}%`
+    if(value == 0){
+        return `0%`
+    } else {
+        return `${number}%`
+    }
 }
 
 /**

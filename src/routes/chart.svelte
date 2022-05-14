@@ -4,31 +4,63 @@
     import Loading from "$lib/components/loader/Loading.svelte";
     import ChartLight from "$lib/components/chart/ChartLight.svelte";
     import isEmpty from "./../utils/is-empty";
-    import { marketsGlobal, defiDominance, categoriesData } from "./../store";
+    import {
+        marketsGlobal,
+        defiDominance,
+        categoriesData,
+        defi,
+    } from "./../store";
+    import { currencyFormat, percentageFormat, priceColor } from "./../helpers";
+    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
 
     const method = $page.url.searchParams.get("chart");
 
-    let pointsData, change;
+    let pointsData,
+        change,
+        title,
+        data = {},
+        tvlData = {};
 
     $: if (!isEmpty($marketsGlobal)) {
         if (method == "volume") {
             pointsData = $marketsGlobal.points.volume;
             change = $marketsGlobal.volume24hDiff;
+            title = "Volume";
         } else if (method == "dominance") {
             pointsData = $marketsGlobal.points.dominance;
             change = $marketsGlobal.dominanceBTCDiff24h;
+            title = "BTC dominance";
         } else if (method == "defimarket") {
             pointsData = $marketsGlobal.points.defiMarket;
             change = $marketsGlobal.marketCapDefiDiff24h;
+            title = "DeFi Market Capitalization";
         } else if (method == "tvl") {
             pointsData = $marketsGlobal.points.tvl;
             change = $marketsGlobal.totalValueLockedDiff24h;
+            title = "Total Value Locked";
         }
-        console.log("$defiDominance", $defiDominance, '$marketGlobal', $marketsGlobal, '$categoriesData', $categoriesData);
-    }
 
-    import { currencyFormat, percentageFormat, priceColor } from "./../helpers";
-    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
+        if (!isEmpty($defiDominance)) {
+            data.name = $defiDominance[0].name;
+            data.value =
+                ($defiDominance[0].market_cap * 100) / $marketsGlobal.marketCap;
+        }
+
+        if (!isEmpty($defi)) {
+            tvlData.name = $defi["coins"][0]["name"];
+            tvlData.value =
+                ($defi["coins"][0].tvl * 100) /
+                $marketsGlobal.marketCap;
+        }
+        console.log(
+            "$defiDominance",
+            $defiDominance,
+            "$marketGlobal",
+            $marketsGlobal,
+            "$categoriesData",
+            $categoriesData
+        );
+    }
 
     const defiMarketDominance = () => {
         if ($marketsGlobal.marketCap && $marketsGlobal.totalValueLocked) {
@@ -40,25 +72,16 @@
 
         return 0;
     };
-
-    const selectDefiMarketDominance = () => {
-        if (!isEmpty($defiDominance)) {
-            const value =
-                ($defiDominance[0].market_cap * 100) / $marketsGlobal.marketCap;
-            console.log(value);
-            return value;
-        }
-    };
 </script>
 
-{#if isEmpty($marketsGlobal) && isEmpty($defiDominance) && isEmpty($categoriesData)}
+{#if isEmpty($marketsGlobal) && isEmpty($defiDominance) && isEmpty($categoriesData) && isEmpty(data) && isEmpty(tvlData)}
     <Loading />
 {:else}
-    <div>
-        <div class="row mt-5">
+    <div class="mt-5">
+        <div class="row">
             <div class="col-lg-8 col-md-8 col-12 mt-4">
                 <div class="chart">
-                    <h5>{method}</h5>
+                    <h5>{title}</h5>
                     {#if $marketsGlobal.points}
                         <ChartLight
                             points={pointsData}
@@ -135,13 +158,9 @@
                             </h1>
                         </div>
                         <div class="card">
-                            <h6>Lido Staked Ether Dominance</h6>
+                            <h6>{data.name} Dominance</h6>
                             <h1 class="text-blue">
-                                {percentageFormat(
-                                    selectDefiMarketDominance(),
-                                    null,
-                                    "N/A"
-                                )}
+                                {percentageFormat(data.value, null, "N/A")}
                             </h1>
                         </div>
                     {:else if method == "tvl"}
@@ -166,22 +185,18 @@
                             </h1>
                         </div>
                         <div class="card">
-                            <h6>Curve Dominance</h6>
+                            <h6>{tvlData.name} Dominance</h6>
                             <h1 class="text-blue">
-                                {percentageFormat(
-                                    selectDefiMarketDominance(),
-                                    null,
-                                    "N/A"
-                                )}
+                                {percentageFormat(tvlData.value, null, "N/A")}
                             </h1>
                         </div>
                     {/if}
                 </div>
             </div>
         </div>
-        <div class="row coin_table">
+        <!-- <div class="row coin_table">
             <CoinTable method="chart" />
-        </div>
+        </div> -->
     </div>
 {/if}
 
@@ -190,6 +205,7 @@
         position: absolute;
         text-transform: capitalize;
         color: grey;
+        margin-left: 10px;
     }
     .cardbox {
         display: flex;
