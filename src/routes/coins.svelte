@@ -148,17 +148,12 @@
                 <div class="mb-3 mt-3">
                     <CoinVolume
                         volumes={filterData.volumes}
-                        symbol={filterData.symbol}
-                        coinId={coinID}
                         launchDate={filterData.launchDate}
                     />
                 </div>
                 <!-- markets -->
                 <div class="mt-mb-3">
-                    <CoinMarkets
-                        class="my-3"
-                        markets={filterData.markets}
-                    />
+                    <CoinMarkets markets={filterData.markets} />
                 </div>
 
                 <!-- description -->

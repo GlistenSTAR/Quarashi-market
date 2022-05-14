@@ -65,6 +65,8 @@
         rows = $watchlistData;
     } else if (method == "view_all") {
         rows = $viewAllData;    
+    } else if (method == "chart") {
+        rows = $markets;    
     }
 
     function onSortString(event) {

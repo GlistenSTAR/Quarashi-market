@@ -8,7 +8,8 @@
         categoriesData,
         advancedData,
         watchlistData,
-        viewAllData
+        viewAllData,
+        markets,
     } from "./../../../store";
 
     export let method = "";
@@ -21,11 +22,11 @@
     import { page } from "$app/stores";
 
     const show_way = $page.url.searchParams.get("table");
-    
-    if(!isEmpty(show_way) || show_way == "up"){
-        selected = "Top Gainers"
-    } else if(!isEmpty(show_way) || show_way == "down") {
-        selected = "Top Losers"
+
+    if (!isEmpty(show_way) && show_way == "up") {
+        selected = "Top Gainers";
+    } else if (!isEmpty(show_way) && show_way == "down") {
+        selected = "Top Losers";
     }
 
     if (method == "cat") {
@@ -36,6 +37,8 @@
         data = $watchlistData;
     } else if (method == "view_all") {
         data = $viewAllData;
+    } else if (method == "chart") {
+        data = $markets;
     }
 
     const handleSelect = (e) => {
