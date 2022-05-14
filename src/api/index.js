@@ -11,7 +11,8 @@ import {
   news,
   watchlist,
   coins,
-  coinInfo
+  coinInfo,
+  defiDominance
 } from "./../store";
 import coinsStore from '$lib/coins-store'
 
@@ -41,8 +42,13 @@ export const getWatchlist = async () => {
 
 // @ts-ignore
 export const getMarkets = async (count = 250) => {
-  const data = markets.set(normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count)))
-  return data
+  try {
+    let data = normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count));
+    markets.set(data)
+    return data
+  } catch(err){
+    console.log(err)
+  }
 }
 
 /**
@@ -64,14 +70,20 @@ export const getDefiCoins = async () => {
 }
 
 export const getCoins = async () => {
-  const data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
-  coins.set(data)
-  return data
+  try {
+    const data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
+    coins.set(data)
+    return data
+  } catch(err){
+    console.log(err)
+  }
 }
 
 /**
  * @param {any} coin
  */
+
+// use modal
 export const getCoinTvlChart = (coin, period = '7d') => {
   return API.get(`/markets/defi/${coin}/${period}`)
 }
@@ -79,21 +91,32 @@ export const getCoinTvlChart = (coin, period = '7d') => {
 /**
  * @param {any} coin
  */
+// use modal
 export const getCoinVolumeChart = (coin) => {
   return API.get(`${coingeckoBaseUrl}/${coin}/market_chart?vs_currency=USD&days=1`)
 }
 
-export const getDefiMarkets = () => {
-  return API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&category=decentralized_finance_defi`)
+export const getDefiMarkets = async () => {
+  try{
+    const data = await API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&category=decentralized_finance_defi`)
+    defiDominance.set(data)
+    return data
+  }catch(err){
+    console.log(err)
+  }
 }
 
 /**
  * @param {any} id
  */
 export const getCoinInfo = async (id) => {
-  const data = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
-  coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
-  return data
+  try{
+    const data = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
+    coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
+    return data
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 export const getNews = async () => {
