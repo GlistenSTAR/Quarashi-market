@@ -7,11 +7,34 @@
     export let points = [];
     export let change;
     export let id = "";
-    // export let size = "";
+    export let size = "";
 
-    onMount(() => {
-        let topColor, bottomColor, lineColor;
-        const chart = createChart(document.getElementById(`${id}`), {
+    console.log('points', points, "size", size)
+
+    let options = {};
+
+    $: if (size == "large") {
+        options = {
+            handleScale: true,
+            handleScroll: true,
+            layout: {
+                backgroundColor: "transparent",
+                textColor: "#808085",
+            },
+            rightPriceScale: {
+                visible: true,
+            },
+            timeScale: {
+                barSpacing:12,
+                visible: true,
+            },
+            grid: {
+                vertLines: { visible: false },
+                horzLines: { visible: false },
+            },
+        };
+    } else {
+        options = {
             handleScale: true,
             handleScroll: true,
             layout: {
@@ -28,7 +51,13 @@
                 vertLines: { visible: false },
                 horzLines: { visible: false },
             },
-        });
+        };
+    }
+
+    onMount(() => {
+        let topColor, bottomColor, lineColor;
+
+        const chart = createChart(document.getElementById(`${id}`), options);
 
         if (change >= 0) {
             topColor = "rgba(33, 150, 243, 0.56)";
@@ -51,7 +80,11 @@
     });
 </script>
 
-<div {id} class="chart_area" />
+{#if size == "large"}
+    <div {id} class="chart_area large" />
+{:else}
+    <div {id} class="chart_area" />
+{/if}
 
 <style>
     .chart_area {
@@ -60,6 +93,15 @@
         position: absolute;
         bottom: 25px;
         right: 30px;
+        z-index: -1;
+    }
+
+    .large.chart_area {
+        height: 450px !important;
+        width: 100% !important;
+        position: relative;
+        background-color: #141421;
+        border-radius: 12px;
         z-index: -1;
     }
 </style>

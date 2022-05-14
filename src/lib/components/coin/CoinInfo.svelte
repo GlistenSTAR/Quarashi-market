@@ -1,7 +1,7 @@
 <script>
     export let description = "";
-    // export let guide = ""
-    // export let whitepapaer = ""
+    export let guide = "";
+    export let whitepaper = "";
 </script>
 
 {#if description}
@@ -9,6 +9,12 @@
         <h4>About</h4>
         <p class="mt-4">{description}</p>
     </div>
+{/if}
+{#if guide}
+    <div class="guide" />
+{/if}
+{#if whitepaper}
+    <div class="whitepaper" />
 {/if}
 
 <style>
