@@ -15,6 +15,8 @@ export const advancedData  = writable({});
 export const watchlistData  = writable({});
 export const viewAllData  = writable({});
 
+export const chartTableData  = writable({});
+
 export const filter = writable({});
 
 export const flag = writable("")

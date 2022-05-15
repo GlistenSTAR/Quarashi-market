@@ -65,11 +65,9 @@
         rows = $watchlistData;
     } else if (method == "view_all") {
         rows = $viewAllData;    
-    } else if (method == "chart") {
-        rows = $markets;    
-    }
+    } 
 
-    function onSortString(event) {
+    const onSortString = (event) => {
         event.detail.rows = sortString(
             event.detail.rows,
             event.detail.dir,
@@ -77,7 +75,7 @@
         );
     }
 
-    function onSortNumber(event) {
+    const onSortNumber = (event) => {
         event.detail.rows = sortNumber(
             event.detail.rows,
             event.detail.dir,
@@ -85,7 +83,7 @@
         );
     }
 
-    function setFav(id, event) {
+    const setFav = (id, event) => {
         if (!isEmpty(oldWatchlist)) {
             if (oldWatchlist[`${id}`] === true) {
                 event.target.classList.remove("active");

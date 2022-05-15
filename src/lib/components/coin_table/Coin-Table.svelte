@@ -1,5 +1,6 @@
 <script>
     // @ts-nocheck
+    import { page } from "$app/stores";
     import Select from "svelte-select";
     import { total_items } from "../../selectData";
     import Datatable from "./Datatable.svelte";
@@ -8,8 +9,7 @@
         categoriesData,
         advancedData,
         watchlistData,
-        viewAllData,
-        markets,
+        viewAllData
     } from "./../../../store";
 
     export let method = "";
@@ -19,8 +19,7 @@
         selected = "Highest Cap",
         filterData = [];
 
-    import { page } from "$app/stores";
-
+    // show toplosers and topgainers
     const show_way = $page.url.searchParams.get("table");
 
     if (!isEmpty(show_way) && show_way == "up") {
@@ -37,8 +36,6 @@
         data = $watchlistData;
     } else if (method == "view_all") {
         data = $viewAllData;
-    } else if (method == "chart") {
-        data = $markets;
     }
 
     const handleSelect = (e) => {
@@ -86,8 +83,6 @@
             } else if (method == "watch") {
                 watchlistData.set(filterData);
             }
-
-            // console.log('markets', $markets, 'cat', $categoriesData, 'adv', $advancedData, 'watch', $watchlistData)
         }
     };
 </script>
