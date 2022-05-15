@@ -7,11 +7,12 @@
     import {
         marketsGlobal,
         defiDominance,
-        categoriesData,
         defi,
+        chartTableData,
+        markets,
     } from "./../store";
     import { currencyFormat, percentageFormat, priceColor } from "./../helpers";
-    import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
+    import ChartTable from "$lib/components/chart_table/ChartTable.svelte";
 
     const method = $page.url.searchParams.get("chart");
 
@@ -20,6 +21,14 @@
         title,
         data = {},
         tvlData = {};
+
+    $: if (!isEmpty($markets)) {
+        let data = [];
+        $markets.map((item) => {
+            data.push(item);
+        });
+        chartTableData.set(data);
+    }
 
     $: if (!isEmpty($marketsGlobal)) {
         if (method == "volume") {
@@ -49,17 +58,8 @@
         if (!isEmpty($defi)) {
             tvlData.name = $defi["coins"][0]["name"];
             tvlData.value =
-                ($defi["coins"][0].tvl * 100) /
-                $marketsGlobal.marketCap;
+                ($defi["coins"][0].tvl * 100) / $marketsGlobal.marketCap;
         }
-        console.log(
-            "$defiDominance",
-            $defiDominance,
-            "$marketGlobal",
-            $marketsGlobal,
-            "$categoriesData",
-            $categoriesData
-        );
     }
 
     const defiMarketDominance = () => {
@@ -69,12 +69,15 @@
                 $marketsGlobal.marketCap
             );
         }
-
         return 0;
     };
 </script>
 
-{#if isEmpty($marketsGlobal) && isEmpty($defiDominance) && isEmpty($categoriesData) && isEmpty(data) && isEmpty(tvlData)}
+<svelte:head>
+    <title>Markets-{title}</title>
+</svelte:head>
+
+{#if isEmpty($marketsGlobal) || isEmpty($defiDominance) || isEmpty(data) || isEmpty(tvlData) || isEmpty(chartTableData)}
     <Loading />
 {:else}
     <div class="mt-5">
@@ -92,7 +95,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="col-lg-4 col=md-4 col-12">
+            <div class="col-lg-4 col-md-4 col-12">
                 <div class="cardbox">
                     {#if method == "volume"}
                         <div class="card">
@@ -194,9 +197,9 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row coin_table">
-            <CoinTable method="chart" />
-        </div> -->
+        <div class="row coin_table">
+            <ChartTable method="chart" />
+        </div>
     </div>
 {/if}
 

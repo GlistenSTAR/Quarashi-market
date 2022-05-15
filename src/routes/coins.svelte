@@ -59,6 +59,10 @@
     };
 </script>
 
+<svelte:head>
+    <title>Overview-{coinID}</title>
+</svelte:head>
+
 {#if isEmpty(coinID) || isEmpty($coins) || isEmpty($markets) || isEmpty($coinInfo) || isEmpty($defi)}
     <Loading />
 {:else}
