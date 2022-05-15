@@ -95,12 +95,12 @@
     }
 
     .large.chart_area {
-        height: 450px !important;
+        height: 400px !important;
         width: 100% !important;
         position: relative;
         background-color: #141421;
         border-radius: 12px;
         z-index: -1;
-        margin-left: 30px;
+        margin-left: 20px;
     }
 </style>

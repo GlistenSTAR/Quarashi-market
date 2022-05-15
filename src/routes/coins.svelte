@@ -3,7 +3,7 @@
     import { page } from "$app/stores";
     import isEmpty from "./../utils/is-empty";
 
-    import { coins, markets, defi, coinInfo } from "./../store";
+    import { coins, markets, defi, coinInfo, flag } from "./../store";
     import Loading from "$lib/components/loader/Loading.svelte";
     import {
         currencyFullValue,
@@ -22,7 +22,7 @@
 
     const coinID = $page.url.searchParams.get("id");
 
-    let data, filterData1, filterData2, filterData3, filterData4, filterData;
+    let filterData1, filterData2, filterData3, filterData4, filterData;
 
     $: getCoinInfo(coinID);
 
@@ -36,13 +36,11 @@
         $defi.coins.map((item) => {
             if (item.id === coinID) {
                 filterData1 = item;
-                // console.log("filterData1", filterData1);
             }
         });
         $markets.map((item) => {
             if (item.id === coinID) {
                 filterData2 = item;
-                // console.log("filterData2", filterData2);
             }
         });
         filterData3 = coinStore.coins[`${coinID}`];
@@ -54,6 +52,11 @@
         };
         console.log(filterData);
     }
+
+    const showCatergories = (id) => {
+        flag.set(id);
+        window.location = "/discovery";
+    };
 </script>
 
 {#if isEmpty(coinID) || isEmpty($coins) || isEmpty($markets) || isEmpty($coinInfo) || isEmpty($defi)}
@@ -96,13 +99,13 @@
                         <div class="category mb-3">
                             <span class="text-grey">Category: </span>
                             {#each filterData.categories as item, i}
-                                <a
+                                <span
                                     key={i}
                                     class="text-jacob text-capitalize text-decoration-none px-2"
-                                    href="/"
+                                    on:click={() => showCatergories(item)}
                                 >
                                     {item}
-                                </a>
+                                </span>
 
                                 {#if i !== filterData.categories.length - 1}
                                     <span key={`${i}-sep`}> | </span>
@@ -191,5 +194,8 @@
     }
     .text-jacob {
         color: #c921cd;
+    }
+    .category span {
+        cursor: pointer;
     }
 </style>
