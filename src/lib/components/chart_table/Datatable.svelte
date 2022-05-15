@@ -85,8 +85,153 @@
     const goCoindetail = (id) => {
         window.location = "/coins?id=" + id;
     };
+
+    $: console.log('rows', rows)
 </script>
 
+{#if chart_way == "defimarket"}
+<Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
+    <thead slot="head">
+        <tr>
+            <th width="1%">Watchlist</th>
+            <th width="5%"
+                ><Sort key="market_cap_rank" on:sort={onSortNumber} title="#" /></th
+            >
+            <th width="25%">
+                <Sort key="name" on:sort={onSortString} title="Name" />
+            </th>
+            <th>
+                <Sort key="current_price" on:sort={onSortNumber} title="Price" />
+            </th>
+            <th class="text-center">
+                <Sort
+                    key="price_change_percentage_24h"
+                    on:sort={onSortNumber}
+                    title="24 Hours"
+                />
+            </th>
+            <th class="text-center">
+                <Sort
+                    key="price_change_percentage_7d_in_currency"
+                    on:sort={onSortNumber}
+                    title="7 days"
+                />
+            </th>
+            <th>
+                <Sort
+                    key="market_cap"
+                    on:sort={onSortNumber}
+                    title="Market Cap"
+                />
+            </th>
+            <th class="text-right">
+                <Sort key="total_volume" on:sort={onSortNumber} title="Volume" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each rows2 as row, index (row)}
+            <Row index={method + index}>
+                <td
+                    align="center"
+                    on:click|preventDefault={(event) => setFav(row.id, event)}
+                >
+                    {#if oldWatchlist && oldWatchlist[`${row.id}`]}
+                        <StarIcon class="active" size="16" />
+                    {:else}
+                        <StarIcon size="16" />
+                    {/if}
+                </td>
+                <td>{row.market_cap_rank}</td>
+                <td on:click={goCoindetail(row.id)} style="cursor: pointer;"
+                    ><img
+                        src={row.image}
+                        alt="coin"
+                        width="24"
+                        height="24"
+                    /><span class="ml-5">{row.name}</span></td
+                >
+                <td>{currencyFullValue(row.current_price)}</td><td
+                    class="{priceColor(row.price_change_percentage_24h)} text-center"
+                    >{percentageFormat(row.price_change_percentage_24h)}</td
+                >
+                <td class="{priceColor(row.price_change_percentage_7d_in_currency)} text-center"
+                    >{percentageFormat(row.price_change_percentage_7d_in_currency)}</td
+                >
+                <td>$ {volume(row.market_cap)}</td>
+                <td align="right">$ {volume(row.total_volume)}</td>
+            </Row>
+        {/each}
+    </tbody>
+</Table>
+{:else if chart_way == "tvl"}
+<Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
+    <thead slot="head">
+        <tr>
+            <th width="1%">Watchlist</th>
+            <th width="5%"
+                ><Sort key="rank" on:sort={onSortNumber} title="#" /></th
+            >
+            <th width="25%">
+                <Sort key="name" on:sort={onSortString} title="Name" />
+            </th>
+            <th>
+                <Sort key="chain" on:sort={onSortString} title="Chain" />
+            </th>
+            <th class="text-center">
+                <Sort
+                    key="priceChange24h"
+                    on:sort={onSortNumber}
+                    title="24 Hours"
+                />
+            </th>
+            <th class="text-center">
+                <Sort
+                    key="priceChange7d"
+                    on:sort={onSortNumber}
+                    title="7 days"
+                />
+            </th>
+            <th class="text-right">
+                <Sort key="tvl" on:sort={onSortNumber} title="TVL" />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each rows2 as row, index (row)}
+            <Row index={method + index}>
+                <td
+                    align="center"
+                    on:click|preventDefault={(event) => setFav(row.id, event)}
+                >
+                    {#if oldWatchlist && oldWatchlist[`${row.id}`]}
+                        <StarIcon class="active" size="16" />
+                    {:else}
+                        <StarIcon size="16" />
+                    {/if}
+                </td>
+                <td>{row.rank}</td>
+                <td on:click={goCoindetail(row.id)} style="cursor: pointer;"
+                    ><img
+                        src={row.image}
+                        alt="coin"
+                        width="24"
+                        height="24"
+                    /><span class="ml-5">{row.name}</span></td
+                >
+                <td style="text-transform:capitalize;">{row.chain}</td><td
+                    class="{priceColor(row.priceChange24h)} text-center"
+                    >{percentageFormat(row.priceChange24h)}</td
+                >
+                <td class="{priceColor(row.priceChange7d)} text-center"
+                    >{percentageFormat(row.priceChange7d)}</td
+                >
+                <td align="right">$ {volume(row.tvl)}</td>
+            </Row>
+        {/each}
+    </tbody>
+</Table>
+{:else}
 <Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
     <thead slot="head">
         <tr>
@@ -161,6 +306,7 @@
         {/each}
     </tbody>
 </Table>
+{/if}
 
 <style>
     thead {
