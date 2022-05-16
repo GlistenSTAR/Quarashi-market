@@ -68,7 +68,7 @@
 {:else}
     <div class="coin_view">
         <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-10 col-xs-12 chart_view">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 chart_view">
                 <div class="title">
                     <!-- coin kind -->
                     <div class="d-flex flex-column flex-md-row">
@@ -172,7 +172,7 @@
                     />
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 sidebar">
                 <CoinSidebar
                     coin={filterData.id}
                     links={filterData.links}
@@ -201,5 +201,15 @@
     }
     .category span {
         cursor: pointer;
+    }
+
+	@media (max-width: 991px) {
+        .coin_view{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .sidebar{
+            margin-top: 20px;
+        }
     }
 </style>

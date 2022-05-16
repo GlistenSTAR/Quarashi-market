@@ -82,7 +82,7 @@
 {:else}
     <div class="mt-5">
         <div class="row">
-            <div class="col-lg-8 col-md-8 col-12 mt-4">
+            <div class="col-lg-8 col-md-12 col-12 mt-4">
                 <div class="chart">
                     <h5>{title}</h5>
                     {#if $marketsGlobal.points}
@@ -95,7 +95,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-12">
+            <div class="col-lg-4 col-md-12 col-12">
                 <div class="cardbox">
                     {#if method == "volume"}
                         <div class="card">
