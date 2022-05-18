@@ -234,4 +234,21 @@
     .text-blue {
         color: #3372ff !important;
     }
+
+    @media (max-width: 1352px){
+        .row {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+    @media (max-width: 425px){
+        .row>*{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .row {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
 </style>

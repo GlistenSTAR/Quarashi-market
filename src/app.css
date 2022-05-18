@@ -200,4 +200,7 @@ svg.i.lock {
 	.head{
 		padding-left: 2px!important;
 	}
+	.tv-lightweight-charts{
+		width: 100%!important;
+	}
 }

@@ -6,16 +6,12 @@
     import Datatable from "./Datatable.svelte";
     import isEmpty from "../../../utils/is-empty";
     import Loading from "../loader/Loading.svelte";
-    import {
-        defiDominance,
-        defi,
-        chartTableData
-    } from "../../../store";
+    import { defiDominance, defi, chartTableData } from "../../../store";
 
     export let method = "";
 
     let filter = "",
-        data = [],  
+        data = [],
         selected = "Highest Cap",
         filterData = [];
 
@@ -35,9 +31,9 @@
             data = $defiDominance;
         } else if (chart_way == "tvl") {
             data = $defi.coins;
-            selected = ""
+            selected = "";
         }
-        chartTableData.set(data)
+        chartTableData.set(data);
     }
 
     const handleSelect = (e) => {
@@ -77,30 +73,29 @@
                     return a.priceChange24h - b.priceChange24h;
                 });
             }
-            chartTableData.set(filterData)
+            chartTableData.set(filterData);
         }
     };
-
 </script>
 
 {#if isEmpty($defiDominance) && isEmpty(data) && isEmpty(chartTableData)}
     <Loading />
 {:else}
-<div class="coin-table">
-    <div>
-        <div class="coin_kind col-md-4">
-            <Select
-                items={total_items}
-                value={selected}
-                showChevron={true}
-                on:select={handleSelect}
-            />
+    <div class="coin-table">
+        <div>
+            <div class="coin_kind col-md-4">
+                <Select
+                    items={total_items}
+                    value={selected}
+                    showChevron={true}
+                    on:select={handleSelect}
+                />
+            </div>
+        </div>
+        <div class="table-res">
+            <Datatable {method} />
         </div>
     </div>
-    <div class="table-res">
-        <Datatable {method} />
-    </div>
-</div>
 {/if}
 
 <style>
@@ -130,6 +125,9 @@
     @media (max-width: 830px) {
         .table-res {
             overflow-x: auto;
+        }
+        .coin-table {
+            margin-top: 20px;
         }
     }
 </style>

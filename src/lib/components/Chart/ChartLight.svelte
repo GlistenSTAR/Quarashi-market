@@ -23,7 +23,7 @@
                 visible: true,
             },
             timeScale: {
-                barSpacing:12,
+                barSpacing: 12,
                 visible: true,
             },
             grid: {
@@ -102,5 +102,18 @@
         border-radius: 12px;
         z-index: -1;
         margin-left: 20px;
+    }
+
+    @media (max-width: 991px) {
+        .large.chart_area {
+            margin-left: 30px;
+        }
+    }
+    @media (max-width: 425px) {
+        .large.chart_area {
+            margin-left: 0px;
+            width: 100%!important;
+            right: inherit;
+        }
     }
 </style>
