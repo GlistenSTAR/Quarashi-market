@@ -16,7 +16,7 @@
 </script>
 
 <div class="row mt-md-4">
-    <div class="col-6 box">
+    <div class="col-lg-6 col-sm-12 box">
         <h5 class="title">Price Range</h5>
         <div class="content">
             {#each priceRanges as item}
@@ -52,7 +52,7 @@
             {/each}
         </div>
     </div>
-    <div class="col-6 box">
+    <div class="col-lg-6 col-sm-12 box">
         <h5 class="title">Performance</h5>
         <table
             class="table table-borderless mb-0 table-zebra text-bran table-striped"
@@ -130,5 +130,15 @@
     }
     .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: #343948;
+    }
+
+    @media (max-width: 768px){
+        .col-sm-12{
+            margin-top: 20px;
+        }
+        .row{
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
 </style>

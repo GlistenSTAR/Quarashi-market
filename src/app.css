@@ -168,6 +168,10 @@ svg.i.lock {
 	font-size: 16px;
 }
 
+.about p a{
+	color: #c921cd;
+}
+
 @media (max-width: 1352px) {
 	body{
 		padding-left: 20px;

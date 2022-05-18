@@ -79,4 +79,10 @@
         background-color: #343948;
         color: rgb(199, 198, 198);
     }
+
+    @media(max-width: 608px){
+        .markets{
+            overflow-x: scroll;
+        }
+    }
 </style>

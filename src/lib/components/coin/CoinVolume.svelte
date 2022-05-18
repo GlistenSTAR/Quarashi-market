@@ -21,7 +21,7 @@
 </script>
 
 <div class="row mt-mb-4">
-    <div class="col-6 box">
+    <div class="col-lg-6 col-sm-12 box">
         <ul class="list-group list-group-flush bg-steel-10 rounded">
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
@@ -88,7 +88,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-6 box">
+    <div class="col-lg-6 col-sm-12 box">
         <ul class="list-group list-group-flush bg-steel-10 rounded">
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
@@ -164,5 +164,15 @@
     }
     .text-grey {
         color: #858484;
+    }
+
+    @media (max-width: 768px){
+        .col-sm-12{
+            margin-top: 20px;
+        }
+        .row{
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
 </style>

@@ -7,7 +7,7 @@
 {#if description}
     <div class="about mt-mb-3">
         <h4>About</h4>
-        <p class="mt-4">{description}</p>
+        <p class="mt-4">{@html description}</p>
     </div>
 {/if}
 {#if guide}

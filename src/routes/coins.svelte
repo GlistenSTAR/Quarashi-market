@@ -212,4 +212,9 @@
             margin-top: 20px;
         }
     }
+	@media (max-width: 425px) {
+        .chart_view{
+            padding: 15px!important;
+        }        
+    }
 </style>
