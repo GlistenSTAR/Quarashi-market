@@ -152,4 +152,15 @@
             min-width: 410px;
         }
     }
+    @media (max-width: 446px) {
+        .table-card {
+            min-width: 320px;
+            width: 100%!important;
+        }
+        table{
+            min-width: 300px!important;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+    }
 </style>

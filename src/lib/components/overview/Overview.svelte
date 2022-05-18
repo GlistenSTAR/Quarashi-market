@@ -209,8 +209,6 @@
         margin-top: 20px;
         display: flex;
         justify-content: space-between;
-        overflow-x: scroll;
-        overflow-y: hidden;
     }
 
     ::-webkit-scrollbar {
@@ -270,4 +268,10 @@
     .text-danger {
         color: #ff4a57 !important;
     }
+    @media (max-width: 425px) {
+		.cards .card{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+	}
 </style>

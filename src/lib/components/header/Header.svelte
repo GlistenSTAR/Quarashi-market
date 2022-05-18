@@ -390,4 +390,29 @@
 			color: white;
 		}
 	}
+	@media (max-width: 425px) {
+		.head{
+			font-size: 16px;
+		}
+		.navbar-toggler{
+			width: 40px;
+			height: 40px;
+		}
+		.search .input-group span{
+			width: 40px;
+			height: 40px;
+		}
+		/* .search .input-group span img{
+			width: 20px;
+			height: 20px;
+		} */
+		.modal_search {
+			width: 320px;
+			top: 60px
+		}
+		.search_result {
+			top: 140px;
+			min-width:320px;
+		}
+	}
 </style>

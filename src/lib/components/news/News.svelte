@@ -63,4 +63,12 @@
             margin-right: 0px;
         }
     }
+
+    @media (max-width: 446px) {
+        .news-card {
+            min-width: 320px;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+    }
 </style>

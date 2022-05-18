@@ -73,4 +73,9 @@
             margin-right: 0px;
         }
     }
+    @media (max-width: 446px) {
+        .table-cards{
+            min-width: 320px;
+        }
+    }
 </style>

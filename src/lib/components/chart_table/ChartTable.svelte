@@ -97,7 +97,7 @@
             />
         </div>
     </div>
-    <div>
+    <div class="table-res">
         <Datatable {method} />
     </div>
 </div>
@@ -128,7 +128,7 @@
         /* min-width: 830px; */
     }
     @media (max-width: 830px) {
-        .coin-table {
+        .table-res {
             overflow-x: auto;
         }
     }
