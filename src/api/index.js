@@ -16,13 +16,20 @@ import {
 } from "./../store";
 import coinsStore from '$lib/coins-store'
 
-
 import { normalize, normalizeCoins, normalizeDefiCoins, normalizeCoinInfo } from './filters';
 import isEmpty from './../utils/is-empty';
 
-export const getMarketsGlobal = async () => {
+export const getMarketsGlobal = async (flag) => {
   try {
-    const response = await API.get(marketsBaseUrl + "/markets/global/24h");
+    let response;
+    if (flag && typeof localStorage !== "undefined") {
+      response = await API.get(marketsBaseUrl + "/markets/global/24h");
+      localStorage.setItem('marketGlobal', JSON.stringify(response))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        response = JSON.parse(localStorage.getItem("marketGlobal"))
+      }
+    }
     marketsGlobal.set(normalize(response));
     return response
   } catch (error) {
@@ -41,27 +48,36 @@ export const getWatchlist = async () => {
 }
 
 // @ts-ignore
-export const getMarkets = async (count = 250) => {
+export const getMarkets = async (flag, count = 250) => {
   try {
-    let data = normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count));
+    let data;
+    if (flag && typeof localStorage !== "undefined") {
+      data = normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count));
+      localStorage.setItem('markets', JSON.stringify(data))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        data = JSON.parse(localStorage.getItem("markets"))
+      }
+    }
     markets.set(data)
     return data
-  } catch(err){
+  } catch (err) {
     console.log(err)
   }
 }
 
-/**
- * @param {any} ids
- */
-export const getMarketsByIds = (ids) => {
-  return API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&ids=${ids}`)
-}
-
 // @ts-ignore
-export const getDefiCoins = async () => {
+export const getDefiCoins = async (flag) => {
   try {
-    const data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
+    let data;
+    if (flag && typeof localStorage !== "undefined") {
+      data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
+      localStorage.setItem('defi', JSON.stringify(data))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        data = JSON.parse(localStorage.getItem("defi"))
+      }
+    }
     defi.set(normalizeDefiCoins(data));
     return data
   } catch (err) {
@@ -69,12 +85,20 @@ export const getDefiCoins = async () => {
   }
 }
 
-export const getCoins = async () => {
+export const getCoins = async (flag) => {
   try {
-    const data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
+    let data;
+    if (flag && typeof localStorage !== "undefined") {
+      data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
+      localStorage.setItem('coins', JSON.stringify(data))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        data = JSON.parse(localStorage.getItem("coins"))
+      }
+    }
     coins.set(data)
     return data
-  } catch(err){
+  } catch (err) {
     console.log(err)
   }
 }
@@ -96,12 +120,20 @@ export const getCoinVolumeChart = (coin) => {
   return API.get(`${coingeckoBaseUrl}/${coin}/market_chart?vs_currency=USD&days=1`)
 }
 
-export const getDefiMarkets = async () => {
-  try{
-    const data = await API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&category=decentralized_finance_defi`)
+export const getDefiMarkets = async (flag) => {
+  try {
+    let data;
+    if (flag && typeof localStorage !== "undefined") {
+      data = await API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&category=decentralized_finance_defi`)
+      localStorage.setItem('defiDominance', JSON.stringify(data))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        data = JSON.parse(localStorage.getItem("defiDominance"))
+      }
+    }
     defiDominance.set(data)
     return data
-  }catch(err){
+  } catch (err) {
     console.log(err)
   }
 }
@@ -110,18 +142,27 @@ export const getDefiMarkets = async () => {
  * @param {any} id
  */
 export const getCoinInfo = async (id) => {
-  try{
+  try {
     const data = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
     coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
     return data
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
 
-export const getNews = async () => {
+export const getNews = async (flag) => {
   try {
-    const data = await API.get(`https://min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
+    let data;
+    if (flag && typeof localStorage !== "undefined") {
+      data = await API.get(`https://min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
+      localStorage.setItem('news', JSON.stringify(data))
+    } else {
+      if (typeof localStorage !== "undefined") {
+        data = JSON.parse(localStorage.getItem("news"))
+      }
+    }
+
     if (data.Message == "News list successfully returned") {
       news.set(data.Data)
     }

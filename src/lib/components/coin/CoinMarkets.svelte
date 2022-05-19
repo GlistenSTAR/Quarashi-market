@@ -59,6 +59,8 @@
         padding: 20px;
         border-radius: 20px;
         font-size: 12px;
+        margin-right: 10px;
+        margin-left: 10px;
     }
     .header {
         display: flex;
