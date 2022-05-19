@@ -132,11 +132,17 @@
         background-color: #343948;
     }
 
-    @media (max-width: 768px){
-        .col-sm-12{
+    .row .col-lg-6 {
+        margin-left: 7px;
+        margin-right: 7px;
+        width: 47%;
+    }
+
+    @media (max-width: 768px) {
+        .col-sm-12 {
             margin-top: 20px;
         }
-        .row{
+        .row {
             margin-left: 5px;
             margin-right: 5px;
         }
