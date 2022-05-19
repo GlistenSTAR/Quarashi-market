@@ -32,7 +32,7 @@
     };
 </script>
 
-<div>
+<div class="category">
     <div
         class="card-carousel"
         on:mouseleave={(event) => hiddenArrow(event)}
@@ -43,6 +43,7 @@
             loop={true}
             loopFillGroupWithBlank={true}
             navigation={true}
+            pagination={true}
             modules={[Pagination, Navigation]}
             class="mySwiper"
             breakpoints={{

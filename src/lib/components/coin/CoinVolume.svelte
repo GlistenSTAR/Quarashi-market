@@ -152,7 +152,7 @@
     .row {
         justify-content: center;
     }
-    .row .col-6 {
+    .row .col-lg-6 {
         margin-left: 7px;
         margin-right: 7px;
         width: 47%;

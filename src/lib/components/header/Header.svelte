@@ -2,7 +2,7 @@
 	//@ts-nocheck
 	import { page } from "$app/stores";
 	import logo from "./../../../assets/img/logo.png";
-	import search_logo from "./../../../assets/img/search.png";
+	import search_logo from "./../../../assets/img/search.svg";
 	import { MenuIcon } from "svelte-feather-icons";
 	import { coins } from "./../../../store";
 
@@ -87,7 +87,7 @@
 		</button>
 		<a href="/">
 			<span class="logo">
-				<img src={logo} alt="logo" />
+				<img src={logo} alt="logo"/>
 			</span>
 			<h2 class="head">Quarashi Markets Overview</h2>
 		</a>
@@ -402,10 +402,10 @@
 			width: 40px;
 			height: 40px;
 		}
-		/* .search .input-group span img{
+		img{
 			width: 20px;
 			height: 20px;
-		} */
+		}
 		.modal_search {
 			width: 320px;
 			top: 60px

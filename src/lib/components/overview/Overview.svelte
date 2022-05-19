@@ -21,13 +21,14 @@
 </script>
 
 <!-- chart remain -->
-<div style="width: 100%">
+<div style="width: 100%" class="overview_swiper">
     <h1>Overview</h1>
     <div class="cards">
         <Swiper
             slidesPerView={1}
             spaceBetween={10}
             class="mySwiper"
+            pagination={true}
             modules={[Pagination]}
             breakpoints={{
                 "667": {
