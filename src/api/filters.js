@@ -138,7 +138,7 @@ export const normalizeCoinInfo = (coin, storedCoin) => {
         symbol: coin.symbol,
         image: coin.image,
         rank: coin.coingecko_rank,
-        description: coin.description.en,
+        description: coin.description.en || coin.description,
         price: marketData.current_price.usd,
         platforms: coin.platforms,
         priceChange24: marketData.price_change_percentage_24h,
