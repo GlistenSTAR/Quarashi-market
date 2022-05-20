@@ -22,7 +22,7 @@ import isEmpty from './../utils/is-empty';
 export const getMarketsGlobal = async (flag) => {
   try {
     let response;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined" || isEmpty(JSON.parse(localStorage.getItem("marketGlobal")))) {
       response = await API.get(marketsBaseUrl + "/markets/global/24h");
       localStorage.setItem('marketGlobal', JSON.stringify(response))
     } else {
@@ -51,7 +51,7 @@ export const getWatchlist = async () => {
 export const getMarkets = async (flag, count = 250) => {
   try {
     let data;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined" || isEmpty(JSON.parse(localStorage.getItem("markets")))) {
       data = normalizeCoins(await getMarketsRecursive(1, Math.min(count, 250), count));
       localStorage.setItem('markets', JSON.stringify(data))
     } else {
@@ -70,7 +70,7 @@ export const getMarkets = async (flag, count = 250) => {
 export const getDefiCoins = async (flag) => {
   try {
     let data;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined"  || isEmpty(JSON.parse(localStorage.getItem("defi")))) {
       data = await API.get(`${marketsBaseUrl}/markets/defi?diff_period=24h,7d,30d`)
       localStorage.setItem('defi', JSON.stringify(data))
     } else {
@@ -88,7 +88,7 @@ export const getDefiCoins = async (flag) => {
 export const getCoins = async (flag) => {
   try {
     let data;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined" || isEmpty(JSON.parse(localStorage.getItem("coins")))) {
       data = await API.get('https://api.coingecko.com/api/v3/coins/list?include_platform=true');
       localStorage.setItem('coins', JSON.stringify(data))
     } else {
@@ -123,7 +123,7 @@ export const getCoinVolumeChart = (coin) => {
 export const getDefiMarkets = async (flag) => {
   try {
     let data;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined" || isEmpty(JSON.parse(localStorage.getItem("defiDominance")))) {
       data = await API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&category=decentralized_finance_defi`)
       localStorage.setItem('defiDominance', JSON.stringify(data))
     } else {
@@ -154,7 +154,7 @@ export const getCoinInfo = async (id) => {
 export const getNews = async (flag) => {
   try {
     let data;
-    if (flag && typeof localStorage !== "undefined") {
+    if (flag && typeof localStorage !== "undefined" || isEmpty(JSON.parse(localStorage.getItem("news")))) {
       data = await API.get(`https://min-api.cryptocompare.com/data/v2/news/?feeds=cointelegraph,theblock,decrypt&extraParams=Blocksdecoded&excludeCategories=Sponsored&api_key=${API_KEY}`)
       localStorage.setItem('news', JSON.stringify(data))
     } else {
