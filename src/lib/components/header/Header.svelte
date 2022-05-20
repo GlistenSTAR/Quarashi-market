@@ -13,10 +13,15 @@
 	let show = false;
 
 	let equalCoin = [],
-		equalCoins = [];
+		equalCoins = [],
+		device_width;
 
+	$: if(typeof document !== "undefined"){
+		device_width = document.body.scrollWidth;
+	}
+	
 	const handleSeachInput = () => {
-		if (document.body.scrollWidth < 1042) {
+		if (device_width < 1042) {
 			show = !show;
 		}
 	};
