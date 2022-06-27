@@ -1,7 +1,7 @@
 <script>
     //@ts-nocheck
     import { Swiper, SwiperSlide } from "swiper/svelte";
-    import { Pagination } from "swiper";
+    import { Pagination, Navigation } from "swiper";
 
     import "swiper/css";
 
@@ -15,21 +15,34 @@
     } from "./../../../helpers";
     import ChartLight from "../chart/ChartLight.svelte";
 
-    const goChartPage = (id) => {
-        window.location = "/chart?chart=" + id;
+    // const goChartPage = (id) => {
+    //     window.location = "/chart?chart=" + id;
+    // };
+
+    const showArrow = (e) => {
+        e.target.classList.add("active");
+    };
+
+    const hiddenArrow = (e) => {
+        e.target.classList.remove("active");
     };
 </script>
 
 <!-- chart remain -->
 <div style="width: 100%" class="overview_swiper">
     <h1>Overview</h1>
-    <div class="cards">
+    <div
+        class="cards"
+        on:mouseleave={(event) => hiddenArrow(event)}
+        on:mouseenter={(event) => showArrow(event)}
+    >
         <Swiper
             slidesPerView={1}
             spaceBetween={10}
-            class="mySwiper"
+            class="mySwiper1"
             pagination={true}
-            modules={[Pagination]}
+            navigation={true}
+            modules={[Pagination, Navigation]}
             breakpoints={{
                 "667": {
                     slidesPerView: 2,
@@ -87,10 +100,7 @@
                             {/if}
                         </h2>
                     </div>
-                    <div
-                        class="chart-box"
-                        on:click={() => goChartPage("volume")}
-                    >
+                    <a href="/chart?chart=volume" class="chart-box">
                         <!-- {points.volume} -->
                         {#if item.points}
                             <ChartLight
@@ -100,7 +110,7 @@
                                 size={"small"}
                             />
                         {/if}
-                    </div>
+                    </a>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -122,10 +132,7 @@
                             {/if}
                         </h2>
                     </div>
-                    <div
-                        class="chart-box"
-                        on:click={() => goChartPage("dominance")}
-                    >
+                    <a href="/chart?chart=dominance" class="chart-box">
                         <!-- points.dominance -->
                         {#if item.points}
                             <ChartLight
@@ -135,7 +142,7 @@
                                 size={"small"}
                             />
                         {/if}
-                    </div>
+                    </a>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -155,10 +162,7 @@
                             {/if}
                         </h2>
                     </div>
-                    <div
-                        class="chart-box"
-                        on:click={() => goChartPage("defimarket")}
-                    >
+                    <a href="/chart?chart=defimarket" class="chart-box">
                         <!-- points.defiMarket -->
                         {#if item.points}
                             <ChartLight
@@ -168,7 +172,7 @@
                                 size={"small"}
                             />
                         {/if}
-                    </div>
+                    </a>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -188,7 +192,7 @@
                             {/if}
                         </h2>
                     </div>
-                    <div class="chart-box" on:click={() => goChartPage("tvl")}>
+                    <a href="/chart?chart=tvl" class="chart-box">
                         <!-- points.tvl -->
                         {#if item.points}
                             <ChartLight
@@ -198,7 +202,7 @@
                                 size={"small"}
                             />
                         {/if}
-                    </div>
+                    </a>
                 </div>
             </SwiperSlide>
         </Swiper>
@@ -252,6 +256,7 @@
         width: 100%;
         height: 100%;
         z-index: 1;
+        cursor: pointer;
     }
 
     .amount h2 {
@@ -270,9 +275,9 @@
         color: #ff4a57 !important;
     }
     @media (max-width: 425px) {
-		.cards .card{
+        .cards .card {
             margin-left: 0px;
             margin-right: 0px;
         }
-	}
+    }
 </style>
