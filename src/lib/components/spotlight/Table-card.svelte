@@ -4,32 +4,34 @@
     export let method = "";
     export let data = [];
     import { currencyFormat, percentageFormat } from "./../../../helpers";
-    import { ArrowUpIcon, ArrowDownIcon,  LockIcon} from 'svelte-feather-icons'
-    
+    import { ArrowUpIcon, ArrowDownIcon, LockIcon } from "svelte-feather-icons";
+
     const goViewAll = () => {
-        if(name == "Top Gainers" || name == "Top Losers"){
-            window.location = "/allview?table="+method;
+        if (name == "Top Gainers" || name == "Top Losers") {
+            window.location = "/allview?table=" + method;
+        } else if (name == "TVL Change") {
+            window.location = "/chart?chart=tvl";
         }
-    }
+    };
 
     const goCoinDetail = (id) => {
-		window.location = "/coins?id="+id;
-    }
+        window.location = "/coins?id=" + id;
+    };
 </script>
 
 <div class="table-card">
     <div class="card-hearder">
         <div style="display: flex; align-items: center;">
             {#if method == "up"}
-                <ArrowUpIcon size="16" class="i up"/>
+                <ArrowUpIcon size="16" class="i up" />
             {:else if method == "down"}
-                <ArrowDownIcon size="16" class="i down"/>
+                <ArrowDownIcon size="16" class="i down" />
             {:else}
-                <LockIcon size="16" class="i lock"/>
+                <LockIcon size="16" class="i lock" />
             {/if}
             <span style="margin-left: 12px;">{name}</span>
         </div>
-        <div class="see_all" on:click={()=>goViewAll()}>See All</div>
+        <div class="see_all" on:click={() => goViewAll()}>See All</div>
     </div>
     <table class="table table-striped {method}">
         <tr>
@@ -42,7 +44,11 @@
             {#each data as item, key}
                 <tr>
                     <td>{key + 1}</td>
-                    <td class="text-uppercase" style="cursor: pointer;" on:click={()=>goCoinDetail(item.id)}>
+                    <td
+                        class="text-uppercase"
+                        style="cursor: pointer;"
+                        on:click={() => goCoinDetail(item.id)}
+                    >
                         <img
                             src={item.image}
                             alt="coin"
@@ -61,7 +67,11 @@
             {#each data as item, key}
                 <tr>
                     <td>{key + 1}</td>
-                    <td class="text-uppercase">
+                    <td
+                        class="text-uppercase"
+                        style="cursor: pointer;"
+                        on:click={() => goCoinDetail(item.id)}
+                    >
                         <img
                             src={item.image}
                             alt="coin"
@@ -105,7 +115,7 @@
         cursor: pointer;
     }
 
-    .see_all:hover{
+    .see_all:hover {
         border-bottom: 1px dotted #c921cd;
         padding-bottom: 0px;
     }
@@ -155,10 +165,10 @@
     @media (max-width: 446px) {
         .table-card {
             min-width: 320px;
-            width: 100%!important;
+            width: 100% !important;
         }
-        table{
-            min-width: 300px!important;
+        table {
+            min-width: 300px !important;
             overflow-x: scroll;
             overflow-y: hidden;
         }
