@@ -5,11 +5,12 @@
     import { total_items } from "../../selectData";
     import Datatable from "./Datatable.svelte";
     import isEmpty from "./../../../utils/is-empty";
+    import { StarIcon } from "svelte-feather-icons";
     import {
         categoriesData,
         advancedData,
         watchlistData,
-        viewAllData
+        viewAllData,
     } from "./../../../store";
 
     export let method = "";
@@ -88,19 +89,31 @@
 </script>
 
 <div class="coin-table">
-    <div>
-        <div class="coin_kind col-md-4">
-            <Select
-                items={total_items}
-                value={selected}
-                showChevron={true}
-                on:select={handleSelect}
-            />
+    {#if data.length == 0}
+        <div class="empty_table">
+            <div>
+                <StarIcon size="32" />
+            </div>
+            <div class="text-center mt-2">
+                You don’t have any favorite assets.<br /> You can add the favourites
+                by click to star icon in the asset page
+            </div>
         </div>
-    </div>
-    <div class="table-res">
-        <Datatable {method} />
-    </div>
+    {:else}
+        <div>
+            <div class="coin_kind col-md-4">
+                <Select
+                    items={total_items}
+                    value={selected}
+                    showChevron={true}
+                    on:select={handleSelect}
+                />
+            </div>
+        </div>
+        <div class="table-res">
+            <Datatable {method} />
+        </div>
+    {/if}
 </div>
 
 <style>
@@ -125,6 +138,14 @@
         border-radius: 12px;
         padding: 20px;
         padding-bottom: 60px;
+    }
+    .empty_table {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        color: grey;
     }
     @media (max-width: 830px) {
         .table-res {
