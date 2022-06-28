@@ -10,7 +10,8 @@
 
     let search = "";
 
-    let show = false;
+    let show = false,
+        showList = false;
 
     let equalCoin = [],
         equalCoins = [],
@@ -27,8 +28,8 @@
     };
 
     const searchCoin = () => {
-        if (search.length > 0) {
-            equalCoin = [{ id: 0, name: "Empty", label: "Empty" }];
+        if (search.length == 0) {
+            equalCoins = [{ id: 0, name: "Empty", label: "Empty", symbol: "" }];
         } else {
             let key = search.toLowerCase();
             let data;
@@ -83,6 +84,20 @@
     const goCoinDetail = (id) => {
         window.location = "/coins?id=" + id;
     };
+
+    const emptyString = () => {
+        if (search.length == 0) {
+            equalCoins = [{ id: 0, name: "Empty", label: "Empty", symbol: "" }];
+        }
+    };
+
+    const visiableList = () => {
+        showList = true;
+    };
+
+    const unVisiableList = () => {
+        showList = false;
+    };
 </script>
 
 <header>
@@ -136,6 +151,9 @@
                             bind:value={search}
                             aria-describedby="search-icon"
                             on:input={searchCoin}
+                            on:click={emptyString}
+                            on:focus={visiableList}
+                            on:blur={unVisiableList}
                         />
                         <span class="input-group-text" id="search-icon">
                             <img
@@ -145,17 +163,19 @@
                             />
                         </span>
                     </div>
-                    {#if !isEmpty(equalCoins) && search.length > 0}
-                        <div class="search_result">
+                    <div class="search_result">
+                        {#if showList}
                             {#each equalCoins as item}
                                 <li on:click={() => goCoinDetail(item.id)}>
                                     <span style="text-transform: capitalize;"
                                         >{item.name}
-                                    </span>({item.symbol})
+                                    </span>{item.symbol
+                                        ? `(${item.symbol})`
+                                        : ""}
                                 </li>
                             {/each}
-                        </div>
-                    {/if}
+                        {/if}
+                    </div>
                 </div>
                 {#if show}
                     <div class="modal_search" style="display: flex;">
@@ -166,8 +186,11 @@
                             name="search"
                             id="search"
                             aria-describedby="search-icon"
-                            on:input={searchCoin}
                             bind:value={search}
+                            on:input={searchCoin}
+                            on:click={emptyString}
+                            on:focus={visiableList}
+                            on:blur={unVisiableList}
                         />
                     </div>
                 {/if}
