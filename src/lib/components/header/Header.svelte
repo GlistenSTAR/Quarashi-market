@@ -29,7 +29,9 @@
 
     const searchCoin = () => {
         if (search.length == 0) {
-            equalCoins = [{ id: 0, name: "Empty", label: "Empty", symbol: "" }];
+            equalCoins = [
+                { id: "0_empty", name: "Empty", label: "Empty", symbol: "" },
+            ];
         } else {
             let key = search.toLowerCase();
             let data;
@@ -82,6 +84,7 @@
     };
 
     const goCoinDetail = (id) => {
+        console.log(id);
         window.location = "/coins?id=" + id;
     };
 
@@ -152,9 +155,9 @@
                             aria-describedby="search-icon"
                             on:input={searchCoin}
                             on:click={emptyString}
-                            on:focus={visiableList}
-                            on:blur={unVisiableList}
-                        />
+							/>
+                            <!-- on:focus={visiableList}
+                            on:blur={unVisiableList} -->
                         <span class="input-group-text" id="search-icon">
                             <img
                                 src={search_logo}
@@ -164,9 +167,13 @@
                         </span>
                     </div>
                     <div class="search_result">
-                        {#if showList}
+                        {#if !showList}
                             {#each equalCoins as item}
-                                <li on:click={() => goCoinDetail(item.id)}>
+                                <li
+                                    on:click={() => goCoinDetail(item.id)}
+                                    on:focus={visiableList}
+                                    on:blur={unVisiableList}
+                                >
                                     <span style="text-transform: capitalize;"
                                         >{item.name}
                                     </span>{item.symbol
@@ -189,9 +196,9 @@
                             bind:value={search}
                             on:input={searchCoin}
                             on:click={emptyString}
-                            on:focus={visiableList}
-                            on:blur={unVisiableList}
-                        />
+							/>
+                            <!-- on:focus={visiableList}
+                            on:blur={unVisiableList} -->
                     </div>
                 {/if}
             </form>

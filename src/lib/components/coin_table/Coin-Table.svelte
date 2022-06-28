@@ -29,7 +29,7 @@
         selected = "Top Losers";
     }
 
-    if (method == "cat") {
+    $: if (method == "cat") {
         data = $categoriesData;
     } else if (method == "adv") {
         data = $advancedData;
