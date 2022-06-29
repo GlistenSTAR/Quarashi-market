@@ -143,7 +143,12 @@
         </div>
         <div class="search_box">
             <form class="d-flex">
-                <div class="search" width="100%">
+                <div
+                    class="search"
+                    width="100%"
+                    on:mouseenter={visiableList}
+                    on:mouseleave={unVisiableList}
+                >
                     <div class="input-group">
                         <input
                             type="text"
@@ -155,9 +160,7 @@
                             aria-describedby="search-icon"
                             on:input={searchCoin}
                             on:click={emptyString}
-							/>
-                            <!-- on:focus={visiableList}
-                            on:blur={unVisiableList} -->
+                        />
                         <span class="input-group-text" id="search-icon">
                             <img
                                 src={search_logo}
@@ -167,7 +170,7 @@
                         </span>
                     </div>
                     <div class="search_result">
-                        {#if !showList}
+                        {#if showList}
                             {#each equalCoins as item}
                                 <li
                                     on:click={() => goCoinDetail(item.id)}
@@ -196,9 +199,7 @@
                             bind:value={search}
                             on:input={searchCoin}
                             on:click={emptyString}
-							/>
-                            <!-- on:focus={visiableList}
-                            on:blur={unVisiableList} -->
+                        />
                     </div>
                 {/if}
             </form>

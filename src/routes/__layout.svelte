@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import { onMount } from "svelte";
     import Header from "$lib/components/header/Header.svelte";
     import "../app.css";

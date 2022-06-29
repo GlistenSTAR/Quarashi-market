@@ -16,7 +16,7 @@
     import "swiper/css/pagination";
     import "swiper/css/navigation";
 
-    let data = [];
+    let data = [], startPos=0;
     $: if (!isEmpty($markets)) {
         $markets.map((item) => {
             data.push(item);
@@ -36,6 +36,11 @@
 
     $: if (catId) {
         flag.set(catId);
+        coinStore.categories.map((item, index)=>{
+            if(item.id == catId){
+                startPos = index
+            }
+        })
     }
 </script>
 
@@ -53,6 +58,7 @@
             pagination={true}
             modules={[Pagination, Navigation]}
             class="mySwiper"
+            initialSlide = {startPos}
             breakpoints={{
                 "667": {
                     slidesPerView: 2,
