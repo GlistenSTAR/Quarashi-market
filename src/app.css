@@ -253,17 +253,17 @@ svg.i.lock {
 		height: 150px;
 	}
 
-	.swiper.swiper-initialized.swiper-horizontal.mySwiper {
+	/* .swiper.swiper-initialized.swiper-horizontal.mySwiper {
 		height: 170px;
-	}
+	} */
 
 	.overview_swiper .card-carousel {
 		height: 100px;
 	}
 
-	.overview_swiper .swiper.swiper-initialized.swiper-horizontal.mySwiper {
+	/* .overview_swiper .swiper.swiper-initialized.swiper-horizontal.mySwiper {
 		height: 140px;
-	}
+	} */
 }
 
 @media (max-width: 535px) {
@@ -271,9 +271,9 @@ svg.i.lock {
 		height: 160px;
 	}
 
-	.swiper.swiper-initialized.swiper-horizontal.mySwiper {
+	/* .swiper.swiper-initialized.swiper-horizontal.mySwiper {
 		height: 190px;
-	}
+	} */
 
 	.swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
 		width: 80%;

@@ -41,7 +41,9 @@
             slidesPerView={1}
             spaceBetween={10}
             class="mySwiper1"
-            pagination={true}
+            pagination={{
+                dynamicBullets: true,
+            }}
             navigation={true}
             modules={[Pagination, Navigation]}
             breakpoints={{
