@@ -55,7 +55,7 @@
 
     const showCatergories = (id) => {
         flag.set(id);
-        window.location = "/discovery";
+        window.location = "/discovery?cat=" + id;
     };
 </script>
 
@@ -203,18 +203,18 @@
         cursor: pointer;
     }
 
-	@media (max-width: 991px) {
-        .coin_view{
+    @media (max-width: 991px) {
+        .coin_view {
             padding-left: 20px;
             padding-right: 20px;
         }
-        .sidebar{
+        .sidebar {
             margin-top: 20px;
         }
     }
-	@media (max-width: 425px) {
-        .chart_view{
-            padding: 15px!important;
-        }        
+    @media (max-width: 425px) {
+        .chart_view {
+            padding: 15px !important;
+        }
     }
 </style>
