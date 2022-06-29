@@ -1,5 +1,6 @@
 <script>
     //@ts-nocheck
+    import { page } from "$app/stores";
     import { Pagination, Navigation } from "swiper";
     import { Swiper, SwiperSlide } from "swiper/svelte";
 
@@ -7,7 +8,7 @@
     import CoinBox from "$lib/components/CoinBox.svelte";
     import CoinTable from "$lib/components/coin_table/Coin-Table.svelte";
 
-    import { markets, categoriesData } from "./../../../store";
+    import { markets, categoriesData, flag } from "./../../../store";
     import isEmpty from "./../../../utils/is-empty";
 
     import "swiper/css";
@@ -30,6 +31,12 @@
     const hiddenArrow = (e) => {
         e.target.classList.remove("active");
     };
+
+    const catId = $page.url.searchParams.get("cat");
+
+    $: if (catId) {
+        flag.set(catId);
+    }
 </script>
 
 <div class="category">
