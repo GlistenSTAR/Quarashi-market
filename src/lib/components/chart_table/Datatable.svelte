@@ -86,7 +86,6 @@
         window.location = "/coins?id=" + id;
     };
 
-    $: console.log('rows', rows)
 </script>
 
 {#if chart_way == "defimarket"}

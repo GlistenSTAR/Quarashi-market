@@ -76,6 +76,15 @@
             chartTableData.set(filterData);
         }
     };
+
+    const handleSelectDefiChain = (e) => {
+        if (!isEmpty($chartTableData)) {
+            let data = $chartTableData.filter(
+                (item) => (item.chain = e.detail.value)
+            );
+            chartTableData.set(data);
+        }
+    };
 </script>
 
 {#if isEmpty($defiDominance) && isEmpty(data) && isEmpty(chartTableData)}
@@ -84,12 +93,21 @@
     <div class="coin-table">
         <div>
             <div class="coin_kind col-md-4">
-                <Select
-                    items={total_items}
-                    value={selected}
-                    showChevron={true}
-                    on:select={handleSelect}
-                />
+                {#if chart_way !== "tvl"}
+                    <Select
+                        items={total_items}
+                        value={selected}
+                        showChevron={true}
+                        on:select={handleSelect}
+                    />
+                {:else}
+                    <Select
+                        items={$defi.chains}
+                        value={selected}
+                        showChevron={true}
+                        on:select={handleSelectDefiChain}
+                    />
+                {/if}
             </div>
         </div>
         <div class="table-res">

@@ -58,7 +58,6 @@
     $: if (method == "cat") {
         if (!isEmpty($flag) && !isEmpty(coin_lists)) {
             if (cat_tab_data) {
-                console.log(cat_tab_data);
                 categoriesData.set(cat_tab_data);
                 rows = $categoriesData;
             }
@@ -78,7 +77,6 @@
     $: if (method == "adv") {
         rows = $advancedData;
     } else if (method == "watch") {
-        console.log(1);
         rows = $watchlistData;
     } else if (method == "view_all") {
         rows = $viewAllData;
