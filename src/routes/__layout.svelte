@@ -12,7 +12,6 @@
         getWatchlist,
         getCoins,
         getDefiMarkets,
-        getAllCoinData,
     } from "./../api";
 
     let saved_time,
@@ -36,7 +35,6 @@
         getWatchlist();
         getCoins(update_flag);
         getDefiMarkets(update_flag);
-        getAllCoinData(update_flag);
         if (update_flag) {
             window.localStorage.setItem("update_time", current_time);
         }

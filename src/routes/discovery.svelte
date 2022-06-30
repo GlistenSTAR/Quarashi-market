@@ -5,7 +5,11 @@
     import CategorySearch from "$lib/components/Search/CategorySearch.svelte";
 
     import isEmpty from "./../utils/is-empty";
-    import { markets, categoriesData, advancedData } from "./../store";
+    import {
+        markets,
+        categoriesData,
+        advancedData,
+    } from "./../store";
 
     let active = "cat";
 
