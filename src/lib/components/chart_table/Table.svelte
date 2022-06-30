@@ -29,7 +29,7 @@
     export let rows;
     export let serverSide = false;
     export let labels = {
-        empty: "There is no datas....",
+        empty: "",
         loading: "Loading data...",
         ...globalLabels,
     };

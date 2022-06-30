@@ -34,7 +34,7 @@
     };
 
     const catId = $page.url.searchParams.get("cat");
-
+    $: flag.set("")
     $: if (catId) {
         flag.set(catId);
         coinStore.categories.map((item, index) => {
