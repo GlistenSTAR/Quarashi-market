@@ -14,7 +14,6 @@ export const categoriesData  = writable({});
 export const advancedData  = writable({});
 export const watchlistData  = writable({});
 export const viewAllData  = writable({});
-export const allCoinData  = writable({});
 
 export const chartTableData  = writable({});
 

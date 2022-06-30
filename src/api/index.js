@@ -69,8 +69,13 @@ export const getMarkets = async (flag, count = 250) => {
 /**
  * @param {any} ids
  */
-export const getMarketsByIds = (ids) => {
-  return API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&ids=${ids}`)
+export const getMarketsByIds = async (ids) => {
+  try {
+    let data = await API.get(`${coingeckoBaseUrl}/markets?vs_currency=USD&order=market_cap_desc&sparkline=false&price_change_percentage=24h,7d,14d,30d,200d,1y&ids=${ids}`)
+    return normalizeMarketCategories(data)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // @ts-ignore
@@ -191,5 +196,12 @@ const getMarketsRecursive = async (page = 1, perPage = 250, count = 250) => {
   } catch (error) {
     console.log(error);
   }
+}
+
+const normalizeMarketCategories = (markets) => {
+  return normalizeCoins(markets).reduce((acc, curr) => {
+    acc[curr.id] = curr
+    return acc
+  }, {})
 }
 

@@ -50,7 +50,6 @@
             ...filterData3,
             ...$coinInfo,
         };
-        console.log(filterData);
     }
 
     const showCatergories = (id) => {

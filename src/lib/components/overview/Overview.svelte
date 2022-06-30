@@ -16,10 +16,6 @@
     } from "./../../../helpers";
     import ChartLight from "../chart/ChartLight.svelte";
 
-    // const goChartPage = (id) => {
-    //     window.location = "/chart?chart=" + id;
-    // };
-
     const showArrow = (e) => {
         e.target.classList.add("active");
     };

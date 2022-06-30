@@ -20,36 +20,51 @@
         viewAllData,
     } from "./../../../store";
     import coinStore from "$lib/coins-store";
-    import { StarIcon } from 'svelte-feather-icons'
+    import { StarIcon } from "svelte-feather-icons";
+    import { getMarketsByIds } from "../../../api";
 
     export let method = "";
 
     let rows = [];
     let pageIndex = 0,
-        pageSize = 50;
+        pageSize = 50,
+        coin_lists,
+        tempCategoryCoins = [],
+        cat_tab_data = [];
     let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
 
+    $: if (
+        !isEmpty(coinStore) &&
+        !isEmpty(coinStore.coins) &&
+        !isEmpty(coinStore.categoryCoins)
+    ) {
+        coin_lists = Object.keys(coinStore.coins).join(",");
+        tempCategoryCoins = coinStore.categoryCoins;
+    }
+
+    $: if (!isEmpty($flag) && !isEmpty(coin_lists)) {
+        getMarketsByIds(coin_lists).then((items) => {
+            if (tempCategoryCoins[$flag] && items) {
+                cat_tab_data = tempCategoryCoins[$flag]
+                    .map((coin) => items[coin.coingeckoId])
+                    .filter((item) => item != null)
+                    .sort((a, b) => {
+                        return a.rank - b.rank;
+                    });
+            }
+        });
+    }
+
     $: if (method == "cat") {
-        if (!isEmpty($flag)) {
-            let cat_tab_data = [];
-            $categoriesData.map((item) => {
-                if (
-                    !isEmpty(coinStore.coins) &&
-                    !isEmpty(coinStore.coins[`${item.id}`]) &&
-                    !isEmpty(coinStore.coins[`${item.id}`].categories) &&
-                    !isEmpty(
-                        coinStore.coins[`${item.id}`].categories.find(
-                            (test) => test == $flag
-                        )
-                    )
-                ) {
-                    cat_tab_data.push(item);
-                }
-            });
-            categoriesData.set(cat_tab_data);
-            rows = $categoriesData;
+        if (!isEmpty($flag) && !isEmpty(coin_lists)) {
+            if (cat_tab_data) {
+                console.log(cat_tab_data);
+                categoriesData.set(cat_tab_data);
+                rows = $categoriesData;
+            }
 
             let reset = [];
+
             if (!isEmpty($markets)) {
                 $markets.map((item) => {
                     reset.push(item);
@@ -59,13 +74,15 @@
         } else {
             rows = $categoriesData;
         }
-    } else if (method == "adv") {
+    }
+    $: if (method == "adv") {
         rows = $advancedData;
     } else if (method == "watch") {
+        console.log(1);
         rows = $watchlistData;
     } else if (method == "view_all") {
-        rows = $viewAllData;    
-    } 
+        rows = $viewAllData;
+    }
 
     const onSortString = (event) => {
         event.detail.rows = sortString(
@@ -73,7 +90,7 @@
             event.detail.dir,
             event.detail.key
         );
-    }
+    };
 
     const onSortNumber = (event) => {
         event.detail.rows = sortNumber(
@@ -81,7 +98,7 @@
             event.detail.dir,
             event.detail.key
         );
-    }
+    };
 
     const setFav = (id, event) => {
         if (!isEmpty(oldWatchlist)) {
@@ -105,12 +122,11 @@
         localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
         watchlistData.set(changedData);
         watchlist.set(oldWatchlist);
-    }
+    };
 
     const goCoindetail = (id) => {
-		window.location = "/coins?id="+id;
-    }
-
+        window.location = "/coins?id=" + id;
+    };
 </script>
 
 <Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
@@ -160,13 +176,14 @@
                     on:click|preventDefault={(event) => setFav(row.id, event)}
                 >
                     {#if oldWatchlist && oldWatchlist[`${row.id}`]}
-                        <StarIcon class="active" size="16"/>
+                        <StarIcon class="active" size="16" />
                     {:else}
-                        <StarIcon size="16"/>
+                        <StarIcon size="16" />
                     {/if}
                 </td>
-                <td>{row.rank}</td>
-                <td on:click={goCoindetail(row.id)} style="cursor: pointer;"><img
+                <td>{row.rank ? row.rank : ""}</td>
+                <td on:click={goCoindetail(row.id)} style="cursor: pointer;"
+                    ><img
                         src={row.image}
                         alt="coin"
                         width="24"
@@ -175,7 +192,9 @@
                 >
                 <td>{currencyFullValue(row.price)}</td><td
                     class="{priceColor(row.priceChange24h)} text-center"
-                    >{percentageFormat(row.priceChange24h)}</td
+                    >{row.priceChange24h
+                        ? percentageFormat(row.priceChange24h)
+                        : 0}</td
                 >
                 <td class="{priceColor(row.priceChange7d)} text-center"
                     >{percentageFormat(row.priceChange7d)}</td

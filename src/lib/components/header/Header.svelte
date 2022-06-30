@@ -84,13 +84,14 @@
     };
 
     const goCoinDetail = (id) => {
-        console.log(id);
-        window.location = "/coins?id=" + id;
+        if(id !== "0_empty"){
+            window.location = "/coins?id=" + id;
+        }
     };
 
     const emptyString = () => {
         if (search.length == 0) {
-            equalCoins = [{ id: 0, name: "Empty", label: "Empty", symbol: "" }];
+            equalCoins = [{ id: "0_empty", name: "Empty", label: "Empty", symbol: "" }];
         }
     };
 
@@ -141,14 +142,13 @@
                 </li>
             </ul>
         </div>
-        <div class="search_box">
+        <div
+            class="search_box"
+            >
+            <!-- on:mouseleave={unVisiableList}
+            on:mouseenter={visiableList} -->
             <form class="d-flex">
-                <div
-                    class="search"
-                    width="100%"
-                    on:mouseenter={visiableList}
-                    on:mouseleave={unVisiableList}
-                >
+                <div class="search" width="100%">
                     <div class="input-group">
                         <input
                             type="text"
@@ -169,8 +169,12 @@
                             />
                         </span>
                     </div>
-                    <div class="search_result">
-                        {#if showList}
+                    {#if !showList}
+                        <div
+                            class="search_result"
+                            >
+                            <!-- on:mouseleave={unVisiableList}
+                            on:mouseenter={visiableList} -->
                             {#each equalCoins as item}
                                 <li
                                     on:click={() => goCoinDetail(item.id)}
@@ -184,8 +188,8 @@
                                         : ""}
                                 </li>
                             {/each}
-                        {/if}
-                    </div>
+                        </div>
+                    {/if}
                 </div>
                 {#if show}
                     <div class="modal_search" style="display: flex;">
