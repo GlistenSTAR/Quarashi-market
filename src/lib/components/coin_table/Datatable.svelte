@@ -195,7 +195,9 @@
                         : 0}</td
                 >
                 <td class="{priceColor(row.priceChange7d)} text-center"
-                    >{percentageFormat(row.priceChange7d)}</td
+                    >{row.priceChange7d
+                        ? percentageFormat(row.priceChange7d)
+                        : 0}</td
                 >
                 <td>$ {volume(row.marketCap)}</td>
                 <td align="right">$ {volume(row.totalVolume)}</td>
