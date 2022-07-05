@@ -30,7 +30,7 @@
     const searchCoin = () => {
         if (search.length == 0) {
             equalCoins = [
-                { id: "0_empty", name: "Empty", label: "Empty", symbol: "" },
+                { id: "0_empty", name: "No Result", label: "No Result", symbol: "" },
             ];
         } else {
             let key = search.toLowerCase();
@@ -91,7 +91,7 @@
 
     const emptyString = () => {
         if (search.length == 0) {
-            equalCoins = [{ id: "0_empty", name: "Empty", label: "Empty", symbol: "" }];
+            equalCoins = [{ id: "0_empty", name: "No Result", label: "No Result", symbol: "" }];
         }
     };
 
@@ -175,19 +175,23 @@
                             >
                             <!-- on:mouseleave={unVisiableList}
                             on:mouseenter={visiableList} -->
-                            {#each equalCoins as item}
-                                <li
-                                    on:click={() => goCoinDetail(item.id)}
-                                    on:focus={visiableList}
-                                    on:blur={unVisiableList}
-                                >
-                                    <span style="text-transform: capitalize;"
-                                        >{item.name}
-                                    </span>{item.symbol
-                                        ? `(${item.symbol})`
-                                        : ""}
-                                </li>
-                            {/each}
+                            {#if equalCoins.length !==0 }
+                                {#each equalCoins as item}
+                                    <li
+                                        on:click={() => goCoinDetail(item.id)}
+                                        on:focus={visiableList}
+                                        on:blur={unVisiableList}
+                                    >
+                                        <span style="text-transform: capitalize;"
+                                            >{item.name}
+                                        </span>{item.symbol
+                                            ? `(${item.symbol})`
+                                            : ""}
+                                    </li>
+                                {/each}
+                            {:else}
+                                    <li>No Result</li>
+                            {/if}
                         </div>
                     {/if}
                 </div>
