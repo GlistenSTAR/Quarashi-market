@@ -30,7 +30,12 @@
     const searchCoin = () => {
         if (search.length == 0) {
             equalCoins = [
-                { id: "0_empty", name: "No Result", label: "No Result", symbol: "" },
+                {
+                    id: "0_empty",
+                    name: "No Result",
+                    label: "No Result",
+                    symbol: "",
+                },
             ];
         } else {
             let key = search.toLowerCase();
@@ -84,14 +89,21 @@
     };
 
     const goCoinDetail = (id) => {
-        if(id !== "0_empty"){
+        if (id !== "0_empty") {
             window.location = "/coins?id=" + id;
         }
     };
 
     const emptyString = () => {
         if (search.length == 0) {
-            equalCoins = [{ id: "0_empty", name: "No Result", label: "No Result", symbol: "" }];
+            equalCoins = [
+                {
+                    id: "0_empty",
+                    name: "No Result",
+                    label: "No Result",
+                    symbol: "",
+                },
+            ];
         }
     };
 
@@ -101,6 +113,10 @@
 
     const unVisiableList = () => {
         showList = false;
+    };
+
+    const disabledEnter = (event) => {
+        event.preventDefault();
     };
 </script>
 
@@ -142,12 +158,10 @@
                 </li>
             </ul>
         </div>
-        <div
-            class="search_box"
-            >
+        <div class="search_box">
             <!-- on:mouseleave={unVisiableList}
             on:mouseenter={visiableList} -->
-            <form class="d-flex">
+            <form class="d-flex" on:submit={disabledEnter}>
                 <div class="search" width="100%">
                     <div class="input-group">
                         <input
@@ -170,19 +184,18 @@
                         </span>
                     </div>
                     {#if !showList}
-                        <div
-                            class="search_result"
-                            >
+                        <div class="search_result">
                             <!-- on:mouseleave={unVisiableList}
                             on:mouseenter={visiableList} -->
-                            {#if equalCoins.length !==0 }
+                            {#if equalCoins.length !== 0}
                                 {#each equalCoins as item}
                                     <li
                                         on:click={() => goCoinDetail(item.id)}
                                         on:focus={visiableList}
                                         on:blur={unVisiableList}
                                     >
-                                        <span style="text-transform: capitalize;"
+                                        <span
+                                            style="text-transform: capitalize;"
                                             >{item.name}
                                         </span>{item.symbol
                                             ? `(${item.symbol})`
@@ -190,7 +203,7 @@
                                     </li>
                                 {/each}
                             {:else}
-                                    <li>No Result</li>
+                                <li>No Result</li>
                             {/if}
                         </div>
                     {/if}

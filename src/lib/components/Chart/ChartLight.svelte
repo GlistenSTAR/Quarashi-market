@@ -91,7 +91,7 @@
         position: absolute;
         bottom: 25px;
         right: 30px;
-        z-index: -1;
+        z-index: 1;
     }
 
     .large.chart_area {
@@ -100,7 +100,7 @@
         position: relative;
         background-color: #141421;
         border-radius: 12px;
-        z-index: -1;
+        z-index: 1;
         margin-left: 20px;
     }
 
@@ -112,7 +112,7 @@
     @media (max-width: 425px) {
         .large.chart_area {
             margin-left: 0px;
-            width: 100%!important;
+            width: 100% !important;
             right: inherit;
         }
     }
