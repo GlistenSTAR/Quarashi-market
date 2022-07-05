@@ -91,13 +91,17 @@
 <div class="coin-table">
     {#if data.length == 0}
         <div class="empty_table">
-            <div>
-                <StarIcon size="32" />
-            </div>
-            <div class="text-center mt-2">
-                You don’t have any favorite assets.<br /> You can add the favourites
-                by click to star icon in the asset page
-            </div>
+            {#if method === "watch"}
+                <div>
+                    <StarIcon size="32" />
+                </div>
+                <div class="text-center mt-2">
+                    You don’t have any favorite assets.<br /> You can add the favourites
+                    by click to star icon in the asset page
+                </div>
+            {:else}
+                <div><h3>No result</h3></div>
+            {/if}
         </div>
     {:else}
         <div>
