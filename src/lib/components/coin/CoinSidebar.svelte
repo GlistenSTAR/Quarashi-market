@@ -16,13 +16,18 @@
 
     const setFav = (event) => {
         let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
-
-        if ($watchlist[`${coin}`]) {
-            event.target.classList.remove("active");
-            delete oldWatchlist[`${coin}`];
-        } else {
+        if (!oldWatchlist) {
+            oldWatchlist = {};
             event.target.classList.add("active");
             oldWatchlist[`${coin}`] = true;
+        } else {
+            if ($watchlist[`${coin}`]) {
+                event.target.classList.remove("active");
+                delete oldWatchlist[`${coin}`];
+            } else {
+                event.target.classList.add("active");
+                oldWatchlist[`${coin}`] = true;
+            }
         }
 
         localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
