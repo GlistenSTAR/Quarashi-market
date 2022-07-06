@@ -39,41 +39,83 @@
     const handleSelect = (e) => {
         filter = e.detail.value;
         if (!isEmpty(data)) {
-            if (filter === "lowestCap") {
-                filterData = data.sort((a, b) => {
-                    return a.marketCap - b.marketCap;
-                });
-            } else if (filter === "highestCap") {
-                filterData = data.sort((b, a) => {
-                    return a.marketCap - b.marketCap;
-                });
-            } else if (filter === "highestVol") {
-                filterData = data.sort((b, a) => {
-                    return a.totalVolume - b.totalVolume;
-                });
-            } else if (filter === "lowestVol") {
-                filterData = data.sort((a, b) => {
-                    return a.totalVolume - b.totalVolume;
-                });
+            if (chart_way !== "defimarket") {
+                if (filter === "lowestCap") {
+                    filterData = data.sort((a, b) => {
+                        return a.marketCap - b.marketCap;
+                    });
+                } else if (filter === "highestCap") {
+                    filterData = data.sort((b, a) => {
+                        return a.marketCap - b.marketCap;
+                    });
+                } else if (filter === "highestVol") {
+                    filterData = data.sort((b, a) => {
+                        return a.totalVolume - b.totalVolume;
+                    });
+                } else if (filter === "lowestVol") {
+                    filterData = data.sort((a, b) => {
+                        return a.totalVolume - b.totalVolume;
+                    });
+                } else if (filter === "lowestPrice") {
+                    filterData = data.sort((a, b) => {
+                        return a.price - b.price;
+                    });
+                } else if (filter === "highestPrice") {
+                    filterData = data.sort((b, a) => {
+                        return a.price - b.price;
+                    });
+                } else if (filter === "topGainer") {
+                    filterData = data.sort((b, a) => {
+                        return a.priceChange24h - b.priceChange24h;
+                    });
+                } else if (filter === "topLoser") {
+                    filterData = data.sort((a, b) => {
+                        return a.priceChange24h - b.priceChange24h;
+                    });
+                }
+                chartTableData.set(filterData);
+            } else {
+                if (filter === "lowestCap") {
+                    filterData = data.sort((a, b) => {
+                        return a.market_cap - b.market_cap;
+                    });
+                } else if (filter === "highestCap") {
+                    filterData = data.sort((b, a) => {
+                        return a.market_cap - b.market_cap;
+                    });
+                } else if (filter === "highestVol") {
+                    filterData = data.sort((b, a) => {
+                        return a.total_volume - b.total_volume;
+                    });
+                } else if (filter === "lowestVol") {
+                    filterData = data.sort((a, b) => {
+                        return a.total_volume - b.total_volume;
+                    });
+                } else if (filter === "lowestPrice") {
+                    filterData = data.sort((a, b) => {
+                        return a.current_price - b.current_price;
+                    });
+                } else if (filter === "highestPrice") {
+                    filterData = data.sort((b, a) => {
+                        return a.current_price - b.current_price;
+                    });
+                } else if (filter === "topGainer") {
+                    filterData = data.sort((b, a) => {
+                        return (
+                            a.price_change_percentage_24h -
+                            b.price_change_percentage_24h
+                        );
+                    });
+                } else if (filter === "topLoser") {
+                    filterData = data.sort((a, b) => {
+                        return (
+                            a.price_change_percentage_24h -
+                            b.price_change_percentage_24h
+                        );
+                    });
+                }
+                defiDominance.set(filterData);
             }
-            if (filter === "lowestPrice") {
-                filterData = data.sort((a, b) => {
-                    return a.price - b.price;
-                });
-            } else if (filter === "highestPrice") {
-                filterData = data.sort((b, a) => {
-                    return a.price - b.price;
-                });
-            } else if (filter === "topGainer") {
-                filterData = data.sort((b, a) => {
-                    return a.priceChange24h - b.priceChange24h;
-                });
-            } else if (filter === "topLoser") {
-                filterData = data.sort((a, b) => {
-                    return a.priceChange24h - b.priceChange24h;
-                });
-            }
-            chartTableData.set(filterData);
         }
     };
 
