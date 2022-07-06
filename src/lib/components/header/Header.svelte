@@ -70,6 +70,17 @@
                     )
                     .sort((a, b) => a.priority - b.priority)
                     .slice(0, 10);
+
+                if (equalCoins.length === 0) {
+                    equalCoins = [
+                        {
+                            id: "0_empty",
+                            name: "No Result",
+                            label: "No Result",
+                            symbol: "",
+                        },
+                    ];
+                }
             }
         }
     };
@@ -104,6 +115,7 @@
                     symbol: "",
                 },
             ];
+            showList = true;
         }
     };
 
@@ -113,10 +125,7 @@
 
     const unVisiableList = () => {
         showList = false;
-    };
-
-    const disabledEnter = (event) => {
-        event.preventDefault();
+        // search = "";
     };
 </script>
 
@@ -159,71 +168,69 @@
             </ul>
         </div>
         <div class="search_box">
-            <!-- on:mouseleave={unVisiableList}
-            on:mouseenter={visiableList} -->
-            <form class="d-flex" on:submit={disabledEnter}>
-                <div class="search" width="100%">
-                    <div class="input-group">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Search Here"
-                            name="search"
-                            id="search"
-                            bind:value={search}
-                            aria-describedby="search-icon"
-                            on:input={searchCoin}
-                            on:click={emptyString}
+            <div class="search" width="100%">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Here"
+                        name="search"
+                        id="search"
+                        aria-describedby="search-icon"
+                        bind:value={search}
+                        on:input={searchCoin}
+                        on:click={emptyString}
+                        on:focus={visiableList}
+                        on:blur={unVisiableList}
+                    />
+                    <span class="input-group-text" id="search-icon">
+                        <img
+                            src={search_logo}
+                            alt="search"
+                            on:click={handleSeachInput}
                         />
-                        <span class="input-group-text" id="search-icon">
-                            <img
-                                src={search_logo}
-                                alt="search"
-                                on:click={handleSeachInput}
-                            />
-                        </span>
-                    </div>
-                    {#if !showList}
-                        <div class="search_result">
-                            <!-- on:mouseleave={unVisiableList}
-                            on:mouseenter={visiableList} -->
-                            {#if equalCoins.length !== 0}
-                                {#each equalCoins as item}
-                                    <li
-                                        on:click={() => goCoinDetail(item.id)}
-                                        on:focus={visiableList}
-                                        on:blur={unVisiableList}
-                                    >
-                                        <span
-                                            style="text-transform: capitalize;"
-                                            >{item.name}
-                                        </span>{item.symbol
-                                            ? `(${item.symbol})`
-                                            : ""}
-                                    </li>
-                                {/each}
-                            {:else}
-                                <li>No Result</li>
-                            {/if}
-                        </div>
-                    {/if}
+                    </span>
                 </div>
-                {#if show}
-                    <div class="modal_search" style="display: flex;">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Search Here"
-                            name="search"
-                            id="search"
-                            aria-describedby="search-icon"
-                            bind:value={search}
-                            on:input={searchCoin}
-                            on:click={emptyString}
-                        />
-                    </div>
+
+                {#if showList || search.length > 0}
+                    {#if equalCoins.length > 1 && search.length > 0}
+                        <div class="search_result">
+                            {#each equalCoins as item}
+                                <li
+                                    on:click={() => goCoinDetail(item.id)}
+                                    on:focus={visiableList}
+                                    on:blur={unVisiableList}
+                                >
+                                    <span style="text-transform: capitalize;"
+                                        >{item.name}
+                                    </span>{item.symbol
+                                        ? `(${item.symbol})`
+                                        : ""}
+                                </li>
+                            {/each}
+                        </div>
+                    {:else}
+                        <div class="search_result"><li>No Result</li></div>
+                    {/if}
                 {/if}
-            </form>
+            </div>
+
+            {#if show}
+                <div class="modal_search" style="display: flex;">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search Here"
+                        name="search"
+                        id="search"
+                        aria-describedby="search-icon"
+                        bind:value={search}
+                        on:input={searchCoin}
+                        on:click={emptyString}
+                        on:blur={unVisiableList}
+                    />
+                </div>
+            {/if}
         </div>
     </nav>
 </header>
