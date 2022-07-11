@@ -25,7 +25,7 @@
 
     const changeFilter = (item) => {
         let filters = { ...$filter, ...item };
-        filter.set(filters)
+        filter.set(filters);
         let list = data.slice(0, filters.top);
         if (!isEmpty(filters.volumes)) {
             list = filterByVolume(filters.volumes, list, "totalVolume");
@@ -41,6 +41,26 @@
         }
         advancedData.set(list);
     };
+
+    let initValues = {
+        top_item: "Top 250",
+        marketcap_item: "Market Cap",
+        volume_item: "Volume",
+        liquidity_item: "Liquidity",
+        period_item: "Price Period",
+        pricechange_item: "Price Change",
+    };
+
+    const initValue = () => {
+        initValues = {
+            top_item: "Top 250",
+            marketcap_item: "Market Cap",
+            volume_item: "Volume",
+            liquidity_item: "Liquidity",
+            period_item: "Price Period",
+            pricechange_item: "Price Change",
+        };
+    };
 </script>
 
 <div>
@@ -50,7 +70,7 @@
                 <div class="select_option">
                     <Select
                         items={top_items}
-                        value={"Top 250"}
+                        value={initValues.top_item}
                         showChevron={true}
                         on:select={(value) =>
                             changeFilter({ top: value.detail.value })}
@@ -59,7 +79,7 @@
                 <div style="margin-top: 20px" class="select_option">
                     <Select
                         items={marketcap_items}
-                        value={"Market Cap"}
+                        value={initValues.marketcap_item}
                         showChevron={true}
                         on:select={(value) =>
                             changeFilter({ marketCap: value.detail.value })}
@@ -70,7 +90,7 @@
                 <div class="select_option">
                     <Select
                         items={volume_items}
-                        value={"Volume"}
+                        value={initValues.volume_item}
                         showChevron={true}
                         on:select={(value) =>
                             changeFilter({ volumes: value.detail.value })}
@@ -80,7 +100,7 @@
                 <div style="margin-top: 20px" class="select_option">
                     <Select
                         items={liquidity_items}
-                        value={"Liquidity"}
+                        value={initValues.liquidity_item}
                         showChevron={true}
                         isDisabled={true}
                         on:select={changeFilter}
@@ -91,7 +111,7 @@
                 <div class="select_option">
                     <Select
                         items={period_items}
-                        value={"Price Period"}
+                        value={initValues.period_item}
                         showChevron={true}
                         on:select={(value) =>
                             changeFilter({ pricePeriod: value.detail.value })}
@@ -100,7 +120,7 @@
                 <div class="select_option" style="margin-top: 20px">
                     <Select
                         items={pricechange_items}
-                        value={"Price Change"}
+                        value={initValues.pricechange_item}
                         showChevron={true}
                         on:select={(value) =>
                             changeFilter({ priceChange: value.detail.value })}
@@ -116,7 +136,12 @@
                     ><span class="pe-2">Results:</span><span
                         class="spinner-grow spinner-grow-sm d-none"
                         role="status"
-                    /><span class="text-white">{$advancedData.length}</span></button
+                    /><span class="text-white">{$advancedData.length}</span
+                    ></button
+                >
+                <button
+                    class="btn bg-lawrence rounded-4 px-4"
+                    on:click={initValue}>Clear</button
                 >
             </div>
         </div>
@@ -145,6 +170,16 @@
         --indicatorColor: #c921cd;
         --itemHoverBG: #007aff;
         --disabledBorderColor: rgb(88, 88, 88);
+    }
+
+    .filter_box button {
+        color: #999;
+        width: 140px;
+        margin-left: 20px;
+        background-color: #0b0b12;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
     }
 
     @media (max-width: 991px) {
