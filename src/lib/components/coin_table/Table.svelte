@@ -96,7 +96,7 @@
     <slot name="foot" />
 </table>
 
-{#if rows.length != 0}
+{#if rows.length != 0 && rows.length > 50}
     <slot name="bottom">
         <div class="slot-bottom">
             <svelte:component
