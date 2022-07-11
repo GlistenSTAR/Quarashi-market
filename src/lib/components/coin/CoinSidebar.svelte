@@ -36,13 +36,14 @@
 </script>
 
 <div>
-    <div class="watchlist">
+    <div class="watchlist" on:click={setFav}>
         {#if $watchlist[`${coin}`]}
             <StarIcon class="active" size="20" />
         {:else}
             <StarIcon size="20" />
         {/if}
-        <span class="px-3" on:click={setFav}>Add to Watchlist</span>
+        <span class="px-3" style={{ userSelect: "none" }}>Add to Watchlist</span
+        >
     </div>
     <div class="web_links mt-3 mb-3">
         {#if links.website}
