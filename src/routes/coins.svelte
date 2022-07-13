@@ -155,6 +155,7 @@
                     <CoinVolume
                         volumes={filterData.volumes}
                         launchDate={filterData.launchDate}
+                        coinID = {coinID}
                     />
                 </div>
                 <!-- markets -->

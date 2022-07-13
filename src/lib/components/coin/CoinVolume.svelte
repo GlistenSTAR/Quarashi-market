@@ -2,15 +2,19 @@
     //@ts-nocheck
     export let volumes = {};
     export let launchDate = "";
+    export let coinID = "";
 
     import isEmpty from "./../../../utils/is-empty";
     import { currencyFullValue, percentageFormat } from "./../../../helpers";
+    // import events from "./../../../utils/EventEmitter";
+    // import ModalTvlChart from "./modal/ModalTvlChart.svelte";
 
     const mCapTvlRatio =
         volumes.marketCap && volumes.tvl ? volumes.marketCap / volumes.tvl : 0;
 
     const onClickTvl = () => {
         if (volumes.tvl) {
+            console.log(coinID);
             // events.showModal(<ModalTvlChart coinId={coinId} />, "TVL Chart");
         }
     };
@@ -18,6 +22,8 @@
     const onClickVolume = () => {
         // events.showModal(<ModalVolumeChart coinId={coinId} />, "Chart (24h)");
     };
+
+    $: console.log(volumes.tvl, typeof volumes.tvl);
 </script>
 
 <div class="row mt-mb-4">
@@ -55,7 +61,7 @@
             >
                 <div class="text-grey">Total Supply</div>
                 <div class="text-oz">
-                    {#if volumes.totalSupply == 0 || volumes.totalSupply == "null" || volumes.totalSupply == "undefined"}
+                    {#if volumes.totalSupply == 0 || volumes.totalSupply == null || typeof volumes.totalSupply == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.totalSupply)}
@@ -67,7 +73,7 @@
             >
                 <div class="text-grey">Diluted MCap</div>
                 <div class="text-oz">
-                    {#if volumes.dilutedValuation == 0 || volumes.dilutedValuation == "null" || volumes.dilutedValuation == "undefined"}
+                    {#if volumes.dilutedValuation == 0 || volumes.dilutedValuation == null || typeof volumes.dilutedValuation == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.dilutedValuation)}
@@ -113,7 +119,7 @@
             >
                 <div class="text-grey">Total Value Locked</div>
                 <div class="text-oz">
-                    {#if volumes.tvl === null}
+                    {#if volumes.tvl === 0 || volumes.tvl ==null|| typeof volumes.tvl == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.tvl)}
@@ -126,7 +132,7 @@
                 <div class="text-grey">TVL Rank</div>
                 <div class="text-grey">N/A</div>
             </li>
-            <li
+          <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">M.cap / TVL ratio</div>
