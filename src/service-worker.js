@@ -1,63 +1,90 @@
-import { build, files, timestamp } from '$service-worker';
-const worker = (self as unknown) as any;
-const FILES = `cache${timestamp}`;
-const to_cache = build.concat(files);
-const staticAssets = new Set(to_cache);
-// listen for the install events
-worker.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches
-            .open(FILES)
-            .then((cache) => cache.addAll(to_cache))
-            .then(() => {
-                worker.skipWaiting();
-            })
-    );
+// Core assets
+let coreAssets = [];
+
+// On install, cache core assets
+self.addEventListener('install', function (event) {
+
+    // Cache core assets
+    event.waitUntil(caches.open('app').then(function (cache) {
+        for (let asset of coreAssets) {
+            cache.add(new Request(asset));
+        }
+        return cache;
+    }));
+
 });
-// listen for the activate events
-worker.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then(async (keys) => {
-            // delete old caches
-            for (const key of keys) {
-                if (key !== FILES) await caches.delete(key);
-            }
-            worker.clients.claim();
-        })
-    );
-});
-// attempt to process HTTP requests and rely on the cache if offline
-async function fetchAndCache(request: Request) {
-    const cache = await caches.open(`offline${timestamp}`);
-    try {
-        const response = await fetch(request);
-        cache.put(request, response.clone());
-        return response;
-    } catch (err) {
-        const response = await cache.match(request);
-        if (response) return response;
-        throw err;
-    }
-}
-// listen for the fetch events
-worker.addEventListener('fetch', (event) => {
-    if (event.request.method !== 'GET' || event.request.headers.has('range')) return;
-    const url = new URL(event.request.url);
-    // only cache files that are local to your application
-    const isHttp = url.protocol.startsWith('http');
-    const isDevServerRequest =
-        url.hostname === self.location.hostname && url.port !== self.location.port;
-    const isStaticAsset = url.host === self.location.host && staticAssets.has(url.pathname);
-    const skipBecauseUncached = event.request.cache === 'only-if-cached' && !isStaticAsset;
-    if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
+
+// Listen for request events
+self.addEventListener('fetch', function (event) {
+
+    // Get the request
+    let request = event.request;
+
+    // Bug fix
+    // https://stackoverflow.com/a/49719964
+    if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
+
+    // HTML files
+    // Network-first
+    if (request.headers.get('Accept').includes('text/html')) {
         event.respondWith(
-            (async () => {
-                // always serve static files and bundler-generated assets from cache.
-                // if your application has other URLs with data that will never change,
-                // set this variable to true for them and they will only be fetched once.
-                const cachedAsset = isStaticAsset && (await caches.match(event.request));
-                return cachedAsset || fetchAndCache(event.request);
-            })()
+            fetch(request).then(function (response) {
+
+                // Create a copy of the response and save it to the cache
+                let copy = response.clone();
+                event.waitUntil(caches.open('app').then(function (cache) {
+                    return cache.put(request, copy);
+                }));
+
+                // Return the response
+                return response;
+
+            }).catch(function (error) {
+
+                // If there's no item in cache, respond with a fallback
+                return caches.match(request).then(function (response) {
+                    return response || caches.match('/offline.html');
+                });
+
+            })
         );
     }
+
+    // CSS & JavaScript
+    // Offline-first
+    if (request.headers.get('Accept').includes('text/css') || request.headers.get('Accept').includes('text/javascript')) {
+        event.respondWith(
+            caches.match(request).then(function (response) {
+                return response || fetch(request).then(function (response) {
+
+                    // Return the response
+                    return response;
+
+                });
+            })
+        );
+        return;
+    }
+
+    // Images
+    // Offline-first
+    if (request.headers.get('Accept').includes('image')) {
+        event.respondWith(
+            caches.match(request).then(function (response) {
+                return response || fetch(request).then(function (response) {
+
+                    // Save a copy of it in cache
+                    let copy = response.clone();
+                    event.waitUntil(caches.open('app').then(function (cache) {
+                        return cache.put(request, copy);
+                    }));
+
+                    // Return the response
+                    return response;
+
+                });
+            })
+        );
+    }
+
 });

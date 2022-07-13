@@ -18,7 +18,6 @@
     const onClickVolume = () => {
         // events.showModal(<ModalVolumeChart coinId={coinId} />, "Chart (24h)");
     };
-    console.log(volumes.totalSupply, typeof volumes.totalSupply);
 </script>
 
 <div class="row mt-mb-4">
