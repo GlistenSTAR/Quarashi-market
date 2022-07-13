@@ -18,6 +18,7 @@
     const onClickVolume = () => {
         // events.showModal(<ModalVolumeChart coinId={coinId} />, "Chart (24h)");
     };
+    console.log(volumes.totalSupply, typeof volumes.totalSupply);
 </script>
 
 <div class="row mt-mb-4">
@@ -55,7 +56,7 @@
             >
                 <div class="text-grey">Total Supply</div>
                 <div class="text-oz">
-                    {#if volumes.totalSupply == 0 || "null" || "undefined"}
+                    {#if volumes.totalSupply == 0 || volumes.totalSupply == "null" || volumes.totalSupply == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.totalSupply)}
@@ -67,7 +68,7 @@
             >
                 <div class="text-grey">Diluted MCap</div>
                 <div class="text-oz">
-                    {#if volumes.dilutedValuation == 0 || "null" || "undefined"}
+                    {#if volumes.dilutedValuation == 0 || volumes.dilutedValuation == "null" || volumes.dilutedValuation == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.dilutedValuation)}
@@ -166,11 +167,11 @@
         color: #858484;
     }
 
-    @media (max-width: 768px){
-        .col-sm-12{
+    @media (max-width: 768px) {
+        .col-sm-12 {
             margin-top: 20px;
         }
-        .row{
+        .row {
             margin-left: 5px;
             margin-right: 5px;
         }
