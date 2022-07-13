@@ -18,7 +18,9 @@
 
     let data = [],
         startPos = 0;
+
     $: if (!isEmpty($markets)) {
+        data = [];
         $markets.map((item) => {
             data.push(item);
         });
@@ -34,7 +36,8 @@
     };
 
     const catId = $page.url.searchParams.get("cat");
-    $: flag.set("")
+
+    $: flag.set("");
     $: if (catId) {
         flag.set(catId);
         coinStore.categories.map((item, index) => {

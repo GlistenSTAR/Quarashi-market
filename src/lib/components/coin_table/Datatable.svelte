@@ -73,8 +73,7 @@
         } else {
             rows = $categoriesData;
         }
-    }
-    $: if (method == "adv") {
+    } else if (method == "adv") {
         rows = $advancedData;
     } else if (method == "watch") {
         rows = $watchlistData;
