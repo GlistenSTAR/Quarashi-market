@@ -294,3 +294,19 @@ svg.i.lock {
 		width: 100% !important;
 	}
 }
+
+.datatable .dt-table {
+	overflow: hidden;
+}
+
+.datatable .datatable-thead {
+	height: 30px;
+	border-bottom: 1px solid grey;
+}
+
+.datatable tbody tr td {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid rgb(41, 40, 40);
+	font-size: 12px;
+}
