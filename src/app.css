@@ -295,8 +295,17 @@ svg.i.lock {
 	}
 }
 
-.datatable .dt-table {
-	overflow: hidden;
+.datatable {
+	background-color: transparent!important;
+}
+
+article.dt-table {
+	overflow: hidden!important;
+	border-bottom: none!important;
+}
+
+section.dt-header{
+	position: relative!important;
 }
 
 .datatable .datatable-thead {
@@ -310,3 +319,19 @@ svg.i.lock {
 	border-bottom: 1px solid rgb(41, 40, 40);
 	font-size: 12px;
 }
+
+.datatable section.dt-pagination{
+	background-color: #141421!important;
+	padding-top: 30px
+}
+
+.datatable section.dt-pagination button{
+	color: white!important;
+	width: 24px!important;
+	min-width: 24px!important;
+	height: 24px!important;
+	font-size: 12px!important;
+	background-color: #0B0B12!important;
+	display: flex;
+}
+

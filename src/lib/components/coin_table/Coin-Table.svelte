@@ -92,7 +92,6 @@
         rowsPerPage: 50,
         columnFilter: false,
         searchInput: false,
-        scrollY: false,
         labels: {
             noRows: "No entries to found",
             previous: "<",
@@ -114,7 +113,6 @@
     let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
 
     const data1 = $categoriesData.slice(0, 70);
-
     const goCoindetail = (id) => {
         window.location = "/coins?id=" + id;
     };
@@ -142,7 +140,6 @@
         // watchlistData.set(changedData);
         // watchlist.set(oldWatchlist);
     };
-    $: console.log(data);
 </script>
 
 <div class="coin-table">
@@ -172,7 +169,7 @@
             </div>
         </div>
         <div class="table-res">
-            <Datatable {settings} data={data1} class="coin-table">
+            <Datatable {settings} data={data1}>
                 <thead>
                     <th class="text-center" width="5%">Watchlist</th>
                     <th class="text-center" data-key="rank" width="7%">#</th>
