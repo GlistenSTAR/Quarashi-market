@@ -3,7 +3,7 @@
     import { page } from "$app/stores";
     import Select from "svelte-select";
     import { total_items } from "../../selectData";
-    import { Datatable, rows } from "svelte-simple-datatables";
+    import { Datatable, rows } from '$lib/components/SimpleDatatables';
     import isEmpty from "./../../../utils/is-empty";
     import { StarIcon } from "svelte-feather-icons";
     import {
