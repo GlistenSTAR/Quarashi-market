@@ -7,7 +7,7 @@
     export let icon = "";
     export let content = "";
 
-    import { categoriesData, flag } from "./../../store";
+    import { categoriesData, flag, markets } from "./../../store";
     import isEmpty from "../../utils/is-empty";
     import coinStore from "$lib/coins-store";
 
@@ -45,6 +45,7 @@
     const setActive = (id) => {
         if (id === $flag) {
             flag.set({});
+            categoriesData.set($markets);
         } else {
             flag.set(id);
             if (!isEmpty($flag) && !isEmpty(coin_lists)) {
@@ -78,13 +79,6 @@
 </div>
 
 <style>
-    /* a {
-        text-decoration: none;
-        color: white;
-    }
-    a:hover {
-        text-decoration: none;
-    } */
     .coinbox {
         background-color: #141421;
         padding: 20px;

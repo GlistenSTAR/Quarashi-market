@@ -11,7 +11,6 @@
         advancedData,
         watchlistData,
         viewAllData,
-        flag,
     } from "./../../../store";
 
     import {
