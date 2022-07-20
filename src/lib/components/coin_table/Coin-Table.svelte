@@ -3,7 +3,7 @@
     import { page } from "$app/stores";
     import Select from "svelte-select";
     import { total_items } from "../../selectData";
-    import { Datatable, rows } from '$lib/components/SimpleDatatables';
+    import { Datatable, rows } from "$lib/components/SimpleDatatables";
     import isEmpty from "./../../../utils/is-empty";
     import { StarIcon } from "svelte-feather-icons";
     import {
@@ -92,6 +92,8 @@
         rowsPerPage: 50,
         columnFilter: false,
         searchInput: false,
+        sortable: true,
+        screenX: false,
         labels: {
             noRows: "No entries to found",
             previous: "<",
@@ -159,7 +161,7 @@
         </div>
     {:else}
         <div>
-            <div class="coin_kind col-md-4 mb-5">
+            <div class="coin_kind col-md-4 mb-4">
                 <Select
                     items={total_items}
                     value={selected}
@@ -171,18 +173,18 @@
         <div class="table-res">
             <Datatable {settings} data={data1}>
                 <thead>
-                    <th class="text-center" width="5%">Watchlist</th>
-                    <th class="text-center" data-key="rank" width="7%">#</th>
-                    <th data-key="name" width="25%">Name</th>
-                    <th data-key="price">Price</th>
+                    <th>Watchlist</th>
+                    <th data-key="rank" width="7%">#</th>
+                    <th data-key="name" class="text-left">Name</th>
+                    <th data-key="price" class="text-left">Price</th>
                     <th data-key="priceChange24h" class="text-center"
                         >24 Hours</th
                     >
-                    <th data-key="priceChange7d" class="text-center" width="10%"
+                    <th data-key="priceChange7d" class="text-center"
                         >7 days</th
                     >
-                    <th data-key="marketCap">Market Cap</th>
-                    <th data-key="totalVolume" class="right">Volume</th>
+                    <th data-key="marketCap" class="text-left">Market Cap</th>
+                    <th data-key="totalVolume" class="text-right">Volume</th>
                 </thead>
                 <tbody>
                     {#each $rows as row}
@@ -230,7 +232,7 @@
                                     : 0}</td
                             >
                             <td>$ {volume(row.marketCap)}</td>
-                            <td class="right">$ {volume(row.totalVolume)}</td>
+                            <td class="text-right">$ {volume(row.totalVolume)}</td>
                         </tr>
                     {/each}
                 </tbody>
@@ -279,6 +281,7 @@
 
     thead {
         border-radius: 1px solid grey;
+        background-color: #141421;
     }
     th {
         text-align: left;
@@ -290,17 +293,14 @@
         text-align: left;
         padding: 4px 0;
     }
-
-    th.right,
-    td.right {
-        text-align: right;
-    }
-
-    td.text-center {
-        text-align: right;
-    }
-
     .name_padding {
         margin-left: 10px;
+    }
+
+    th.text-left {
+        text-align: left !important;
+    }
+    th.text-right, td.text-right {
+        text-align: right !important;
     }
 </style>

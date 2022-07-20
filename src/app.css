@@ -296,21 +296,27 @@ svg.i.lock {
 }
 
 .datatable {
-	background-color: transparent!important;
+	background-color: transparent !important;
+}
+
+.datatable.scroll-y {
+	height: 100% !important;
 }
 
 article.dt-table {
-	overflow: hidden!important;
-	border-bottom: none!important;
+	/* overflow: hidden!important; */
+	border-bottom: none !important;
+	height: 100% !important;
 }
 
-section.dt-header{
-	position: relative!important;
+.dt-header {
+	background-color: transparent !important;
+
 }
 
 .datatable .datatable-thead {
 	height: 30px;
-	border-bottom: 1px solid grey;
+	border-bottom: 1px solid rgb(41, 40, 40);
 }
 
 .datatable tbody tr td {
@@ -320,18 +326,45 @@ section.dt-header{
 	font-size: 12px;
 }
 
-.datatable section.dt-pagination{
-	background-color: #141421!important;
+.datatable section.dt-pagination {
+	background-color: #141421 !important;
 	padding-top: 30px
 }
 
-.datatable section.dt-pagination button{
-	color: white!important;
-	width: 24px!important;
-	min-width: 24px!important;
-	height: 24px!important;
-	font-size: 12px!important;
-	background-color: #0B0B12!important;
+.datatable section.dt-pagination button {
+	color: white !important;
+	width: 24px !important;
+	min-width: 24px !important;
+	height: 24px !important;
+	font-size: 12px !important;
+	background-color: #0B0B12 !important;
 	display: flex;
+    align-items: center;
+    justify-content: center;
+	margin-left: 10px!important;
+	border: none!important;
+	border-radius: 8px!important;
 }
 
+.datatable section.dt-pagination button.active{
+	background-color: #c921cd!important;
+}
+
+.datatable section.dt-pagination button.disabled{
+	background-color: #444444!important;
+}
+
+.datatable thead:not([style*='hidden']) th {
+	background-color: #141421 !important;
+	border-bottom: 1px solid rgb(41, 40, 40) !important;
+	padding: 0 0 0 16px !important;
+	padding-left: 0px !important;
+}
+
+.datatable .dt-header thead:not([style*='hidden']) th {
+	padding-bottom: 16px !important;
+}
+
+.datatable .dt-header thead:not([style*='hidden']) {
+	width: 100% !important;
+}
