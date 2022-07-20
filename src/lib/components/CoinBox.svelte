@@ -6,13 +6,43 @@
     export let icon = "";
     export let content = "";
 
-    import { flag } from "./../../store";
+    import { categoriesData, flag } from "./../../store";
+    import isEmpty from "../../utils/is-empty";
+    import coinStore from "$lib/coins-store";
+
+    import { getMarketsByIds } from "../../api";
+
+    let coin_lists,
+        tempCategoryCoins = [],
+        cat_tab_data = [];
+
+    if (
+        !isEmpty(coinStore) &&
+        !isEmpty(coinStore.coins) &&
+        !isEmpty(coinStore.categoryCoins)
+    ) {
+        coin_lists = Object.keys(coinStore.coins).join(",");
+        tempCategoryCoins = coinStore.categoryCoins;
+    }
 
     const setActive = (id) => {
         if (id === $flag) {
             flag.set({});
         } else {
             flag.set(id);
+            if (!isEmpty($flag) && !isEmpty(coin_lists)) {
+                getMarketsByIds(coin_lists).then((items) => {
+                    if (tempCategoryCoins[$flag] && items) {
+                        cat_tab_data = tempCategoryCoins[$flag]
+                            .map((coin) => items[coin.coingeckoId])
+                            .filter((item) => item != null)
+                            .sort((a, b) => {
+                                return a.rank - b.rank;
+                            });
+                        categoriesData.set(cat_tab_data);
+                    }
+                });
+            }
         }
     };
 </script>

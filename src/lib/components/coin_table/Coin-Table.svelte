@@ -6,12 +6,21 @@
     import { Datatable, rows } from "$lib/components/SimpleDatatables";
     import isEmpty from "./../../../utils/is-empty";
     import { StarIcon } from "svelte-feather-icons";
+    import coinStore from "$lib/coins-store";
     import {
         categoriesData,
         advancedData,
         watchlistData,
         viewAllData,
+        flag,
     } from "./../../../store";
+
+    import {
+        volume,
+        percentageFormat,
+        priceColor,
+        currencyFullValue,
+    } from "./../../../helpers";
 
     export let method = "";
 
@@ -19,6 +28,8 @@
         data = [],
         selected = "Highest Cap",
         filterData = [];
+
+    let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
 
     // show toplosers and topgainers
     const show_way = $page.url.searchParams.get("table");
@@ -105,16 +116,6 @@
         },
     };
 
-    import {
-        volume,
-        percentageFormat,
-        priceColor,
-        currencyFullValue,
-    } from "./../../../helpers";
-
-    let oldWatchlist = JSON.parse(localStorage.getItem("watchlist"));
-
-    const data1 = $categoriesData.slice(0, 70);
     const goCoindetail = (id) => {
         window.location = "/coins?id=" + id;
     };
@@ -171,7 +172,7 @@
             </div>
         </div>
         <div class="table-res">
-            <Datatable {settings} data={data1}>
+            <Datatable {settings} {data}>
                 <thead>
                     <th>Watchlist</th>
                     <th data-key="rank" width="7%">#</th>
@@ -180,9 +181,7 @@
                     <th data-key="priceChange24h" class="text-center"
                         >24 Hours</th
                     >
-                    <th data-key="priceChange7d" class="text-center"
-                        >7 days</th
-                    >
+                    <th data-key="priceChange7d" class="text-center">7 days</th>
                     <th data-key="marketCap" class="text-left">Market Cap</th>
                     <th data-key="totalVolume" class="text-right">Volume</th>
                 </thead>
@@ -232,7 +231,9 @@
                                     : 0}</td
                             >
                             <td>$ {volume(row.marketCap)}</td>
-                            <td class="text-right">$ {volume(row.totalVolume)}</td>
+                            <td class="text-right"
+                                >$ {volume(row.totalVolume)}</td
+                            >
                         </tr>
                     {/each}
                 </tbody>
@@ -300,7 +301,8 @@
     th.text-left {
         text-align: left !important;
     }
-    th.text-right, td.text-right {
+    th.text-right,
+    td.text-right {
         text-align: right !important;
     }
 </style>

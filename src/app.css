@@ -297,6 +297,7 @@ svg.i.lock {
 
 .datatable {
 	background-color: transparent !important;
+	min-width: 768px;
 }
 
 .datatable.scroll-y {
@@ -339,19 +340,19 @@ article.dt-table {
 	font-size: 12px !important;
 	background-color: #0B0B12 !important;
 	display: flex;
-    align-items: center;
-    justify-content: center;
-	margin-left: 10px!important;
-	border: none!important;
-	border-radius: 8px!important;
+	align-items: center;
+	justify-content: center;
+	margin-left: 10px !important;
+	border: none !important;
+	border-radius: 8px !important;
 }
 
-.datatable section.dt-pagination button.active{
-	background-color: #c921cd!important;
+.datatable section.dt-pagination button.active {
+	background-color: #c921cd !important;
 }
 
-.datatable section.dt-pagination button.disabled{
-	background-color: #444444!important;
+.datatable section.dt-pagination button.disabled {
+	background-color: #444444 !important;
 }
 
 .datatable thead:not([style*='hidden']) th {
@@ -359,6 +360,7 @@ article.dt-table {
 	border-bottom: 1px solid rgb(41, 40, 40) !important;
 	padding: 0 0 0 16px !important;
 	padding-left: 0px !important;
+	z-index: 0;
 }
 
 .datatable .dt-header thead:not([style*='hidden']) th {
@@ -367,4 +369,8 @@ article.dt-table {
 
 .datatable .dt-header thead:not([style*='hidden']) {
 	width: 100% !important;
+}
+
+.listContainer {
+	z-index: 999999 !important;
 }
