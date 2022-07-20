@@ -1,5 +1,6 @@
 <script>
     //@ts-nocheck
+    import { page } from "$app/stores";
     import { getCardIcon } from "./getIcon";
 
     export let name = "";
@@ -23,6 +24,22 @@
     ) {
         coin_lists = Object.keys(coinStore.coins).join(",");
         tempCategoryCoins = coinStore.categoryCoins;
+    }
+
+    const catId = $page.url.searchParams.get("cat");
+
+    if (!isEmpty(catId) && !isEmpty(coin_lists)) {
+        getMarketsByIds(coin_lists).then((items) => {
+            if (tempCategoryCoins[catId] && items) {
+                cat_tab_data = tempCategoryCoins[catId]
+                    .map((coin) => items[coin.coingeckoId])
+                    .filter((item) => item != null)
+                    .sort((a, b) => {
+                        return a.rank - b.rank;
+                    });
+                categoriesData.set(cat_tab_data);
+            }
+        });
     }
 
     const setActive = (id) => {

@@ -6,7 +6,6 @@
     import { Datatable, rows } from "$lib/components/SimpleDatatables";
     import isEmpty from "./../../../utils/is-empty";
     import { StarIcon } from "svelte-feather-icons";
-    import coinStore from "$lib/coins-store";
     import {
         categoriesData,
         advancedData,
