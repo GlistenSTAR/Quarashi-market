@@ -11,6 +11,8 @@
         advancedData,
         watchlistData,
         viewAllData,
+        markets,
+        watchlist,
     } from "./../../../store";
 
     import {
@@ -119,27 +121,27 @@
     };
 
     const setFav = (id, event) => {
-        // if (!isEmpty(oldWatchlist)) {
-        //     if (oldWatchlist[`${id}`] === true) {
-        //         event.target.classList.remove("active");
-        //         delete oldWatchlist[`${id}`];
-        //     } else {
-        //         event.target.classList.add("active");
-        //         oldWatchlist[`${id}`] = true;
-        //     }
-        // } else {
-        //     oldWatchlist = {};
-        //     oldWatchlist[`${id}`] = true;
-        // }
-        // let changedData = [];
-        // $markets.map((item) => {
-        //     if (oldWatchlist[`${item.id}`]) {
-        //         changedData.push(item);
-        //     }
-        // });
-        // localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
-        // watchlistData.set(changedData);
-        // watchlist.set(oldWatchlist);
+        if (!isEmpty(oldWatchlist)) {
+            if (oldWatchlist[`${id}`] === true) {
+                event.target.classList.remove("active");
+                delete oldWatchlist[`${id}`];
+            } else {
+                event.target.classList.add("active");
+                oldWatchlist[`${id}`] = true;
+            }
+        } else {
+            oldWatchlist = {};
+            oldWatchlist[`${id}`] = true;
+        }
+        let changedData = [];
+        $markets.map((item) => {
+            if (oldWatchlist[`${item.id}`]) {
+                changedData.push(item);
+            }
+        });
+        localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
+        watchlistData.set(changedData);
+        watchlist.set(oldWatchlist);
     };
 </script>
 
@@ -160,7 +162,7 @@
         </div>
     {:else}
         <div>
-            <div class="coin_kind col-md-4 mb-4">
+            <div class="coin_kind col-md-4 mb-5">
                 <Select
                     items={total_items}
                     value={selected}

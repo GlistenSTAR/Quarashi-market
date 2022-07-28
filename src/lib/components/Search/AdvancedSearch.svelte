@@ -15,12 +15,31 @@
     import isEmpty from "./../../../utils/is-empty";
     import { filterByVolume, filterByPrice } from "./../../../api/filters";
 
+    import coinStore from "$lib/coins-store";
+
+    let coin_lists, tempCategoryCoins;
+
+    if (
+        !isEmpty(coinStore) &&
+        !isEmpty(coinStore.coins) &&
+        !isEmpty(coinStore.categoryCoins)
+    ) {
+        coin_lists = Object.keys(coinStore.coins).join(",");
+        tempCategoryCoins = coinStore.categoryCoins;
+    }
+
     let data = [];
-    $: if (!isEmpty($markets)) {
-        $markets.map((item) => {
-            data.push(item);
-        });
-        advancedData.set(data);
+
+    if (coin_lists) {
+        // getMarketsByIds(coin_lists).then((items) => {
+        //     data = Object.values(items);
+        //     console.log(data.length);
+        // });
+        data = $markets
+    }
+
+    $: if ($markets) {
+        advancedData.set($markets);
     }
 
     const changeFilter = (item) => {
@@ -60,6 +79,7 @@
             period_item: "Price Period",
             pricechange_item: "Price Change",
         };
+        advancedData.set($markets);
     };
 </script>
 
