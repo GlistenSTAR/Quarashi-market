@@ -121,15 +121,22 @@ export const getCoins = async (flag) => {
 
 // use modal
 export const getCoinTvlChart = (coin, period = '7d') => {
-  return API.get(`/markets/defi/${coin}/${period}`)
+  return API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
 }
 
 /**
  * @param {any} coin
  */
 // use modal
-export const getCoinVolumeChart = (coin) => {
-  return API.get(`${coingeckoBaseUrl}/${coin}/market_chart?vs_currency=USD&days=1`)
+export const getCoinVolumeChart = async (coin) => {
+  try {
+    let data;
+    data = await API.get(`${coingeckoBaseUrl}/${coin}/market_chart?vs_currency=USD&days=1`)
+    return data
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
 export const getDefiMarkets = async (flag) => {

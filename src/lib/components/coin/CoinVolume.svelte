@@ -6,24 +6,28 @@
 
     import isEmpty from "./../../../utils/is-empty";
     import { currencyFullValue, percentageFormat } from "./../../../helpers";
-    // import events from "./../../../utils/EventEmitter";
-    // import ModalTvlChart from "./modal/ModalTvlChart.svelte";
+
+    import { Modals, closeModal, openModal } from "svelte-modals";
+
+    import ModalTvlChart from "./modal/ModalTvlChart.svelte";
+    import ModalTradingVol from "./modal/ModalVolumeChart.svelte";
+
+    import { BarChart2Icon } from "svelte-feather-icons";
 
     const mCapTvlRatio =
         volumes.marketCap && volumes.tvl ? volumes.marketCap / volumes.tvl : 0;
 
-    const onClickTvl = () => {
-        if (volumes.tvl) {
-            console.log(coinID);
-            // events.showModal(<ModalTvlChart coinId={coinId} />, "TVL Chart");
-        }
-    };
-
     const onClickVolume = () => {
-        // events.showModal(<ModalVolumeChart coinId={coinId} />, "Chart (24h)");
+        openModal(ModalTradingVol, {
+            coinID: coinID,
+        });
     };
 
-    $: console.log(volumes.tvl, typeof volumes.tvl);
+    const onClickTvl = () => {
+        openModal(ModalTvlChart, {
+            coinID: coinID,
+        });
+    };
 </script>
 
 <div class="row mt-mb-4">
@@ -99,11 +103,17 @@
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
                 role="button"
-                on:Click={onClickVolume}
             >
                 <div class="text-grey">Trading Volume</div>
-                <div class="text-oz">
+                <div
+                    class="text-oz"
+                    style="display:flex;align-items: flex-end;"
+                    on:click={onClickVolume}
+                >
                     {currencyFullValue(volumes.totalVolume)}
+                    {#if volumes.totalVolume}
+                        <BarChart2Icon />
+                    {/if}
                 </div>
             </li>
             <li
@@ -115,14 +125,20 @@
             <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
                 role="button"
-                on:Click={onClickTvl}
             >
                 <div class="text-grey">Total Value Locked</div>
-                <div class="text-oz">
-                    {#if volumes.tvl === 0 || volumes.tvl ==null|| typeof volumes.tvl == "undefined"}
+                <div
+                    class="text-oz"
+                    style="display:flex;align-items: flex-end;"
+                    on:click={onClickTvl}
+                >
+                    {#if volumes.tvl === 0 || volumes.tvl == null || typeof volumes.tvl == "undefined"}
                         <span class="text-grey">N/A</span>
                     {:else}
                         {currencyFullValue(volumes.tvl)}
+                        {#if volumes.tvl}
+                            <BarChart2Icon />
+                        {/if}
                     {/if}
                 </div>
             </li>
@@ -132,7 +148,7 @@
                 <div class="text-grey">TVL Rank</div>
                 <div class="text-grey">N/A</div>
             </li>
-          <li
+            <li
                 class="list-group-item bg-lawrence d-flex justify-content-between py-3"
             >
                 <div class="text-grey">M.cap / TVL ratio</div>
@@ -146,6 +162,9 @@
             </li>
         </ul>
     </div>
+    <Modals>
+        <div slot="backdrop" class="backdrop" on:click={closeModal} />
+    </Modals>
 </div>
 
 <style>
