@@ -24,9 +24,9 @@
     };
 
     const onClickTvl = () => {
-        openModal(ModalTvlChart, {
-            coinID: coinID,
-        });
+        // openModal(ModalTvlChart, {
+        //     coinID: coinID,
+        // });
     };
 </script>
 
