@@ -238,7 +238,6 @@
                     {/each}
                 </tbody>
             </Datatable>
-            <!-- <Datatable {method} /> -->
         </div>
     {/if}
 </div>

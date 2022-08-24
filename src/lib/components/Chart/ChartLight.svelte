@@ -96,7 +96,6 @@
             lineWidth: 1,
         });
 
-        console.log("points", points);
         lineSeries.setData(points);
     });
 </script>
