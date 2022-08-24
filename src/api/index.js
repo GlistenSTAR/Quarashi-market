@@ -120,8 +120,15 @@ export const getCoins = async (flag) => {
  */
 
 // use modal
-export const getCoinTvlChart = (coin, period = '7d') => {
-  return API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
+export const getCoinTvlChart = async (coin, period = '7d') => {
+  try{
+    let data;
+    data = API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
+    return data
+  }
+  catch(err){
+    console.log(err)
+  }
 }
 
 /**

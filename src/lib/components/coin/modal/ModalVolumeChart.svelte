@@ -79,7 +79,7 @@
                     <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
                         <XIcon size="0.8x" />
                     </svg>
-                    Chart (24h)
+                    TVL Chart
                 </div>
                 <div class="modal_content">
                     {#if points}

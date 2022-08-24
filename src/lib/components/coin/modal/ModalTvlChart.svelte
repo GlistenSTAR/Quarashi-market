@@ -1,39 +1,55 @@
 <script>
     // @ts-nocheck
-    import { getCoinTvlChart } from "../../../../api";
-    import cn from "classnames";
-    import {
-        closeModal,
-        closeAllModals,
-        openModal,
-        modals,
-    } from "svelte-modals";
+    import { onMount } from "svelte";
+
+    import { closeModal, openModal, modals } from "svelte-modals";
     import { fly } from "svelte/transition";
+
+    import { getCoinTvlChart } from "../../../../api";
     import ChartLight from "$lib/components/chart/ChartLight.svelte";
+    import { XIcon } from "svelte-feather-icons";
+
+    import SmallLoading from "$lib/components/loader/SmallLoading.svelte";
 
     export let coinID = "";
     export let isOpen = false;
 
-    let interval = "7d",
-        points = [];
+    let datas = {},
+        method = "7d",
+        points;
 
-    $: getChart(interval);
+    const mapItems = (data, index) => {
+        const items = [];
 
-    const getChart = (interval) => {
-        getCoinTvlChart(coinID, interval).then(({ data }) => {
-            for (let i = 0; i < data.length; i++) {
-                const item = data[i];
-                const time = parseInt(item.timestamp);
-                points.push({ time, value: item.tvl });
+        for (let i = 0; i < data.length; i++) {
+            if (index === 1) {
+                items.push(data[i]);
+            } else {
+                items.push(parseInt(data[i].timestamp));
             }
+        }
+
+        return items;
+    };
+
+    const getData = () => {
+        getCoinTvlChart(coinID, method).then((data) => {
+            datas = {
+                time: mapItems(data, 1),
+                value: mapItems(data, 2),
+            };
         });
     };
 
-    const changeInterval = (key) => {
-        interval = key;
+    $: points = getData();
+
+    const active = (key) => {
+        method = key;
     };
 
-    const active = (key) => interval === key;
+    const changeInterval = (key) => {
+        method = key;
+    };
 </script>
 
 {#if isOpen}
@@ -44,56 +60,85 @@
         on:introstart
         on:outroend
     >
-        <div class="bg-lawrence">
-            <!-- {#if points}
-                <ChartLight
-                    key={interval}
-                    class="w-100"
-                    change={0}
-                    {points}
-                    height={300}
-                    barSpacing={12}
-                    rightPrice={true}
-                    timeVisible={true}
-                    size={"small"}
-                />
-            {:else}
-                <div class="text-center m-5">
-                    <div class="spinner-border text-white" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+        <div
+            role="dialog"
+            class="modal"
+            transition:fly={{ y: 50 }}
+            on:introstart
+            on:outroend
+        >
+            <div class="contents">
+                <div class="modal_header">
+                    <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
+                        <XIcon size="0.8x" />
+                    </svg>
+                    Chart (24h)
                 </div>
-            {/if} -->
-        </div>
-        <div class="modal-footer bg-lawrence justify-content-start">
-            <button
-                class={cn("btn text-oz me-2", {
-                    "btn-dark": active("24h"),
-                })}
-                onClick={() => changeInterval("24h")}
-            >
-                24H
-            </button>
-            <button
-                class={cn("btn text-oz me-2", { "btn-dark": active("7d") })}
-                onClick={() => changeInterval("7d")}
-            >
-                7D
-            </button>
-            <button
-                class={cn("btn text-oz me-2", {
-                    "btn-dark": active("14d"),
-                })}
-                onClick={() => changeInterval("14d")}
-            >
-                14D
-            </button>
-            <button
-                class={cn("btn text-oz me-2", { "btn-dark": active("1m") })}
-                onClick={() => changeInterval("1m")}
-            >
-                1M
-            </button>
+                <div class="modal_content">
+                    {#if points}
+                        {#if method == "price"}
+                            <ChartLight
+                                {points}
+                                change={0}
+                                size={"medium"}
+                                id={"mediumChart"}
+                            />
+                        {:else if method == "cap"}
+                            <ChartLight
+                                {points}
+                                change={0}
+                                size={"medium"}
+                                id={"mediumChart"}
+                            />
+                        {:else}
+                            <ChartLight
+                                {points}
+                                change={0}
+                                size={"medium"}
+                                id={"mediumChart"}
+                            />
+                        {/if}
+                    {:else}
+                        <h2 class="text-center mb-4">
+                            <SmallLoading />
+                        </h2>
+                    {/if}
+                </div>
+                <div class="modal-footer bg-lawrence justify-content-start">
+                    <button
+                        class={`btn text-oz me-2 ${
+                            method == "24h" ? "btn-dark" : ""
+                        }`}
+                        on:click={() => changeInterval("24h")}
+                    >
+                        24h
+                    </button>
+                    <button
+                        class={`btn text-oz me-2 ${
+                            method == "7d" ? "btn-dark" : ""
+                        }`}
+                        on:click={() => changeInterval("7d")}
+                    >
+                        7d
+                    </button>
+                    <button
+                        class={`btn text-oz me-2 ${
+                            method == "14d" ? "btn-dark" : ""
+                        }`}
+                        on:click={() => changeInterval("14d")}
+                    >
+                        14d
+                    </button>
+                    <button
+                        class={`btn text-oz me-2 ${
+                            method == "1m" ? "btn-dark" : ""
+                        }`}
+                        on:click={() => changeInterval("1m")}
+                    >
+                        1m
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 {/if}
@@ -111,5 +156,45 @@
 
         /* allow click-through to backdrop */
         pointer-events: none;
+    }
+
+    .contents {
+        min-width: 240px;
+        border-radius: 6px;
+        padding: 16px;
+        background: #252933;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        pointer-events: auto;
+        position: relative;
+        width: 60%;
+    }
+
+    .modal_header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid grey;
+        position: relative;
+    }
+    .modal_content {
+        position: relative;
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+    .modal_footer {
+        border-top: 1px solid grey;
+    }
+    .modal-footer button {
+        color: white;
+    }
+    #close {
+        position: absolute;
+        top: 0px;
+        right: 14px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        fill: #f44;
+        transition: transform 0.3s;
     }
 </style>
