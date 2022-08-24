@@ -35,7 +35,7 @@
                     .map((coin) => items[coin.coingeckoId])
                     .filter((item) => item != null)
                     .sort((a, b) => {
-                        return a.rank - b.rank;
+                        return b.marketCap - a.marketCap;
                     });
                 categoriesData.set(cat_tab_data);
             }
@@ -55,7 +55,7 @@
                             .map((coin) => items[coin.coingeckoId])
                             .filter((item) => item != null)
                             .sort((a, b) => {
-                                return a.rank - b.rank;
+                                return b.marketCap - a.marketCap;
                             });
                         categoriesData.set(cat_tab_data);
                     }
