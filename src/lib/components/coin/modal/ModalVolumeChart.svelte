@@ -7,6 +7,7 @@
 
     import { getCoinVolumeChart } from "../../../../api";
     import ChartLight from "$lib/components/chart/ChartLight.svelte";
+    import { XIcon } from "svelte-feather-icons";
 
     export let coinID = "";
     export let isOpen = false;
@@ -79,9 +80,7 @@
             <div class="contents">
                 <div class="modal_header">
                     <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
-                        <circle cx="6" cy="6" r="6" />
-                        <line x1="3" y1="3" x2="9" y2="9" />
-                        <line x1="9" y1="3" x2="3" y2="9" />
+                        <XIcon size="0.8x" />
                     </svg>
                     Chart (24h)
                 </div>
@@ -188,14 +187,10 @@
     .modal-footer button {
         color: white;
     }
-    #close line {
-        stroke: #fff;
-        stroke-width: 2;
-    }
     #close {
         position: absolute;
         top: 0px;
-        right: 0px;
+        right: 14px;
         width: 24px;
         height: 24px;
         cursor: pointer;
