@@ -33,7 +33,6 @@
 
     const getChart = () => {
         getCoinVolumeChart(coinID).then((data) => {
-            console.log(data);
             datas = {
                 volume: mapItems(data.total_volumes),
                 price: mapItems(data.prices),
@@ -55,11 +54,9 @@
     };
 
     const changeInterval = (key) => {
-        console.log(key);
         method = key;
     };
 
-    $: console.log(points);
 </script>
 
 {#if isOpen}

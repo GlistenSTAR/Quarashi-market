@@ -25,6 +25,7 @@
             timeScale: {
                 barSpacing: 12,
                 visible: true,
+                timeVisible: true,
             },
             grid: {
                 vertLines: { visible: false },
@@ -64,6 +65,7 @@
             timeScale: {
                 barSpacing: 12,
                 visible: true,
+                timeVisible: true,
             },
             grid: {
                 vertLines: { visible: false },
