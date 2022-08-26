@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div
-                class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end"
+                class="col-lg-3 col-sm-12 col-md-6 d-flex align-items-end justify-content-end result_content"
             >
                 <button
                     class="btn bg-lawrence text-white rounded-4 px-4"
@@ -210,6 +210,9 @@
     @media (max-width: 767px) {
         .col-lg-3.col-sm-12.col-md-6.middle {
             margin-top: 20px !important;
+        }
+        .result_content{
+            margin-top: 20px
         }
     }
 </style>
