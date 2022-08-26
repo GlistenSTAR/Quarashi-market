@@ -57,6 +57,7 @@
         method = key;
     };
 
+    $: console.log(points);
 </script>
 
 {#if isOpen}
@@ -67,74 +68,66 @@
         on:introstart
         on:outroend
     >
-        <div
-            role="dialog"
-            class="modal"
-            transition:fly={{ y: 50 }}
-            on:introstart
-            on:outroend
-        >
-            <div class="contents">
-                <div class="modal_header">
-                    <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
-                        <XIcon size="0.8x" />
-                    </svg>
-                    TVL Chart
-                </div>
-                <div class="modal_content">
-                    {#if points}
-                        {#if method == "price"}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {:else if method == "cap"}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {:else}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {/if}
+        <div class="contents">
+            <div class="modal_header">
+                <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
+                    <XIcon size="0.8x" />
+                </svg>
+                TVL Chart
+            </div>
+            <div class="modal_content">
+                {#if points}
+                    {#if method == "price"}
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
+                    {:else if method == "cap"}
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
                     {:else}
-                        <h2 class="text-center mb-4">Loadling</h2>
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
                     {/if}
-                </div>
-                <div class="modal-footer bg-lawrence justify-content-start">
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "price" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("price")}
-                    >
-                        Price
-                    </button>
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "cap" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("cap")}
-                    >
-                        Market Cap
-                    </button>
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "volume" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("volume")}
-                    >
-                        Volume
-                    </button>
-                </div>
+                {:else}
+                    <h2 class="text-center mb-4">Loadling</h2>
+                {/if}
+            </div>
+            <div class="modal-footer bg-lawrence justify-content-start">
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "price" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("price")}
+                >
+                    Price
+                </button>
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "cap" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("cap")}
+                >
+                    Market Cap
+                </button>
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "volume" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("volume")}
+                >
+                    Volume
+                </button>
             </div>
         </div>
     </div>

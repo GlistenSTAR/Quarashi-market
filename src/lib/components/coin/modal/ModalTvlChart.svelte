@@ -14,42 +14,42 @@
     export let coinID = "";
     export let isOpen = false;
 
-    let datas = {},
+    let datas = [],
         method = "7d",
-        points;
-
-    const mapItems = (data, index) => {
-        const items = [];
-
-        for (let i = 0; i < data.length; i++) {
-            if (index === 1) {
-                items.push(data[i]);
-            } else {
-                items.push(parseInt(data[i].timestamp));
-            }
-        }
-
-        return items;
-    };
-
-    const getData = () => {
-        getCoinTvlChart(coinID, method).then((data) => {
-            datas = {
-                time: mapItems(data, 1),
-                value: mapItems(data, 2),
-            };
-        });
-    };
-
-    $: points = getData();
-
-    const active = (key) => {
-        method = key;
-    };
+        points,
+        flag = 0;
 
     const changeInterval = (key) => {
         method = key;
     };
+
+    const getData = (id, time) => {
+        getCoinTvlChart(id, time).then((data) => {
+            (datas = []), (points = []);
+            for (let i = 0; i < data.length; i++) {
+                datas.push({
+                    time: data[i].timestamp / 1000,
+                    value: data[i].tvl,
+                });
+            }
+            points = datas;
+            flag = 1;
+        });
+    };
+
+    $: if (method == "24h") {
+        flag = 0;
+        getData(coinID, method);
+    } else if (method == "7d") {
+        flag = 0;
+        getData(coinID, method);
+    } else if (method == "14d") {
+        flag = 0;
+        getData(coinID, method);
+    } else if (method == "1m") {
+        flag = 0;
+        getData(coinID, method);
+    }
 </script>
 
 {#if isOpen}
@@ -60,84 +60,83 @@
         on:introstart
         on:outroend
     >
-        <div
-            role="dialog"
-            class="modal"
-            transition:fly={{ y: 50 }}
-            on:introstart
-            on:outroend
-        >
-            <div class="contents">
-                <div class="modal_header">
-                    <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
-                        <XIcon size="0.8x" />
-                    </svg>
-                    Chart (24h)
-                </div>
-                <div class="modal_content">
-                    {#if points}
-                        {#if method == "price"}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {:else if method == "cap"}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {:else}
-                            <ChartLight
-                                {points}
-                                change={0}
-                                size={"medium"}
-                                id={"mediumChart"}
-                            />
-                        {/if}
+        <div class="contents">
+            <div class="modal_header">
+                <svg id="close" on:click={closeModal} viewBox="0 0 12 12">
+                    <XIcon size="0.8x" />
+                </svg>
+                Chart (24h)
+            </div>
+            <div class="modal_content">
+                {#if points && flag}
+                    {#if method === "24h"}
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
+                    {:else if method === "7d"}
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
+                    {:else if method === "14d"}
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
                     {:else}
-                        <h2 class="text-center mb-4">
-                            <SmallLoading />
-                        </h2>
+                        <ChartLight
+                            {points}
+                            change={0}
+                            size={"medium"}
+                            id={"mediumChart"}
+                        />
                     {/if}
-                </div>
-                <div class="modal-footer bg-lawrence justify-content-start">
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "24h" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("24h")}
-                    >
-                        24h
-                    </button>
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "7d" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("7d")}
-                    >
-                        7d
-                    </button>
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "14d" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("14d")}
-                    >
-                        14d
-                    </button>
-                    <button
-                        class={`btn text-oz me-2 ${
-                            method == "1m" ? "btn-dark" : ""
-                        }`}
-                        on:click={() => changeInterval("1m")}
-                    >
-                        1m
-                    </button>
-                </div>
+                {:else}
+                    <h2 class="text-center mb-4">
+                        <SmallLoading />
+                    </h2>
+                {/if}
+            </div>
+            <div class="modal-footer bg-lawrence justify-content-start">
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "24h" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("24h")}
+                >
+                    24h
+                </button>
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "7d" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("7d")}
+                >
+                    7d
+                </button>
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "14d" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("14d")}
+                >
+                    14d
+                </button>
+                <button
+                    class={`btn text-oz me-2 ${
+                        method == "1m" ? "btn-dark" : ""
+                    }`}
+                    on:click={() => changeInterval("1m")}
+                >
+                    1m
+                </button>
             </div>
         </div>
     </div>
