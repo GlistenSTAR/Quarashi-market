@@ -137,6 +137,9 @@
         margin-right: 7px;
         width: 47%;
     }
+    .mt-md-4 {
+        margin-top:1.5rem!important
+    }
 
     @media (max-width: 768px) {
         .col-sm-12 {
@@ -145,6 +148,12 @@
         .row {
             margin-left: 5px;
             margin-right: 5px;
+        }
+
+        .row .col-lg-6 {
+            margin-left: 5px;
+            margin-right: 5px;
+            width: 100%;
         }
     }
 </style>

@@ -195,6 +195,9 @@
         .col-sm-12 {
             margin-top: 20px;
         }
+        .col-lg-6.col-sm-12{
+            width: 100%;
+        }
         .row {
             margin-left: 5px;
             margin-right: 5px;
