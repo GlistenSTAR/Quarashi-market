@@ -1,7 +1,9 @@
 import API from './../utils/api'
 import { API_KEY } from './../utils/API_KEY';
 
-const marketsBaseUrl = 'https://markets.horizontalsystems.xyz/api/v1'
+
+const marketsBaseUrl = 'https://markets.quarashi.network/api/v1'
+// const marketsBaseUrl = 'https://markets.horizontalsystems.xyz/api/v1'
 const coingeckoBaseUrl = 'https://api.coingecko.com/api/v3/coins'
 
 import {
@@ -123,7 +125,7 @@ export const getCoins = async (flag) => {
 export const getCoinTvlChart = async (coin, period = '7d') => {
   try{
     let data;
-    data = API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
+    data = await API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
     return data
   }
   catch(err){
