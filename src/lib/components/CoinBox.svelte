@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     //@ts-nocheck
     import { page } from "$app/stores";
     import { getCardIcon } from "./getIcon";
@@ -15,7 +15,8 @@
 
     let coin_lists,
         tempCategoryCoins = [],
-        cat_tab_data = [];
+        cat_tab_data = [],
+        data = {};
 
     if (
         !isEmpty(coinStore) &&
@@ -26,40 +27,115 @@
         tempCategoryCoins = coinStore.categoryCoins;
     }
 
-    const catId = $page.url.searchParams.get("cat");
+    let catId = $page.url.searchParams.get("cat");
 
     if (!isEmpty(catId) && !isEmpty(coin_lists)) {
-        getMarketsByIds(coin_lists).then((items) => {
-            if (tempCategoryCoins[catId] && items) {
-                cat_tab_data = tempCategoryCoins[catId]
-                    .map((coin) => items[coin.coingeckoId])
-                    .filter((item) => item != null)
-                    .sort((a, b) => {
-                        return b.marketCap - a.marketCap;
-                    });
-                categoriesData.set(cat_tab_data);
+        if (typeof localStorage !== "undefined") {
+            let markets_id_coins = JSON.parse(
+                localStorage.getItem("markets_id_coins")
+            );
+
+            if (
+                markets_id_coins !== null &&
+                !isEmpty(markets_id_coins[catId]) &&
+                new Date().getTime() - markets_id_coins[catId].time <
+                    4 * 60 * 60 * 1000
+            ) {
+                console.log(1);
+                categoriesData.set(markets_id_coins[catId].data);
+            } else {
+                getMarketsByIds(coin_lists).then((items) => {
+                    if (tempCategoryCoins[catId] && items) {
+                        cat_tab_data = tempCategoryCoins[catId]
+                            .map((coin) => items[coin.coingeckoId])
+                            .filter((item) => item != null)
+                            .sort((a, b) => {
+                                return b.marketCap - a.marketCap;
+                            });
+
+                        if (markets_id_coins !== null) {
+                            console.log(2);
+
+                            data = markets_id_coins;
+                            data[`${catId}`] = {
+                                data: cat_tab_data,
+                                time: new Date().getTime(),
+                            };
+                        } else {
+                            console.log(3);
+
+                            data[`${catId}`] = {
+                                data: cat_tab_data,
+                                time: new Date().getTime(),
+                            };
+                        }
+                        localStorage.setItem(
+                            "markets_id_coins",
+                            JSON.stringify(data)
+                        );
+                        categoriesData.set(cat_tab_data);
+                    }
+                });
             }
-        });
+        }
     }
 
     const setActive = (id) => {
+        catId = id;
         if (id === $flag) {
             flag.set({});
             categoriesData.set($markets);
         } else {
             flag.set(id);
             if (!isEmpty($flag) && !isEmpty(coin_lists)) {
-                getMarketsByIds(coin_lists).then((items) => {
-                    if (tempCategoryCoins[$flag] && items) {
-                        cat_tab_data = tempCategoryCoins[$flag]
-                            .map((coin) => items[coin.coingeckoId])
-                            .filter((item) => item != null)
-                            .sort((a, b) => {
-                                return b.marketCap - a.marketCap;
-                            });
-                        categoriesData.set(cat_tab_data);
+                if (typeof localStorage !== "undefined") {
+                    let markets_id_coins = JSON.parse(
+                        localStorage.getItem("markets_id_coins")
+                    );
+
+                    if (
+                        markets_id_coins !== null &&
+                        !isEmpty(markets_id_coins[id]) &&
+                        new Date().getTime() - markets_id_coins[id].time <
+                            4 * 60 * 60 * 1000
+                    ) {
+                        // console.log(1);
+                        categoriesData.set(markets_id_coins[id].data);
+                    } else {
+                        getMarketsByIds(coin_lists).then((items) => {
+                            if (tempCategoryCoins[id] && items) {
+                                cat_tab_data = tempCategoryCoins[id]
+                                    .map((coin) => items[coin.coingeckoId])
+                                    .filter((item) => item != null)
+                                    .sort((a, b) => {
+                                        return b.marketCap - a.marketCap;
+                                    });
+
+                                if (markets_id_coins !== null) {
+                                    // console.log(2);
+
+                                    data = markets_id_coins;
+                                    data[`${id}`] = {
+                                        data: cat_tab_data,
+                                        time: new Date().getTime(),
+                                    };
+                                } else {
+                                    // console.log(3);
+
+                                    data[`${id}`] = {
+                                        data: cat_tab_data,
+                                        time: new Date().getTime(),
+                                    };
+                                }
+                                localStorage.setItem(
+                                    "markets_id_coins",
+                                    JSON.stringify(data)
+                                );
+                                categoriesData.set(cat_tab_data);
+                            }
+                        });
                     }
-                });
+                }
             }
         }
     };
