@@ -41,7 +41,7 @@
                 new Date().getTime() - markets_id_coins[catId].time <
                     4 * 60 * 60 * 1000
             ) {
-                console.log(1);
+                // console.log(1);
                 categoriesData.set(markets_id_coins[catId].data);
             } else {
                 getMarketsByIds(coin_lists).then((items) => {
@@ -54,7 +54,7 @@
                             });
 
                         if (markets_id_coins !== null) {
-                            console.log(2);
+                            // console.log(2);
 
                             data = markets_id_coins;
                             data[`${catId}`] = {
@@ -62,7 +62,7 @@
                                 time: new Date().getTime(),
                             };
                         } else {
-                            console.log(3);
+                            // console.log(3);
 
                             data[`${catId}`] = {
                                 data: cat_tab_data,

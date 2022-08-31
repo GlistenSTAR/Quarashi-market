@@ -9,6 +9,8 @@
     import ChartLight from "$lib/components/chart/ChartLight.svelte";
     import { XIcon } from "svelte-feather-icons";
 
+    import isEmpty from "../../../../utils/is-empty";
+
     export let coinID = "";
     export let isOpen = false;
 
@@ -32,13 +34,64 @@
     };
 
     const getChart = () => {
-        getCoinVolumeChart(coinID).then((data) => {
-            datas = {
-                volume: mapItems(data.total_volumes),
-                price: mapItems(data.prices),
-                cap: mapItems(data.market_caps),
-            };
-        });
+        if (typeof localStorage !== "undefined") {
+            let TVLchartData = JSON.parse(localStorage.getItem("TVLChartData"));
+            if (
+                TVLchartData !== null &&
+                !isEmpty(TVLchartData[coinID]) &&
+                new Date().getTime() - TVLchartData[coinID].time <
+                    4 * 60 * 60 * 1000
+            ) {
+                console.log(1);
+                datas = TVLchartData[coinID].data;
+            } else {
+                getCoinVolumeChart(coinID).then((data) => {
+                    if (TVLchartData !== null) {
+                        console.log(2);
+
+                        let saved_data = TVLchartData;
+                        saved_data[`${coinID}`] = {
+                            data: {
+                                volume: mapItems(data.total_volumes),
+                                price: mapItems(data.prices),
+                                cap: mapItems(data.market_caps),
+                            },
+                            time: new Date().getTime(),
+                        };
+                        localStorage.setItem(
+                            "TVLChartData",
+                            JSON.stringify(saved_data)
+                        );
+                        datas = {
+                            volume: mapItems(data.total_volumes),
+                            price: mapItems(data.prices),
+                            cap: mapItems(data.market_caps),
+                        };
+                    } else {
+                        console.log(3);
+
+                        let saved_data = {};
+                        saved_data[`${coinID}`] = {
+                            data: {
+                                volume: mapItems(data.total_volumes),
+                                price: mapItems(data.prices),
+                                cap: mapItems(data.market_caps),
+                            },
+                            time: new Date().getTime(),
+                        };
+                        localStorage.setItem(
+                            "TVLChartData",
+                            JSON.stringify(saved_data)
+                        );
+                        datas = {
+                            volume: mapItems(data.total_volumes),
+                            price: mapItems(data.prices),
+                            cap: mapItems(data.market_caps),
+                        };
+                    }
+                });
+            }
+        }
     };
 
     $: if (method == "price") {
