@@ -42,13 +42,12 @@
                 new Date().getTime() - TVLchartData[coinID].time <
                     4 * 60 * 60 * 1000
             ) {
-                console.log(1);
+                // console.log(1);
                 datas = TVLchartData[coinID].data;
             } else {
                 getCoinVolumeChart(coinID).then((data) => {
                     if (TVLchartData !== null) {
-                        console.log(2);
-
+                        // console.log(2);
                         let saved_data = TVLchartData;
                         saved_data[`${coinID}`] = {
                             data: {
@@ -68,8 +67,7 @@
                             cap: mapItems(data.market_caps),
                         };
                     } else {
-                        console.log(3);
-
+                        // console.log(3);
                         let saved_data = {};
                         saved_data[`${coinID}`] = {
                             data: {

@@ -14,6 +14,8 @@
     export let coinID = "";
     export let isOpen = false;
 
+    import isEmpty from "../../../../utils/is-empty";
+
     let datas = [],
         method = "7d",
         points,
@@ -24,17 +26,84 @@
     };
 
     const getData = (id, time) => {
-        getCoinTvlChart(id, time).then((data) => {
-            (datas = []), (points = []);
-            for (let i = 0; i < data.length; i++) {
-                datas.push({
-                    time: data[i].timestamp / 1000,
-                    value: data[i].tvl,
+        if (typeof localStorage !== "undefined") {
+            let VolumechartData = JSON.parse(
+                localStorage.getItem("VolumeChartData")
+            );
+            if (
+                VolumechartData !== null &&
+                !isEmpty(VolumechartData[coinID]) &&
+                !isEmpty(VolumechartData[coinID].data[time]) &&
+                new Date().getTime() - VolumechartData[coinID].saved_time <
+                    4 * 60 * 60 * 1000
+            ) {
+                // console.log(1);
+                datas = VolumechartData[coinID].data[time];
+            } else {
+                getCoinTvlChart(id, time).then((data) => {
+                    if (VolumechartData !== null) {
+                        // console.log(2);
+                        let saved_data = VolumechartData;
+
+                        (datas = []), (points = []);
+                        for (let i = 0; i < data.length; i++) {
+                            datas.push({
+                                time: data[i].timestamp / 1000,
+                                value: data[i].tvl,
+                            });
+                            if (i === data.length - 1) {
+                                if (!isEmpty(saved_data[`${id}`])) {
+                                    // console.log(4);
+                                    let temp = saved_data[`${id}`].data;
+                                    temp[`${time}`] = datas;
+                                    saved_data[`${id}`] = {
+                                        saved_time: new Date().getTime(),
+                                        data: temp,
+                                    };
+                                } else {
+                                    // console.log(5);
+                                    saved_data[`${id}`] = {
+                                        saved_time: new Date().getTime(),
+                                        data: {},
+                                    };
+                                    saved_data[`${id}`].data[`${time}`] = datas;
+                                }
+                                localStorage.setItem(
+                                    "VolumeChartData",
+                                    JSON.stringify(saved_data)
+                                );
+                            }
+                        }
+                    } else {
+                        // console.log(3);
+
+                        let saved_data = {};
+                        (datas = []), (points = []);
+                        for (let i = 0; i < data.length; i++) {
+                            datas.push({
+                                time: data[i].timestamp / 1000,
+                                value: data[i].tvl,
+                            });
+                            if (i === data.length - 1) {
+                                let temp = {};
+                                temp[`${time}`] = datas;
+
+                                saved_data[`${id}`] = {
+                                    saved_time: new Date().getTime(),
+                                    data: temp,
+                                };
+                                localStorage.setItem(
+                                    "VolumeChartData",
+                                    JSON.stringify(saved_data)
+                                );
+                            }
+                        }
+                    }
                 });
             }
             points = datas;
             flag = 1;
-        });
+        }
     };
 
     $: if (method == "24h") {
