@@ -123,12 +123,12 @@ export const getCoins = async (flag) => {
 
 // use modal
 export const getCoinTvlChart = async (coin, period = '7d') => {
-  try{
+  try {
     let data;
     data = await API.get(`${marketsBaseUrl}/markets/defi/${coin}/${period}`)
     return data
   }
-  catch(err){
+  catch (err) {
     console.log(err)
   }
 }
@@ -171,8 +171,29 @@ export const getDefiMarkets = async (flag) => {
  */
 export const getCoinInfo = async (id) => {
   try {
-    const data = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
-    coinInfo.set(normalizeCoinInfo(data, coinsStore.coins[id]))
+    let data = {};
+    if (typeof localStorage !== "undefined") {
+      let coinInfoData = JSON.parse(localStorage.getItem('coinInfo'));
+
+      if (
+        !isEmpty(coinInfoData) &&
+        !isEmpty(coinInfoData['data']) &&
+        id == coinInfoData['id'] &&
+        new Date().getTime() - coinInfoData['time'] < 4 * 60 * 60 * 1000
+      ) {
+        data = coinInfoData['data']
+      } else {
+        const result = await API.get(`${coingeckoBaseUrl}/${id}?localization=false&tickers=true&&sparkline=true`)
+        data = normalizeCoinInfo(result, coinsStore.coins[id])
+
+        localStorage.setItem('coinInfo', JSON.stringify({
+          data: data,
+          time: new Date().getTime(),
+          id: id
+        }))
+      }
+    }
+    coinInfo.set(data)
     return data
   } catch (err) {
     console.log(err)
