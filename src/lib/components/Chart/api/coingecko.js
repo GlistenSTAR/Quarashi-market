@@ -18,7 +18,10 @@ const coingecko = {
         rangeData['id'] == coinId &&
         new Date().getTime() - rangeData['time'] < 24 * 60 * 60 * 1000
       ) {
-        return axios.get('https://markets.quarashi.network/api/v1//markets/global/24h').then(()=>{
+        const myPromise = new Promise((resolve, reject) => {
+            resolve("foo");
+        });
+        return myPromise.then(() => {
           bars = rangeData['data']
           if (first) {
             history[coinId] = {
