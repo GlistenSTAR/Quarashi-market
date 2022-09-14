@@ -29,6 +29,14 @@
         );
     };
 
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    let from_date = new Date(year - 5, month, day, 0, 0).getTime() / 1000;
+    let to_date = new Date(year, month, day + 1, 0, 0).getTime() / 1000;
+
     let getBars = (
         symbolInfo,
         resolution,
@@ -41,8 +49,8 @@
         return historyProvider.getBars(
             symbolInfo,
             resolution,
-            from,
-            to,
+            from = from_date,
+            to = to_date,
             onHistoryCallback,
             onErrorCallback,
             firstDataRequest
@@ -72,7 +80,6 @@
             ? { resolutionBack: "D", intervalBack: "1" }
             : undefined;
     };
-
     const datafeed = {
         onReady: onReady,
         resolveSymbol: resolveSymbol,

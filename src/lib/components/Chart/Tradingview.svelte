@@ -41,6 +41,14 @@
                 // 'mainSeriesProperties.candleStyle.wickUpColor': '#336854',
                 // 'mainSeriesProperties.candleStyle.wickDownColor': '#7f323f',
             },
+            time_frames: [
+                { text: "5y", resolution: "D" },
+                { text: "1y", resolution: "D" },
+                { text: "6m", resolution: "D" },
+                { text: "3m", resolution: "D" },
+                { text: "1m", resolution: "D" },
+                { text: "1d", resolution: "D" },
+            ],
         });
 
         widget.onChartReady(() => {});
