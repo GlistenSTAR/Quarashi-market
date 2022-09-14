@@ -16,38 +16,44 @@ const cryptocompare = {
       toTs: to ? to : '',
       limit: limit ? limit : 2000
     }
+    const myPromise = new Promise((resolve, reject) => {
+      resolve("foo");
+    });
+    return myPromise.then(() => {
+      return null
+    })
 
-    return axios.get(`${baseUrl}${url}`, { params })
-      .then(({ data }) => {
-        if (data.Response === 'Error') {
-          return []
-        }
+    // return axios.get(`${baseUrl}${url}`, { params })
+    //   .then(({ data }) => {
+    //     if (data.Response === 'Error') {
+    //       return []
+    //     }
 
-        if (data.TimeTo === data.TimeFrom) {
-          return []
-        }
+    //     if (data.TimeTo === data.TimeFrom) {
+    //       return []
+    //     }
 
-        if (data.Data.length) {
-          const bars = data.Data.map(item => ({
-            time: item.time * 1000, // TradingView requires bar time in ms
-            low: item.low,
-            high: item.high,
-            open: item.open,
-            close: item.close,
-            volume: item.volumefrom
-          }))
+    //     if (data.Data.length) {
+    //       const bars = data.Data.map(item => ({
+    //         time: item.time * 1000, // TradingView requires bar time in ms
+    //         low: item.low,
+    //         high: item.high,
+    //         open: item.open,
+    //         close: item.close,
+    //         volume: item.volumefrom
+    //       }))
 
-          if (first) {
-            history[symbolInfo.name] = {
-              lastBar: bars[bars.length - 1]
-            }
-          }
+    //       if (first) {
+    //         history[symbolInfo.name] = {
+    //           lastBar: bars[bars.length - 1]
+    //         }
+    //       }
 
-          return bars
-        } else {
-          return []
-        }
-      })
+    //       return bars
+    //     } else {
+    //       return []
+    //     }
+    //   })
   }
 }
 
