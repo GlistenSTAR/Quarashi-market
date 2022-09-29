@@ -81,8 +81,14 @@
         background-color: #343948;
         color: rgb(199, 198, 198);
     }
+    @media (max-width: 1023px) {
+        .markets{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
 
-    @media(max-width: 608px){
+    @media(max-width: 877px){
         .markets{
             overflow-x: scroll;
         }

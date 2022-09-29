@@ -107,8 +107,6 @@
     const changeInterval = (key) => {
         method = key;
     };
-
-    $: console.log(points);
 </script>
 
 {#if isOpen}

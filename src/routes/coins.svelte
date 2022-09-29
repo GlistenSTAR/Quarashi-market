@@ -159,7 +159,7 @@
                     />
                 </div>
                 <!-- markets -->
-                <div class="mt-mb-3">
+                <div class="mb-3 mt-3">
                     <CoinMarkets markets={filterData.markets} />
                 </div>
 

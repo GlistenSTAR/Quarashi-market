@@ -33,6 +33,10 @@
         localStorage.setItem("watchlist", JSON.stringify(oldWatchlist));
         watchlist.set(oldWatchlist);
     };
+
+    const onClickCopy = (addr) => {
+        console.log(addr);
+    };
 </script>
 
 <div>
@@ -98,21 +102,66 @@
             </a>
         {/if}
     </div>
-    {#if platforms.length > 0}
-        <div class="platforms">
-            <li class="list-group-item bg-lawrence mh-48">
-                <img src={Copy} alt="copy" class="mr-2" />
-                {#if platforms.ethereum}
-                    &nbsp; ethereum
-                    <small class="font-monospace">{platforms.ethereum}</small>
-                {/if}
-                {#if platforms.solana}
-                    <span>solana</span>
-                    <div class="text-truncate">
-                        <small class="font-monospace">{platforms.solana}</small>
-                    </div>
-                {/if}
-            </li>
+    {#if platforms && (platforms.ethereum || platforms["binance-smart-chain"] || platforms.solana || platforms.Avalanche)}
+        <div class="card bg-lawrence border-0 mt-4 platforms">
+            {#if platforms.ethereum}
+                <li class="text-oz text-decoration-none text-truncate ">
+                    <img
+                        src={Copy}
+                        alt="copy"
+                        class="me-2"
+                        onClick={() => onClickCopy(platforms.ethereum)}
+                    />
+                    Ethereum
+                    <span class="font-monospace ml-3"
+                        >&nbsp;{platforms.ethereum}</span
+                    >
+                </li>
+            {/if}
+            {#if platforms["binance-smart-chain"]}
+                <li class="text-oz text-decoration-none text-truncate ">
+                    <img
+                        src={Copy}
+                        alt="copy"
+                        class="me-2"
+                        onClick={() =>
+                            onClickCopy(platforms["binance-smart-chain"])}
+                    />
+                    Binance Smart Chain
+                    <span class="font-monospace ml-3"
+                        >&nbsp;{platforms["binance-smart-chain"]}</span
+                    >
+                </li>
+            {/if}
+
+            {#if platforms.solana}
+                <li class="text-oz text-decoration-none text-truncate ">
+                    <img
+                        src={Copy}
+                        alt="copy"
+                        class="me-2"
+                        onClick={() => onClickCopy(platforms.solana)}
+                    />
+                    Solana
+                    <span class="font-monospace ml-3"
+                        >&nbsp;{platforms.solana}</span
+                    >
+                </li>
+            {/if}
+            {#if platforms.Avalanche}
+                <li class="text-oz text-decoration-none text-truncate ">
+                    <img
+                        src={Copy}
+                        alt="copy"
+                        class="me-2"
+                        onClick={() => onClickCopy(platforms.Avalanche)}
+                    />
+                    Avalanche
+                    <span class="font-monospace ml-3"
+                        >&nbsp;{platforms.Avalanche}</span
+                    >
+                </li>
+            {/if}
         </div>
     {/if}
 </div>
@@ -127,25 +176,25 @@
         align-items: center;
         cursor: pointer;
     }
-    .web_links {
+    .web_links,
+    .platforms {
         background-color: #141421;
         padding: 10px;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
     }
-    a {
+    a,
+    li {
         text-decoration: none;
         color: white;
         padding-left: 10px;
         padding-top: 7px;
         padding-bottom: 7px;
         border-bottom: 1px solid rgb(46, 46, 46);
+        list-style-type: none;
     }
-    .platforms li {
-        background-color: #141421;
-        color: white;
-        border-radius: 12px;
-        display: flex;
+    .text-oz{
+        font-size: 15px;
     }
 </style>
