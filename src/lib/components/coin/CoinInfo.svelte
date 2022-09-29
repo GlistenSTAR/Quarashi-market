@@ -4,7 +4,7 @@
     export let whitepaper = "";
 </script>
 
-{#if description}
+{#if description && typeof description === "string"}
     <div class="about mt-mb-3">
         <h4>About</h4>
         <p class="mt-4">{@html description}</p>
