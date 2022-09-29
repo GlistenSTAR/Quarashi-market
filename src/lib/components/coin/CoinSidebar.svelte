@@ -5,6 +5,7 @@
     export let platforms = {};
 
     import { watchlist } from "./../../../store";
+    import copy from "copy-text-to-clipboard";
 
     import { StarIcon } from "svelte-feather-icons";
     import Globe from "./../../../assets/img/coins/globe.svg";
@@ -35,7 +36,7 @@
     };
 
     const onClickCopy = (addr) => {
-        console.log(addr);
+        copy(addr);
     };
 </script>
 
@@ -110,7 +111,7 @@
                         src={Copy}
                         alt="copy"
                         class="me-2"
-                        onClick={() => onClickCopy(platforms.ethereum)}
+                        on:click={() => onClickCopy(platforms.ethereum)}
                     />
                     Ethereum
                     <span class="font-monospace ml-3"
@@ -124,7 +125,7 @@
                         src={Copy}
                         alt="copy"
                         class="me-2"
-                        onClick={() =>
+                        on:click={() =>
                             onClickCopy(platforms["binance-smart-chain"])}
                     />
                     Binance Smart Chain
@@ -140,7 +141,7 @@
                         src={Copy}
                         alt="copy"
                         class="me-2"
-                        onClick={() => onClickCopy(platforms.solana)}
+                        on:click={() => onClickCopy(platforms.solana)}
                     />
                     Solana
                     <span class="font-monospace ml-3"
@@ -154,7 +155,7 @@
                         src={Copy}
                         alt="copy"
                         class="me-2"
-                        onClick={() => onClickCopy(platforms.Avalanche)}
+                        on:click={() => onClickCopy(platforms.Avalanche)}
                     />
                     Avalanche
                     <span class="font-monospace ml-3"
@@ -194,7 +195,7 @@
         border-bottom: 1px solid rgb(46, 46, 46);
         list-style-type: none;
     }
-    .text-oz{
+    .text-oz {
         font-size: 15px;
     }
 </style>
