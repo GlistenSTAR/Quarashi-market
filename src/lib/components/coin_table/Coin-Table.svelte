@@ -273,11 +273,6 @@
         align-items: center;
         color: grey;
     }
-    @media (max-width: 830px) {
-        .table-res {
-            overflow-x: auto;
-        }
-    }
 
     thead {
         border-radius: 1px solid grey;

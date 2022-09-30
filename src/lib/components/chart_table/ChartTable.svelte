@@ -183,9 +183,6 @@
         /* min-width: 830px; */
     }
     @media (max-width: 830px) {
-        .table-res {
-            overflow-x: auto;
-        }
         .coin-table {
             margin-top: 20px;
         }

@@ -297,7 +297,6 @@ svg.i.lock {
 
 .datatable {
 	background-color: transparent !important;
-	min-width: 768px;
 }
 
 .datatable.scroll-y {
@@ -312,7 +311,6 @@ article.dt-table {
 
 .dt-header {
 	background-color: transparent !important;
-
 }
 
 .datatable .datatable-thead {
@@ -329,7 +327,7 @@ article.dt-table {
 
 .datatable section.dt-pagination {
 	background-color: #141421 !important;
-	padding-top: 30px
+	padding-top: 10px
 }
 
 .datatable section.dt-pagination button {
