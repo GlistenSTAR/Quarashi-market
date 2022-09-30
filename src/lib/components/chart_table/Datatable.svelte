@@ -105,7 +105,7 @@
 </script>
 
 {#if chart_way == "defimarket"}
-    <Table {rows} {pageIndex} {pageSize} let:rows={rows2}>
+    <Table {rows} {pageIndex} {pageSize} let:rows={rows2} >
         <thead slot="head">
             <tr>
                 <th width="1%">Watchlist</th>
@@ -362,6 +362,9 @@
 {/if}
 
 <style>
+    .table-res{
+        width: 100%;
+    }
     thead {
         color: grey;
         font-size: 12px;

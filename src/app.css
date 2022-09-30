@@ -304,9 +304,13 @@ svg.i.lock {
 }
 
 article.dt-table {
-	/* overflow: hidden!important; */
 	border-bottom: none !important;
 	height: 100% !important;
+	overflow-x: auto;
+}
+
+article.dt-table table{
+	min-width: 730px;
 }
 
 .dt-header {

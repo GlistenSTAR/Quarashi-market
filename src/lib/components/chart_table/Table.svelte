@@ -60,41 +60,43 @@
     }
 </script>
 
-<table class={"table " + $$props.class} class:responsive>
-    <slot name="head" />
-    {#if loading}
-        <tbody>
-            <tr>
-                <td
-                    class="center"
-                    colspan="100%"
-                    style="height: 100px;border: none; color: #C921CD"
-                >
-                    <span>
-                        {@html labels.loading}
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    {:else if visibleRows.length === 0}
-        <tbody>
-            <tr>
-                <td
-                    class="center"
-                    colspan="100%"
-                    style="height: 100px;border: none; color: #C921CD"
-                >
-                    <span>
-                        {@html labels.empty}
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    {:else}
-        <slot rows={visibleRows} />
-    {/if}
-    <slot name="foot" />
-</table>
+<div class="position">
+    <table class={"table " + $$props.class} class:responsive>
+        <slot name="head" />
+        {#if loading}
+            <tbody>
+                <tr>
+                    <td
+                        class="center"
+                        colspan="100%"
+                        style="height: 100px;border: none; color: #C921CD"
+                    >
+                        <span>
+                            {@html labels.loading}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        {:else if visibleRows.length === 0}
+            <tbody>
+                <tr>
+                    <td
+                        class="center"
+                        colspan="100%"
+                        style="height: 100px;border: none; color: #C921CD"
+                    >
+                        <span>
+                            {@html labels.empty}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        {:else}
+            <slot rows={visibleRows} />
+        {/if}
+        <slot name="foot" />
+    </table>
+</div>
 
 {#if rows.length != 0}
     <slot name="bottom">
@@ -146,10 +148,18 @@
         margin-top: 1em;
     }
 
-    @media screen and (max-width: 830px) {
+    @media screen and (max-width: 930px) {
         .table {
             min-width: 830px;
+        }
+        .position {
             overflow-x: auto;
+        }
+        .position::-webkit-scrollbar {
+            height: 3px;
+        }
+        .position::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
         }
     }
 </style>
