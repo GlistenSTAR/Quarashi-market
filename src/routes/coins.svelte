@@ -13,7 +13,10 @@
     import { getCoinInfo } from "./../api/index";
     import { ArrowUpIcon, ArrowDownIcon } from "svelte-feather-icons";
     import coinStore from "$lib/coins-store";
-    import Chart from "$lib/components/chart/Chart.svelte";
+
+    // import Chart from "$lib/components/chart/Chart.svelte";
+    import TradingViewWidget from "svelte-tradingview-widget";
+
     import CoinPerformance from "$lib/components/coin/CoinPerformance.svelte";
     import CoinVolume from "$lib/components/coin/CoinVolume.svelte";
     import CoinMarkets from "$lib/components/coin/CoinMarkets.svelte";
@@ -56,6 +59,35 @@
         flag.set(id);
         window.location = "/discovery?cat=" + id;
     };
+
+    let options = null;
+
+    $: options = {
+        symbol: `${filterData?.symbol.toUpperCase()}USD`,
+        theme: "dark",
+        width: "100%",
+        height: "550px",
+        timezone: "Etc/UTC",
+        interval: 30,
+        container_id: "tradingview_aa68a",
+        charts_storage_url: "https://saveload.tradingview.com",
+        library_path: '/charting_library/',
+        height: 550,
+        style: 3,
+        locale: "en",
+        withdateranges: true,
+        disabled_features: [
+            "header_symbol_search",
+            "header_saveload",
+            "header_compare",
+            "header_indicators",
+            "display_market_status",
+            "go_to_date",
+            //'timeframes_toolbar',
+            "left_toolbar",
+            "use_localstorage_for_settings",
+        ],
+    };
 </script>
 
 <svelte:head>
@@ -92,6 +124,8 @@
                                     >Rank:
                                     {#if filterData.rank != null}
                                         {filterData.rank}
+                                    {:else}
+                                        #
                                     {/if}
                                 </span>
                             </div>
@@ -138,9 +172,10 @@
                     </span>
                 </div>
                 <!-- chart -->
-                <div class="mb-3 mt-3">
+                <div class="mb-3 mt-3 pl-3 pr-3">
                     {#if filterData.symbol}
-                        <Chart coin={filterData.symbol} coinId={coinID} />
+                        <TradingViewWidget {options} />
+                        <!-- <Chart coin={filterData.symbol} coinId={coinID} /> -->
                     {/if}
                 </div>
                 <!-- price change -->
@@ -155,7 +190,7 @@
                     <CoinVolume
                         volumes={filterData.volumes}
                         launchDate={filterData.launchDate}
-                        coinID = {coinID}
+                        {coinID}
                     />
                 </div>
                 <!-- markets -->

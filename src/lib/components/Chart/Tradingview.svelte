@@ -26,28 +26,19 @@
                 "header_indicators",
                 "display_market_status",
                 "go_to_date",
-                //'timeframes_toolbar',
                 "left_toolbar",
                 "use_localstorage_for_settings",
             ],
             overrides: {
-                "mainSeriesProperties.style": 3,
-                // 'mainSeriesProperties.showCountdown': false,
-                // 'paneProperties.background': '#131722',
-                // 'paneProperties.vertGridProperties.color': '#363c4e',
-                // 'paneProperties.horzGridProperties.color': '#363c4e',
-                // 'symbolWatermarkProperties.transparency': 90,
-                // 'scalesProperties.textColor': '#AAA',
-                // 'mainSeriesProperties.candleStyle.wickUpColor': '#336854',
-                // 'mainSeriesProperties.candleStyle.wickDownColor': '#7f323f',
+                "mainSeriesProperties.style": 3
             },
             time_frames: [
-                { text: "5y", resolution: "D" },
-                { text: "1y", resolution: "D" },
-                { text: "6m", resolution: "D" },
-                { text: "3m", resolution: "D" },
-                { text: "1m", resolution: "D" },
-                { text: "1d", resolution: "D" },
+                { text: "5y", resolution: "W" },
+                { text: "1y", resolution: "D"  },
+                { text: "6m", resolution: "2h"  },
+                { text: "3m", resolution: "1h" },
+                { text: "1m", resolution: "30m" },
+                { text: "1d", resolution: "1m" },
             ],
         });
 
@@ -55,4 +46,4 @@
     });
 </script>
 
-<div id="chart" style="height: 550px!important;" />
+<div id="chart" style="height: 550px!important; padding-left:20px; padding-right:20px" />
