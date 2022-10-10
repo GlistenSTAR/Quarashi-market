@@ -62,8 +62,30 @@
 
     let options = null;
 
+    let resolveSymbol = (symbolName, onSymbolResolvedCallback, onResolveErrorCallback) => {
+        setTimeout(() => onSymbolResolvedCallback({
+            name: filterData?.symbol,
+            type: 'crypto',
+            session: '24x7',
+            timezone: 'UTC',
+            ticker: filterData?.symbol,
+            minmov: 1,
+            pricescale: 100,
+            has_intraday: true,
+            intraday_multipliers: ['1', '60'],
+            chartTypes: ["Area", "Line"],
+            volume_precision: 8,
+            data_status: 'streaming',
+        }
+        ), 0)
+    }
+    let dataFeed = {
+        resolveSymbol: resolveSymbol
+    }
+
     $: options = {
         symbol: `${filterData?.symbol.toUpperCase()}USD`,
+        dataFeed,
         theme: "dark",
         width: "100%",
         height: "550px",
