@@ -14,8 +14,7 @@
     import { ArrowUpIcon, ArrowDownIcon } from "svelte-feather-icons";
     import coinStore from "$lib/coins-store";
 
-    // import Chart from "$lib/components/chart/Chart.svelte";
-    import TradingViewWidget from "svelte-tradingview-widget";
+    import Chart from "$lib/components/chart/Chart.svelte";
 
     import CoinPerformance from "$lib/components/coin/CoinPerformance.svelte";
     import CoinVolume from "$lib/components/coin/CoinVolume.svelte";
@@ -58,57 +57,6 @@
     const showCatergories = (id) => {
         flag.set(id);
         window.location = "/discovery?cat=" + id;
-    };
-
-    let options = null;
-
-    let resolveSymbol = (symbolName, onSymbolResolvedCallback, onResolveErrorCallback) => {
-        setTimeout(() => onSymbolResolvedCallback({
-            name: filterData?.symbol,
-            type: 'crypto',
-            session: '24x7',
-            timezone: 'UTC',
-            ticker: filterData?.symbol,
-            minmov: 1,
-            pricescale: 100,
-            has_intraday: true,
-            intraday_multipliers: ['1', '60'],
-            chartTypes: ["Area", "Line"],
-            volume_precision: 8,
-            data_status: 'streaming',
-        }
-        ), 0)
-    }
-    let dataFeed = {
-        resolveSymbol: resolveSymbol
-    }
-
-    $: options = {
-        symbol: `${filterData?.symbol.toUpperCase()}USD`,
-        dataFeed,
-        theme: "dark",
-        width: "100%",
-        height: "550px",
-        timezone: "Etc/UTC",
-        interval: 30,
-        container_id: "tradingview_aa68a",
-        charts_storage_url: "https://saveload.tradingview.com",
-        library_path: '/charting_library/',
-        height: 550,
-        style: 3,
-        locale: "en",
-        withdateranges: true,
-        disabled_features: [
-            "header_symbol_search",
-            "header_saveload",
-            "header_compare",
-            "header_indicators",
-            "display_market_status",
-            "go_to_date",
-            //'timeframes_toolbar',
-            "left_toolbar",
-            "use_localstorage_for_settings",
-        ],
     };
 </script>
 
