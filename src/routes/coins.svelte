@@ -144,8 +144,7 @@
                 <!-- chart -->
                 <div class="mb-3 mt-3 pl-3 pr-3">
                     {#if filterData.symbol}
-                        <TradingViewWidget {options} />
-                        <!-- <Chart coin={filterData.symbol} coinId={coinID} /> -->
+                        <Chart coin={filterData.symbol} coinId={coinID} />
                     {/if}
                 </div>
                 <!-- price change -->
