@@ -49,8 +49,8 @@
         return historyProvider.getBars(
             symbolInfo,
             resolution,
-            from = from_date,
-            to = to_date,
+            from,
+            to,
             onHistoryCallback,
             onErrorCallback,
             firstDataRequest
