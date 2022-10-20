@@ -23,7 +23,7 @@
                 "header_symbol_search",
                 "header_saveload",
                 "header_compare",
-                "header_indicators",
+                // "header_indicators",
                 "display_market_status",
                 "go_to_date",
                 "left_toolbar",
