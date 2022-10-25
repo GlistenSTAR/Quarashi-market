@@ -29,13 +29,13 @@
         );
     };
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+    // let date = new Date();
+    // let year = date.getFullYear();
+    // let month = date.getMonth() + 1;
+    // let day = date.getDate();
 
-    let from_date = new Date(year - 5, month, day, 0, 0).getTime() / 1000;
-    let to_date = new Date(year, month, day + 1, 0, 0).getTime() / 1000;
+    // let from_date = new Date(year - 5, month, day, 0, 0).getTime() / 1000;
+    // let to_date = new Date(year, month, day + 1, 0, 0).getTime() / 1000;
 
     let getBars = (
         symbolInfo,
@@ -49,8 +49,8 @@
         return historyProvider.getBars(
             symbolInfo,
             resolution,
-            from = from_date,
-            to = to_date,
+            from,
+            to,
             onHistoryCallback,
             onErrorCallback,
             firstDataRequest
